@@ -7,7 +7,8 @@ import Link from "next/link";
 export function Vision() {
   return (
     <section id="vision" className="py-24 px-6 md:px-10 bg-brand-black">
-      <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
+      <div className="max-w-[1200px] mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
         
         <FadeUp>
           <div className="relative">
@@ -72,6 +73,33 @@ export function Vision() {
             </div>
           </FadeUp>
         </div>
+      </div>
+
+      {/* Vision Pro in-situ showcase */}
+      <FadeUp delay={0.3} className="mt-16">
+        <div className="relative rounded-lg overflow-hidden border border-brand-border shadow-2xl">
+          <Image
+            src="/images/vision-pro.png"
+            alt="Shomer Vision Pro instalado en edificio"
+            width={2750}
+            height={1536}
+            className="w-full h-auto object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+          <div className="absolute bottom-6 left-8 right-8 flex items-end justify-between">
+            <div>
+              <p className="font-mono text-xs tracking-[0.18em] text-brand-blue uppercase mb-1">Línea VISION PRO</p>
+              <p className="font-display text-2xl md:text-3xl uppercase text-white leading-none">Instalado. Operativo. Invisible.</p>
+            </div>
+            <Link
+              href="#precios"
+              className="hidden sm:inline-flex items-center gap-2 bg-brand-blue text-brand-black px-5 py-2.5 rounded-sm font-bold text-xs tracking-wider uppercase hover:bg-white transition-colors shrink-0"
+            >
+              Ver planes
+            </Link>
+          </div>
+        </div>
+      </FadeUp>
       </div>
     </section>
   );

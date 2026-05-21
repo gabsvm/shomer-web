@@ -23,7 +23,7 @@ export function Navbar() {
     { href: "#totem", label: "Tótem" },
     { href: "#segmentos", label: "Servicios" },
     { href: "#precios", label: "Precios" },
-    { href: "#reviews", label: "Clientes" },
+    { href: "#testimonios", label: "Clientes" },
     { href: "https://shomer-club-v2.vercel.app", label: "Club Shomer", external: true },
   ];
 

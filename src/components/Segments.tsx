@@ -9,18 +9,27 @@ export function Segments() {
     {
       title: "Edificios y consorcios",
       label: "Residencial",
-      desc: "Dejá de depender del encargado. Gestioná el acceso de tu edificio desde donde estés, con registro completo de cada ingreso."
+      desc: "Dejá de depender del encargado. Gestioná el acceso de tu edificio desde donde estés, con registro completo de cada ingreso.",
+      gradient: "from-[#00BFFF]/10 via-transparent to-transparent",
     },
     {
       title: "Empresas",
       label: "Corporativo",
-      desc: "Control operativo en uno. Fichaje automático, Face ID, historial por persona y horarios estrictos sin supervisión humana."
+      desc: "Control operativo en uno. Fichaje automático, Face ID, historial por persona y horarios estrictos sin supervisión humana.",
+      gradient: "from-[#00E676]/10 via-transparent to-transparent",
+    },
+    {
+      title: "Countries y barrios cerrados",
+      label: "Residencias privadas",
+      desc: "Accesos masivos sin cuellos de botella. JWT + geocerca GPS hacen imposible clonar o reutilizar un código de ingreso.",
+      gradient: "from-[#FF3B30]/10 via-transparent to-transparent",
     },
     {
       title: "Hoteles",
       label: "Hotelería",
-      desc: "Check-in sin fricciones. Los huéspedes acceden con su cara, sin llaves ni recepción. Personal controlado por turno."
-    }
+      desc: "Check-in sin fricciones. Los huéspedes acceden con su cara, sin llaves ni recepción. Personal controlado por turno.",
+      gradient: "from-purple-500/10 via-transparent to-transparent",
+    },
   ];
 
   return (
@@ -33,25 +42,24 @@ export function Segments() {
           </h2>
         </FadeUp>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {segments.map((segment, i) => (
-            <FadeUp key={segment.title} delay={i * 0.1}>
-              <Link href="#contacto" className="group relative block rounded overflow-hidden aspect-[4/3] sm:aspect-[3/4] bg-brand-surface border border-brand-border">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
-                
-                <div className="absolute bottom-0 left-0 right-0 p-8 z-20 flex flex-col">
-                  <div className="text-[0.72rem] font-mono tracking-[0.15em] uppercase text-brand-blue mb-2">
+            <FadeUp key={segment.title} delay={i * 0.08}>
+              <Link href="#contacto" className="group relative flex flex-col justify-between rounded overflow-hidden min-h-[240px] bg-brand-surface border border-brand-border hover:border-brand-blue/40 transition-colors duration-300 p-8">
+                <div className={`absolute inset-0 bg-gradient-to-br ${segment.gradient} pointer-events-none`} />
+                <div className="relative z-10">
+                  <div className="text-[0.72rem] font-mono tracking-[0.15em] uppercase text-brand-blue mb-3">
                     {segment.label}
                   </div>
-                  <h3 className="font-display text-3xl uppercase leading-none mb-3">
+                  <h3 className="font-display text-[2rem] uppercase leading-none mb-4">
                     {segment.title}
                   </h3>
-                  <p className="text-[0.85rem] text-brand-gray-light leading-relaxed mb-5">
+                  <p className="text-[0.85rem] text-brand-gray leading-relaxed">
                     {segment.desc}
                   </p>
-                  <div className="inline-flex items-center gap-2 text-sm font-semibold tracking-wide uppercase text-brand-blue group-hover:gap-3 transition-all">
-                    Consultar servicio <ArrowRight size={16} />
-                  </div>
+                </div>
+                <div className="relative z-10 inline-flex items-center gap-2 text-sm font-semibold tracking-wide uppercase text-brand-blue mt-8 group-hover:gap-3 transition-all">
+                  Consultar servicio <ArrowRight size={16} />
                 </div>
               </Link>
             </FadeUp>
