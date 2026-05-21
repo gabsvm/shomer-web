@@ -19,11 +19,11 @@ export function Navbar() {
   }, []);
 
   const links = [
-    { href: "#vision", label: "Línea Vision" },
-    { href: "#totem", label: "Tótem" },
-    { href: "#segmentos", label: "Servicios" },
-    { href: "#precios", label: "Precios" },
-    { href: "#testimonios", label: "Clientes" },
+    { href: "/#vision", label: "Línea Vision" },
+    { href: "/#totem", label: "Tótem" },
+    { href: "/#segmentos", label: "Servicios" },
+    { href: "/#precios", label: "Precios" },
+    { href: "/#testimonios", label: "Clientes" },
     { href: "https://shomer-club-v2.vercel.app", label: "Club Shomer", external: true },
   ];
 
@@ -34,7 +34,7 @@ export function Navbar() {
           scrolled ? "h-14 bg-black/90" : "h-[68px] bg-black/70"
         }`}
       >
-        <Link href="#" className="flex items-center">
+        <Link href="/" className="flex items-center">
           <Image src="/images/SHOMER.png" alt="Shomer Security" width={120} height={44} className="h-8 w-auto object-contain" />
         </Link>
 
@@ -55,7 +55,7 @@ export function Navbar() {
 
         {/* Desktop CTA */}
         <Link
-          href="#contacto"
+          href="/#contacto"
           className="hidden md:inline-block bg-brand-blue text-brand-black px-5 py-2.5 rounded-sm text-[0.82rem] font-bold tracking-[0.06em] uppercase hover:bg-white hover:text-brand-black transition-colors whitespace-nowrap"
         >
           Cotizar ahora
@@ -91,7 +91,7 @@ export function Navbar() {
               </Link>
             ))}
             <Link
-              href="#contacto"
+              href="/#contacto"
               onClick={() => setMobileMenuOpen(false)}
               className="mt-4 bg-brand-blue text-brand-black p-4 text-center rounded-sm font-bold text-lg uppercase"
             >

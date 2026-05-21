@@ -31,10 +31,10 @@ export function Footer() {
           <div>
             <h4 className="text-[0.72rem] font-mono tracking-[0.15em] uppercase text-brand-gray mb-5">Servicios</h4>
             <ul className="flex flex-col gap-3">
-              <li><a href="#segmentos" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Edificios</a></li>
-              <li><a href="#segmentos" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Empresas</a></li>
-              <li><a href="#segmentos" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Countries</a></li>
-              <li><a href="#segmentos" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Hoteles</a></li>
+              <li><Link href="/servicios/edificios-y-consorcios" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Edificios y Consorcios</Link></li>
+              <li><Link href="/servicios/empresas" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Empresas</Link></li>
+              <li><Link href="/servicios/barrios-cerrados" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Barrios Cerrados</Link></li>
+              <li><Link href="/servicios/hoteles" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Hoteles</Link></li>
             </ul>
           </div>
           
