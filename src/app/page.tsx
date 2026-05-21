@@ -14,6 +14,7 @@ import { Totem } from "@/components/Totem";
 import { Pricing } from "@/components/Pricing";
 import { CPQConfigurator } from "@/components/CPQConfigurator";
 import { InfrastructureMap } from "@/components/InfrastructureMap";
+import { MonitoringSandbox } from "@/components/MonitoringSandbox";
 import { Footer } from "@/components/Footer";
 
 export default function Home() {
@@ -27,6 +28,7 @@ export default function Home() {
       <Totem />
       <Segments />
       <InfrastructureMap />
+      <MonitoringSandbox />
       <Pricing />
       <CPQConfigurator />
       <Includes />
