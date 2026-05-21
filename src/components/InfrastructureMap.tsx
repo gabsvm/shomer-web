@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { FadeUp } from "./FadeUp";
-import { Wifi, Zap, Activity } from "lucide-react";
+import { Wifi, Zap, Activity, Globe } from "lucide-react";
 
 interface MapNode {
   id: string;
@@ -14,11 +14,13 @@ interface MapNode {
   powerRedundancy: string;
   netRedundancy: string;
   details: string;
+  region: "ba" | "miami";
 }
 
 export function InfrastructureMap() {
   const [selectedNodeId, setSelectedNodeId] = useState<string>("puerto-madero");
   const [mapLoaded, setMapLoaded] = useState(false);
+  const [activeRegion, setActiveRegion] = useState<"ba" | "miami">("ba");
   const mapRef = useRef<any>(null);
 
   const nodes: MapNode[] = [
@@ -32,6 +34,7 @@ export function InfrastructureMap() {
       powerRedundancy: "Baterías UPS (autonomía integrada de 6 horas ante cortes de luz)",
       netRedundancy: "Fibra Óptica Fibercorp + Respaldo Starlink",
       details: "Nuestra base principal. Alberga a la central de monitoristas homologados y el centro de coordinación de alertas al 911.",
+      region: "ba",
     },
     {
       id: "palermo",
@@ -43,6 +46,7 @@ export function InfrastructureMap() {
       powerRedundancy: "Baterías UPS (autonomía integrada de 6 horas ante cortes)",
       netRedundancy: "Fibra Óptica Simétrica Tri-proveedor",
       details: "Nodo espejo activo. Sincroniza en tiempo real toda la información de accesos y flujos de video de forma encriptada.",
+      region: "ba",
     },
     {
       id: "pilar",
@@ -54,6 +58,7 @@ export function InfrastructureMap() {
       powerRedundancy: "Baterías UPS (autonomía integrada de 6 horas ante cortes)",
       netRedundancy: "Conexión Inalámbrica de Alta Velocidad dedicada",
       details: "Base de despacho rápido para vehículos y motociclistas de verificación rápida en la zona de countries y barrios privados del norte.",
+      region: "ba",
     },
     {
       id: "san-isidro",
@@ -65,6 +70,19 @@ export function InfrastructureMap() {
       powerRedundancy: "Baterías UPS (autonomía integrada de 6 horas ante cortes)",
       netRedundancy: "Fibra Óptica Corporativa dedicada",
       details: "Punto de logística y distribución de patrullas perimetrales para la cobertura de San Isidro, San Fernando y Tigre.",
+      region: "ba",
+    },
+    {
+      id: "miami",
+      name: "Miami Hub (USA Mirror Central)",
+      role: "Central de Monitoreo Espejo & Soporte USA",
+      coords: { lat: 25.7617, lng: -80.1918 },
+      latency: 42,
+      status: "ACTIVE",
+      powerRedundancy: "Baterías UPS (autonomía integrada de 6 horas ante cortes de energía)",
+      netRedundancy: "Fibra Óptica Redundante Premium + Backhaul Starlink Pro",
+      details: "Nuestra central de respaldo internacional ubicada en Miami, Florida. Provee soporte redundante geográfico ante desastres locales y atiende solicitudes fuera del huso horario de Sudamérica.",
+      region: "miami",
     },
   ];
 
@@ -122,7 +140,7 @@ export function InfrastructureMap() {
 
     // Add markers for each node
     nodes.forEach((node) => {
-      const isCentral = node.id.includes("puerto") || node.id.includes("palermo");
+      const isCentral = node.id.includes("puerto") || node.id.includes("palermo") || node.id === "miami";
       
       const customIcon = L.divIcon({
         className: "custom-div-icon",
@@ -140,6 +158,7 @@ export function InfrastructureMap() {
         .addTo(map)
         .on("click", () => {
           setSelectedNodeId(node.id);
+          setActiveRegion(node.region);
         });
     });
 
@@ -151,18 +170,25 @@ export function InfrastructureMap() {
     };
   }, [mapLoaded]);
 
-  // Pan Map on Node Selection Change
+  // Pan Map on Node Selection or Region Change
   useEffect(() => {
     if (mapRef.current) {
       const node = nodes.find((n) => n.id === selectedNodeId);
       if (node) {
-        mapRef.current.setView([node.coords.lat, node.coords.lng], 12, {
+        mapRef.current.setView([node.coords.lat, node.coords.lng], node.region === "miami" ? 11 : 12, {
           animate: true,
-          duration: 1.2,
+          duration: 1.5,
         });
       }
     }
   }, [selectedNodeId]);
+
+  // Handle region button clicks
+  const handleRegionChange = (region: "ba" | "miami") => {
+    setActiveRegion(region);
+    const defaultNodeId = region === "ba" ? "puerto-madero" : "miami";
+    setSelectedNodeId(defaultNodeId);
+  };
 
   return (
     <section id="infraestructura" className="py-24 px-6 md:px-10 bg-brand-near-black border-t border-brand-border">
@@ -194,7 +220,7 @@ export function InfrastructureMap() {
                 Infraestructura<br />Activa y Redundante.
               </h2>
               <p className="text-brand-gray-light leading-relaxed max-w-[480px] font-light mb-8">
-                No somos solo software en una pantalla. Respaldamos nuestra protección perimetral con servidores locales redundantes, bases de patrulla y la menor latencia de respuesta del mercado en Argentina.
+                No somos solo software en una pantalla. Respaldamos nuestra protección perimetral con servidores locales redundantes, bases de patrulla y la menor latencia de respuesta del mercado en Argentina e internacionalmente.
               </p>
             </FadeUp>
 
@@ -221,14 +247,17 @@ export function InfrastructureMap() {
                       {nodes.map((node) => (
                         <button
                           key={node.id}
-                          onClick={() => setSelectedNodeId(node.id)}
+                          onClick={() => {
+                            setSelectedNodeId(node.id);
+                            setActiveRegion(node.region);
+                          }}
                           className={`px-2.5 py-1 text-[0.65rem] font-mono border rounded transition-all
                             ${node.id === selectedNodeId
                               ? "bg-brand-blue/10 border-brand-blue text-brand-blue"
                               : "border-brand-border text-brand-gray hover:text-brand-gray-light hover:border-brand-gray"
                             }`}
                         >
-                          {node.id === "puerto-madero" ? "P. Madero" : node.name.split(" ")[0]}
+                          {node.id === "puerto-madero" ? "P. Madero" : node.id === "miami" ? "Miami Hub" : node.name.split(" ")[0]}
                         </button>
                       ))}
                     </div>
@@ -263,10 +292,30 @@ export function InfrastructureMap() {
           {/* Right panel: Real Interactive Leaflet Map */}
           <div className="lg:col-span-7 border border-brand-border rounded bg-brand-surface min-h-[460px] flex flex-col justify-between p-6 relative overflow-hidden">
             <div className="flex justify-between items-center mb-6 relative z-10">
-              <span className="font-mono text-[0.7rem] text-brand-gray tracking-widest uppercase">Mapa Operativo Terreno (CABA / GBA)</span>
-              <div className="flex gap-4 text-xs font-mono text-brand-gray">
-                <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-brand-blue" /> Centrales</span>
-                <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-brand-green" /> Bases</span>
+              <span className="font-mono text-[0.7rem] text-brand-gray tracking-widest uppercase">Mapa Operativo Terreno</span>
+              
+              {/* Region Selector Tabs */}
+              <div className="flex items-center border border-brand-border rounded overflow-hidden p-0.5 bg-black/40">
+                <button
+                  onClick={() => handleRegionChange("ba")}
+                  className={`px-3 py-1 text-[0.65rem] font-mono rounded-sm transition-all flex items-center gap-1
+                    ${activeRegion === "ba"
+                      ? "bg-brand-blue text-brand-black font-bold"
+                      : "text-brand-gray hover:text-brand-gray-light"
+                    }`}
+                >
+                  Buenos Aires
+                </button>
+                <button
+                  onClick={() => handleRegionChange("miami")}
+                  className={`px-3 py-1 text-[0.65rem] font-mono rounded-sm transition-all flex items-center gap-1
+                    ${activeRegion === "miami"
+                      ? "bg-brand-blue text-brand-black font-bold"
+                      : "text-brand-gray hover:text-brand-gray-light"
+                    }`}
+                >
+                  <Globe className="w-3 h-3" /> Miami, USA
+                </button>
               </div>
             </div>
 

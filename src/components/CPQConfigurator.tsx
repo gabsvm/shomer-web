@@ -125,86 +125,186 @@ export function CPQConfigurator() {
             {/* Stylized Axonometric Drawing representation */}
             <div className="relative z-10 w-full flex-grow flex items-center justify-center min-h-[220px]">
               <svg width="280" height="200" viewBox="0 0 280 200" className="w-full max-w-[320px] h-auto drop-shadow-[0_8px_24px_rgba(0,191,255,0.05)]">
-                {/* Base isometric platform */}
-                <polygon points="140,40 260,100 140,160 20,100" fill="#141414" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
-                <polygon points="140,50 240,100 140,150 40,100" fill="#181818" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
-
-                {/* Building / Environment Representation */}
+                {/* Environment: Edificio Residencial */}
                 {env === "edificio" && (
                   <g>
-                    {/* Tower Block */}
-                    <polygon points="100,50 140,30 180,50 180,120 140,140 100,120" fill="#1f1f1f" stroke="rgba(255,255,255,0.12)" />
-                    <polygon points="140,30 180,50 140,70 100,50" fill="#262626" stroke="rgba(255,255,255,0.1)" />
-                    {/* Glass Door entrance indicator */}
-                    <polygon points="130,115 140,110 150,115 150,135 140,140 130,135" fill="rgba(0,191,255,0.15)" stroke="rgba(0,191,255,0.4)" />
+                    {/* Apartment Tower (4 Floors detailed isometric outline) */}
+                    {/* Ground floor & lobby */}
+                    <polygon points="90,130 150,100 210,130 210,165 150,195 90,165" fill="#141414" stroke="rgba(255,255,255,0.18)" strokeWidth="1" />
+                    {/* Floor 2 */}
+                    <polygon points="90,100 150,70 210,100 210,130 150,160 90,130" fill="#181818" stroke="rgba(255,255,255,0.14)" strokeWidth="1" />
+                    {/* Floor 3 */}
+                    <polygon points="90,70 150,40 210,70 210,100 150,130 90,100" fill="#1c1c1c" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+                    {/* Floor 4 & Roof */}
+                    <polygon points="90,40 150,10 210,40 210,70 150,100 90,70" fill="#222" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+                    {/* Roof top */}
+                    <polygon points="90,40 150,10 210,40 150,70" fill="#0c0c0c" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+                    
+                    {/* Windows grid details */}
+                    <polygon points="105,115 115,110 115,122 105,127" fill="rgba(0,191,255,0.03)" stroke="rgba(255,255,255,0.15)" />
+                    <polygon points="125,105 135,100 135,112 125,117" fill="rgba(0,191,255,0.03)" stroke="rgba(255,255,255,0.15)" />
+                    <polygon points="165,110 175,115 175,127 165,122" fill="rgba(0,191,255,0.03)" stroke="rgba(255,255,255,0.15)" />
+                    
+                    {/* Glass lobby doors */}
+                    <polygon points="130,145 150,135 170,145 170,180 150,190 130,180" fill="rgba(0,191,255,0.08)" stroke="rgba(0,191,255,0.3)" strokeWidth="1" />
+                    <line x1="150" y1="135" x2="150" y2="190" stroke="rgba(0,191,255,0.3)" strokeWidth="1.5" />
                   </g>
                 )}
 
+                {/* Environment: Oficina / Empresa */}
                 {env === "empresa" && (
                   <g>
-                    {/* Corporate Low-rise */}
-                    <polygon points="90,70 140,45 190,70 190,120 140,145 90,120" fill="#1d1d1d" stroke="rgba(255,255,255,0.1)" />
-                    <polygon points="140,45 190,70 140,95 90,70" fill="#242424" stroke="rgba(255,255,255,0.08)" />
-                    {/* Office windows */}
-                    <line x1="105" y1="85" x2="125" y2="95" stroke="rgba(0,230,118,0.2)" strokeWidth="2" />
-                    <line x1="105" y1="100" x2="125" y2="110" stroke="rgba(0,230,118,0.2)" strokeWidth="2" />
+                    {/* Corporate Office Floor Layout */}
+                    <polygon points="60,120 150,75 240,120 240,175 150,220 60,175" fill="#141414" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                    
+                    {/* Inner office glass partitions */}
+                    <polygon points="100,120 150,95 200,120 150,145" fill="rgba(255,255,255,0.01)" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+                    
+                    {/* Access Turnstiles representation */}
+                    <line x1="130" y1="155" x2="170" y2="135" stroke="rgba(0,230,118,0.3)" strokeWidth="2.5" />
+                    
+                    {/* Desks and monitors */}
+                    <polygon points="80,140 105,127 120,135 95,148" fill="#202020" stroke="rgba(255,255,255,0.08)" />
+                    <line x1="90" y1="132" x2="90" y2="126" stroke="#555" strokeWidth="1.5" />
+                    <polygon points="180,140 205,127 220,135 195,148" fill="#202020" stroke="rgba(255,255,255,0.08)" />
+                    <line x1="190" y1="132" x2="190" y2="126" stroke="#555" strokeWidth="1.5" />
                   </g>
                 )}
 
+                {/* Environment: Country / Barrio Cerrado */}
                 {env === "barrio" && (
                   <g>
-                    {/* Perimeter Fence Line */}
-                    <polyline points="40,90 140,140 240,90" fill="none" stroke="rgba(255,59,48,0.3)" strokeWidth="1.5" strokeDasharray="3,3" />
-                    {/* Gatehouse / Barrier */}
-                    <polygon points="125,110 140,102 155,110 155,130 140,138 125,130" fill="#222" stroke="rgba(255,255,255,0.15)" />
+                    {/* Gated Entrance roads & lanes */}
+                    <polygon points="40,115 150,60 260,115 150,170" fill="#121212" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+                    {/* Double Lane dividers */}
+                    <line x1="150" y1="60" x2="150" y2="170" stroke="rgba(255,255,255,0.06)" strokeWidth="1" strokeDasharray="3,3" />
+                    
+                    {/* Detailed guard house cabin */}
+                    <polygon points="130,90 150,80 170,90 170,120 150,130 130,120" fill="#1d1d1d" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+                    <polygon points="130,90 150,80 170,90 150,100" fill="#282828" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                    {/* Glass window */}
+                    <polygon points="135,97 145,92 145,107 135,112" fill="rgba(0,191,255,0.08)" stroke="rgba(0,191,255,0.3)" />
+
+                    {/* Perimeter Fence Line running across */}
+                    <path d="M 20,120 L 130,175 M 170,195 L 280,250" fill="none" stroke="rgba(255,59,48,0.25)" strokeWidth="1.5" strokeDasharray="2.5,2.5" />
                   </g>
                 )}
 
+                {/* Environment: Hotel / Airbnb */}
                 {env === "hotel" && (
                   <g>
-                    {/* Boutique structure */}
-                    <polygon points="95,60 140,38 185,60 185,125 140,148 95,125" fill="#202020" stroke="rgba(255,255,255,0.1)" />
-                    <polygon points="140,38 185,60 140,82 95,60" fill="#2a2a2a" stroke="rgba(255,255,255,0.08)" />
-                    {/* Lit hotel signage */}
-                    <circle cx="140" cy="55" r="4" fill="rgba(168, 85, 247, 0.4)" />
+                    {/* Hotel Corridor and Lobby Layout */}
+                    <polygon points="70,120 150,80 230,120 230,170 150,210 70,170" fill="#141414" stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
+                    
+                    {/* Room Door 1 */}
+                    <polygon points="95,112 95,138 110,130 110,105" fill="#252525" stroke="rgba(255,255,255,0.18)" />
+                    
+                    {/* Room Door 2 */}
+                    <polygon points="190,112 190,138 205,130 205,105" fill="#252525" stroke="rgba(255,255,255,0.18)" />
+
+                    {/* Check-in automation counter desk */}
+                    <polygon points="130,160 160,145 175,152 145,167" fill="#1f1f1f" stroke="rgba(255,255,255,0.08)" />
                   </g>
                 )}
 
                 {/* Device Indicators (Activated dynamically) */}
                 {selectedHardware.includes("totem") && (
                   <g className="animate-pulse">
-                    {/* Glowing point for Totem */}
-                    <circle cx="70" cy="115" r="14" fill="rgba(0, 191, 255, 0.08)" />
-                    <circle cx="70" cy="115" r="4" fill="#00BFFF" />
-                    {/* Line connection */}
-                    <line x1="70" y1="115" x2="70" y2="85" stroke="#00BFFF" strokeWidth="1.5" />
-                    <rect x="64" y="80" width="12" height="12" rx="2" fill="#00BFFF" />
+                    {/* Totem Location based on environment */}
+                    {env === "edificio" && (
+                      <g>
+                        <circle cx="115" cy="175" r="14" fill="rgba(0, 191, 255, 0.08)" />
+                        <circle cx="115" cy="175" r="4" fill="#00BFFF" />
+                        <line x1="115" y1="175" x2="115" y2="145" stroke="#00BFFF" strokeWidth="1.5" />
+                        <rect x="109" y="140" width="12" height="12" rx="2" fill="#00BFFF" />
+                      </g>
+                    )}
+                    {env === "barrio" && (
+                      <g>
+                        <circle cx="110" cy="140" r="14" fill="rgba(0, 191, 255, 0.08)" />
+                        <circle cx="110" cy="140" r="4" fill="#00BFFF" />
+                        <line x1="110" y1="140" x2="110" y2="110" stroke="#00BFFF" strokeWidth="1.5" />
+                        <rect x="104" y="105" width="12" height="12" rx="2" fill="#00BFFF" />
+                      </g>
+                    )}
+                    {env !== "edificio" && env !== "barrio" && (
+                      <g>
+                        <circle cx="80" cy="135" r="14" fill="rgba(0, 191, 255, 0.08)" />
+                        <circle cx="80" cy="135" r="4" fill="#00BFFF" />
+                        <line x1="80" y1="135" x2="80" y2="105" stroke="#00BFFF" strokeWidth="1.5" />
+                        <rect x="74" y="100" width="12" height="12" rx="2" fill="#00BFFF" />
+                      </g>
+                    )}
                   </g>
                 )}
 
                 {selectedHardware.includes("facial") && (
                   <g>
-                    {/* Facial Reader indicator */}
-                    <circle cx="140" cy="120" r="10" fill="rgba(0, 230, 118, 0.12)" />
-                    <circle cx="140" cy="120" r="3" fill="#00E676" />
-                    <line x1="140" y1="120" x2="160" y2="135" stroke="#00E676" strokeWidth="1" strokeDasharray="2,2" />
+                    {/* Face ID Reader Position */}
+                    {env === "edificio" && (
+                      <g>
+                        <circle cx="150" cy="150" r="8" fill="rgba(0, 230, 118, 0.15)" />
+                        <circle cx="150" cy="150" r="3" fill="#00E676" />
+                      </g>
+                    )}
+                    {env === "empresa" && (
+                      <g>
+                        <circle cx="150" cy="145" r="8" fill="rgba(0, 230, 118, 0.15)" />
+                        <circle cx="150" cy="145" r="3" fill="#00E676" />
+                      </g>
+                    )}
+                    {env === "hotel" && (
+                      <g>
+                        <circle cx="145" cy="153" r="8" fill="rgba(0, 230, 118, 0.15)" />
+                        <circle cx="145" cy="153" r="3" fill="#00E676" />
+                      </g>
+                    )}
+                    {env !== "edificio" && env !== "empresa" && env !== "hotel" && (
+                      <g>
+                        <circle cx="150" cy="120" r="8" fill="rgba(0, 230, 118, 0.15)" />
+                        <circle cx="150" cy="120" r="3" fill="#00E676" />
+                      </g>
+                    )}
                   </g>
                 )}
 
                 {selectedHardware.includes("camaras") && (
                   <g>
-                    {/* Camera coverage areas */}
-                    <polygon points="180,60 250,85 220,130" fill="rgba(255, 255, 255, 0.03)" />
-                    <circle cx="180" cy="60" r="5" fill="#fff" stroke="#888" strokeWidth="1" />
-                    <line x1="180" y1="60" x2="200" y2="70" stroke="#fff" strokeWidth="1" />
+                    {/* Camera scan zone */}
+                    {env === "barrio" && (
+                      <g>
+                        <polygon points="170,90 230,110 200,150" fill="rgba(255, 255, 255, 0.03)" stroke="rgba(255, 255, 255, 0.05)" />
+                        <circle cx="170" cy="90" r="4.5" fill="#fff" stroke="#888" strokeWidth="1" />
+                        <line x1="170" y1="90" x2="190" y2="105" stroke="#fff" strokeWidth="1" />
+                      </g>
+                    )}
+                    {env !== "barrio" && (
+                      <g>
+                        <polygon points="210,40 270,75 230,110" fill="rgba(255, 255, 255, 0.03)" stroke="rgba(255, 255, 255, 0.05)" />
+                        <circle cx="210" cy="40" r="4.5" fill="#fff" stroke="#888" strokeWidth="1" />
+                        <line x1="210" y1="40" x2="230" y2="55" stroke="#fff" strokeWidth="1" />
+                      </g>
+                    )}
                   </g>
                 )}
 
                 {selectedHardware.includes("barrera") && (
                   <g>
-                    {/* Barrier gate */}
-                    <circle cx="150" cy="132" r="4" fill="#FF3B30" />
-                    <line x1="150" y1="132" x2="190" y2="112" stroke="#FF3B30" strokeWidth="3" />
+                    {/* Barrier gate across entrance lanes */}
+                    {env === "barrio" && (
+                      <g>
+                        <circle cx="115" cy="130" r="3.5" fill="#FF3B30" />
+                        <line x1="115" y1="130" x2="148" y2="114" stroke="#FF3B30" strokeWidth="2.5" />
+                        <circle cx="185" cy="165" r="3.5" fill="#FF3B30" />
+                        <line x1="185" y1="165" x2="152" y2="182" stroke="#FF3B30" strokeWidth="2.5" />
+                      </g>
+                    )}
+                    {env !== "barrio" && (
+                      <g>
+                        <circle cx="180" cy="155" r="3.5" fill="#FF3B30" />
+                        <line x1="180" y1="155" x2="215" y2="138" stroke="#FF3B30" strokeWidth="2.5" />
+                      </g>
+                    )}
                   </g>
                 )}
               </svg>
