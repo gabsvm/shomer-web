@@ -1,22 +1,58 @@
 "use client";
 
+import { useState } from "react";
 import { FadeUp } from "./FadeUp";
 import Image from "next/image";
 import Link from "next/link";
 import { Video, ShieldAlert, BellRing, ShieldCheck } from "lucide-react";
 
 export function Totem() {
+  const [viewMode, setViewMode] = useState<"in-situ" | "catalog">("in-situ");
+
   return (
     <section id="totem" className="bg-brand-surface p-0">
       <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[600px]">
-        <div className="relative overflow-hidden aspect-video lg:aspect-auto">
-          <Image 
-            src="/images/totem-section.png" 
-            alt="Tótem de Seguridad Virtual" 
-            fill 
-            className="object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b lg:bg-gradient-to-r from-transparent via-transparent to-brand-surface opacity-90 lg:opacity-100" />
+        <div className="relative overflow-hidden aspect-video lg:aspect-auto min-h-[420px] lg:min-h-full bg-brand-black flex items-center justify-center">
+          
+          {viewMode === "in-situ" ? (
+            <>
+              <Image 
+                src="/images/totem-section.png" 
+                alt="Tótem de Seguridad Virtual en situ" 
+                fill 
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b lg:bg-gradient-to-r from-transparent via-transparent to-brand-surface opacity-90 lg:opacity-100" />
+            </>
+          ) : (
+            <div className="absolute inset-0 w-full h-full p-8 md:p-12 flex items-center justify-center bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03),transparent_70%)]">
+              <div className="relative w-full h-full max-w-[380px] max-h-[480px]">
+                <Image 
+                  src="/images/totem_catalogo.png" 
+                  alt="Tótem Shomer Vista de Catálogo" 
+                  fill 
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Selector de Vista */}
+          <div className="absolute top-6 left-6 z-20 flex gap-1.5 bg-black/70 border border-white/10 p-1 rounded-full backdrop-blur-md">
+            <button 
+              onClick={() => setViewMode("in-situ")}
+              className={`px-3.5 py-1.5 rounded-full text-[9px] font-mono tracking-widest uppercase transition-all duration-300 ${viewMode === "in-situ" ? "bg-brand-blue text-brand-black font-bold" : "text-brand-gray hover:text-white"}`}
+            >
+              EN SITIO
+            </button>
+            <button 
+              onClick={() => setViewMode("catalog")}
+              className={`px-3.5 py-1.5 rounded-full text-[9px] font-mono tracking-widest uppercase transition-all duration-300 ${viewMode === "catalog" ? "bg-brand-blue text-brand-black font-bold shadow-[0_0_8px_rgba(0,191,255,0.4)]" : "text-brand-gray hover:text-white"}`}
+            >
+              CATÁLOGO ESTUDIO
+            </button>
+          </div>
         </div>
         
         <div className="py-16 px-6 md:px-16 flex flex-col justify-center">
