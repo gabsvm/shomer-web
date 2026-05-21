@@ -26,7 +26,7 @@ export const viewport: Viewport = {
 };
 
 const SITE_URL = "https://shomer-web.vercel.app";
-const OG_IMAGE = `${SITE_URL}/images/hero-bg-new.jpg`;
+const OG_IMAGE = `${SITE_URL}/images/vision-pro.png`;
 
 export const metadata: Metadata = {
   title: "Shomer Security — La evolución del portero eléctrico",

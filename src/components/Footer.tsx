@@ -49,6 +49,13 @@ export function Footer() {
           </div>
         </div>
         
+        {/* Habilitación — verificar Legajo N° 1924 con documento oficial antes de publicar */}
+        <div className="py-4 border-b border-brand-border flex flex-wrap gap-x-6 gap-y-1">
+          <span className="text-[0.7rem] text-brand-gray font-mono">CUIT 30-71553704-0</span>
+          <span className="text-[0.7rem] text-brand-gray font-mono">Habilitación Prov. Buenos Aires · Legajo N° 1924</span>
+          <span className="text-[0.7rem] text-brand-gray font-mono">Habilitada C.A.B.A.</span>
+        </div>
+
         <div className="mt-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex flex-col sm:flex-row items-center gap-3">
             <p className="text-[0.75rem] text-brand-gray font-mono">© {new Date().getFullYear()} Shomer Security SRL — Todos los derechos reservados</p>
