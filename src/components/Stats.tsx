@@ -27,7 +27,13 @@ function AnimatedNumber({ value }: { value: number }) {
     }
   }, [isInView, value]);
 
-  return <span ref={ref}>{current}</span>;
+  // suppressHydrationWarning: SSR renders `value` so crawlers see real numbers;
+  // client hydrates with 0 and animates up when scrolled into view.
+  return (
+    <span ref={ref} suppressHydrationWarning>
+      {typeof window === "undefined" ? value : current}
+    </span>
+  );
 }
 
 export function Stats() {

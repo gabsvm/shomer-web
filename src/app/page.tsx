@@ -2,6 +2,7 @@ import { Segments } from "@/components/Segments";
 import { Includes } from "@/components/Includes";
 import { WhyShomer } from "@/components/WhyShomer";
 import { VideoSection } from "@/components/VideoSection";
+import { FAQ } from "@/components/FAQ";
 import { Contact } from "@/components/Contact";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
@@ -44,6 +45,7 @@ export default function Home() {
         </div>
       </section>
 
+      <FAQ />
       <Contact />
       <Footer />
       
