@@ -47,9 +47,10 @@ import { useGLTF, OrbitControls, Stage } from '@react-three/drei'
 ---
 
 ### Habilitación ministerial
-**Estado:** en el footer está publicado con CUIT + Legajo N° 1924 (Prov. BA) + habilitación CABA.
-**Pendiente:** confirmar que el Legajo N° 1924 es correcto con el documento oficial. El dato viene de un AI Overview de Google — puede no ser exacto.
-**Acción:** si el número está bien, no hay nada que hacer. Si está mal, avisame el correcto y lo cambio en 2 minutos.
+**Estado:** footer muestra CUIT 30-71553704-0 + Disp. N° 49/DGSPCB/22 (CABA, Ley 5688).
+**⚠️ Atención:** la Disposición 49/DGSPCB/22 venció el 19/02/2024 (2 años desde 19/02/2022).
+Si renovaron la habilitación (lo más probable), compartir el documento de renovación para actualizar el número en el footer al vigente.
+El "Legajo N° 1924" que aparecía antes era una alucinación del AI Overview de Google — no existía en el documento real.
 
 ---
 

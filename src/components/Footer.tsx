@@ -49,11 +49,10 @@ export function Footer() {
           </div>
         </div>
         
-        {/* Habilitación — verificar Legajo N° 1924 con documento oficial antes de publicar */}
+        {/* Habilitación — fuente: Disposición N° 49/DGSPCB/22, BOCBA N° 6313 del 07/02/2022 */}
         <div className="py-4 border-b border-brand-border flex flex-wrap gap-x-6 gap-y-1">
           <span className="text-[0.7rem] text-brand-gray font-mono">CUIT 30-71553704-0</span>
-          <span className="text-[0.7rem] text-brand-gray font-mono">Habilitación Prov. Buenos Aires · Legajo N° 1924</span>
-          <span className="text-[0.7rem] text-brand-gray font-mono">Habilitada C.A.B.A.</span>
+          <span className="text-[0.7rem] text-brand-gray font-mono">Hab. C.A.B.A. · Disp. N° 49/DGSPCB/22 · Ley 5688</span>
         </div>
 
         <div className="mt-6 flex flex-col md:flex-row justify-between items-center gap-4">
