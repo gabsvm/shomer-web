@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { FadeUp } from "./FadeUp";
 
 const reviews = [
@@ -30,8 +31,10 @@ const reviews = [
 ];
 
 const clients = [
-  { name: "Grupo Vientos" },
-  { name: "+Metros Creadores de Espacios" },
+  { name: "WorkingDepot",             src: "/images/clients/workingdepot.png" },
+  { name: "+Metros Creadores de Espacios", src: "/images/clients/metros.png" },
+  { name: "Grupo Vientos",            src: "/images/clients/grupovientos.png" },
+  { name: "Agudat Dodim",             src: "/images/clients/agudat.png" },
 ];
 
 const MAPS_URL = "https://maps.app.goo.gl/6pcDXfy1M1NeR9eq8";
@@ -97,8 +100,8 @@ export function SocialProof() {
           ))}
         </div>
 
-        {/* Bottom bar: link Maps + clientes */}
-        <div className="flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between pt-8 border-t border-brand-border">
+        {/* Maps link */}
+        <div className="flex justify-start pt-6 border-t border-brand-border mb-16">
           <a
             href={MAPS_URL}
             target="_blank"
@@ -108,20 +111,25 @@ export function SocialProof() {
             <GoogleIcon />
             Ver todas las reseñas en Google Maps →
           </a>
+        </div>
 
-          <div className="flex flex-col sm:flex-row gap-4">
-            <p className="text-[0.7rem] font-mono tracking-widest uppercase text-brand-gray self-center hidden sm:block">Confían en Shomer:</p>
+        {/* Client logos */}
+        <FadeUp>
+          <p className="text-[0.7rem] font-mono tracking-[0.18em] uppercase text-brand-gray text-center mb-8">Confían en Shomer</p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-brand-border border border-brand-border rounded overflow-hidden">
             {clients.map((c) => (
-              <div key={c.name} className="flex items-center gap-2 px-4 py-2.5 border border-brand-border rounded bg-brand-surface-2">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#00BFFF" strokeWidth="1.5">
-                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                  <polyline points="9 22 9 12 15 12 15 22" />
-                </svg>
-                <span className="text-[0.82rem] font-medium text-brand-white">{c.name}</span>
+              <div key={c.name} className="bg-brand-surface-2 flex items-center justify-center py-8 px-6">
+                <Image
+                  src={c.src}
+                  alt={c.name}
+                  width={140}
+                  height={60}
+                  className="h-10 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
+                />
               </div>
             ))}
           </div>
-        </div>
+        </FadeUp>
       </div>
     </section>
   );
