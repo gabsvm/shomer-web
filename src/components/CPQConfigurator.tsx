@@ -413,14 +413,14 @@ export function CPQConfigurator() {
 
             {/* Calculations & Price Output */}
             <div className="mt-8 border border-brand-border rounded bg-brand-near-black p-6 flex flex-col justify-between gap-4">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
                 <div>
                   <div className="text-[0.68rem] font-mono tracking-widest text-brand-gray uppercase">Inversión Inicial</div>
                   <div className="text-xl font-display text-brand-white uppercase">
                     $0 USD <span className="text-xs font-mono text-brand-green tracking-normal font-bold">100% BONIFICADA</span>
                   </div>
                 </div>
-                <div className="text-right">
+                <div className="sm:text-right">
                   <div className="text-[0.68rem] font-mono tracking-widest text-brand-gray uppercase">Abono Mensual Estimado</div>
                   <div className="text-3xl font-display text-brand-blue leading-none">
                     ${totalAbonoARS.toLocaleString("es-AR")} <span className="text-xs font-mono text-brand-gray font-normal lowercase">ars/mes</span>

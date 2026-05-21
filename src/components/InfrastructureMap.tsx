@@ -291,14 +291,14 @@ export function InfrastructureMap() {
 
           {/* Right panel: Real Interactive Leaflet Map */}
           <div className="lg:col-span-7 border border-brand-border rounded bg-brand-surface min-h-[460px] flex flex-col justify-between p-6 relative overflow-hidden">
-            <div className="flex justify-between items-center mb-6 relative z-10">
+            <div className="flex flex-col sm:flex-row gap-3 sm:justify-between sm:items-center mb-6 relative z-10">
               <span className="font-mono text-[0.7rem] text-brand-gray tracking-widest uppercase">Mapa Operativo Terreno</span>
               
               {/* Region Selector Tabs */}
-              <div className="flex items-center border border-brand-border rounded overflow-hidden p-0.5 bg-black/40">
+              <div className="flex items-center border border-brand-border rounded overflow-hidden p-0.5 bg-black/40 w-fit">
                 <button
                   onClick={() => handleRegionChange("ba")}
-                  className={`px-3 py-1 text-[0.65rem] font-mono rounded-sm transition-all flex items-center gap-1
+                  className={`px-3 py-1.5 text-[0.65rem] font-mono rounded-sm transition-all flex items-center gap-1
                     ${activeRegion === "ba"
                       ? "bg-brand-blue text-brand-black font-bold"
                       : "text-brand-gray hover:text-brand-gray-light"
@@ -308,7 +308,7 @@ export function InfrastructureMap() {
                 </button>
                 <button
                   onClick={() => handleRegionChange("miami")}
-                  className={`px-3 py-1 text-[0.65rem] font-mono rounded-sm transition-all flex items-center gap-1
+                  className={`px-3 py-1.5 text-[0.65rem] font-mono rounded-sm transition-all flex items-center gap-1
                     ${activeRegion === "miami"
                       ? "bg-brand-blue text-brand-black font-bold"
                       : "text-brand-gray hover:text-brand-gray-light"
@@ -330,7 +330,7 @@ export function InfrastructureMap() {
             </div>
 
             {/* Bottom active feedback */}
-            <div className="relative z-10 mt-6 pt-4 border-t border-white/5 flex justify-between text-xs text-brand-gray font-mono">
+            <div className="relative z-10 mt-6 pt-4 border-t border-white/5 flex flex-col sm:flex-row gap-2 sm:justify-between text-[10px] sm:text-xs text-brand-gray font-mono">
               <span className="flex items-center gap-1"><Wifi className="w-3.5 h-3.5" /> Enlaces de Red Activos: 2/2</span>
               <span className="text-brand-blue">Cartografía OpenStreetMap / CartoDB Dark</span>
             </div>
