@@ -83,9 +83,8 @@ export default function EmpresasPage() {
               El panel de gestión permite dar de alta a nuevos empleados en segundos mediante el envío de su foto y datos, facilitando una administración ágil de contratistas y visitas temporarias. Controle el cumplimiento horario estricto y reduzca la carga administrativa de Recursos Humanos.
             </p>
           </div>
-          <div className="relative aspect-square md:aspect-video lg:aspect-square rounded border border-brand-border overflow-hidden bg-brand-surface/40 p-4 flex items-center justify-center">
-            <div className="absolute inset-0 bg-gradient-to-tr from-brand-green/5 to-transparent pointer-events-none" />
-            <Image src="/images/device.png" alt="Hardware de Control de Acceso Facial Shomer" fill className="object-contain p-12" />
+          <div className="relative aspect-square md:aspect-video lg:aspect-square rounded border border-brand-border overflow-hidden bg-brand-surface/40">
+            <Image src="/images/fingerprint_reader_access.jpg" alt="Hardware de Control de Acceso Biométrico Shomer" fill className="object-cover" />
           </div>
         </div>
       </section>

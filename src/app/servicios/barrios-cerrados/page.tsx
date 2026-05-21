@@ -83,9 +83,8 @@ export default function BarriosCerradosPage() {
               Gracias al procesamiento local de las patentes (Edge Computing), la apertura del portón o barrera es completamente autónoma. El sistema funciona ininterrumpidamente aun ante cortes de red o de suministro eléctrico local (empleando un sistema de UPS con 6 horas de autonomía predeterminada), garantizando la continuidad de la operación del barrio.
             </p>
           </div>
-          <div className="relative aspect-square md:aspect-video lg:aspect-square rounded border border-brand-border overflow-hidden bg-brand-surface/40 p-4 flex items-center justify-center">
-            <div className="absolute inset-0 bg-gradient-to-tr from-brand-red/5 to-transparent pointer-events-none" />
-            <Image src="/images/vision-pro.png" alt="Acceso vehicular y lector de patentes Shomer" fill className="object-contain p-12" />
+          <div className="relative aspect-square md:aspect-video lg:aspect-square rounded border border-brand-border overflow-hidden bg-brand-surface/40">
+            <Image src="/images/parlante_disuasivo_entrada.jpg" alt="Audio disuasivo y seguridad perimetral Shomer" fill className="object-cover" />
           </div>
         </div>
       </section>

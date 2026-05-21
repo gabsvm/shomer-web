@@ -83,8 +83,8 @@ export default function EdificiosPage() {
               Nuestro hardware está diseñado para resistir intentos de sabotaje mientras que el software brinda trazabilidad completa a los administradores e inquilinos, ofreciendo un registro detallado de cada ingreso en tiempo real.
             </p>
           </div>
-          <div className="relative aspect-square md:aspect-video lg:aspect-square rounded border border-brand-border overflow-hidden bg-brand-surface/40 p-1 flex items-center justify-center">
-            <Image src="/images/vision-pro.png" alt="Dispositivo de Acceso Facial Shomer" fill className="object-contain p-8" />
+          <div className="relative aspect-square md:aspect-video lg:aspect-square rounded border border-brand-border overflow-hidden bg-brand-surface/40">
+            <Image src="/images/totem_lobby.jpg" alt="Tótem de Seguridad Inteligente Shomer en Consorcio" fill className="object-cover" />
           </div>
         </div>
       </section>
@@ -112,12 +112,13 @@ export default function EdificiosPage() {
       {/* Sistema Shabat Section */}
       <section className="py-24 px-6 md:px-10 max-w-[1200px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div className="order-2 lg:order-1 relative aspect-video rounded border border-brand-border overflow-hidden bg-brand-surface/40 flex items-center justify-center p-8">
-            <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/5 to-transparent pointer-events-none" />
-            <div className="z-10 text-center">
-              <span className="inline-block px-3 py-1 bg-brand-blue-dim border border-brand-blue/30 text-brand-blue rounded-full text-xs font-mono mb-4">INCLUIDO EN PROPUESTA B Y C</span>
-              <h4 className="font-display text-4xl uppercase mb-2">SISTEMA SHABAT</h4>
-              <p className="text-xs text-brand-gray uppercase font-mono tracking-widest">Respeto, Convivencia y Tecnología</p>
+          <div className="order-2 lg:order-1 relative aspect-video rounded border border-brand-border overflow-hidden bg-brand-surface/40">
+            <Image src="/images/fingerprint_reader_access.jpg" alt="Lector Biométrico de Huella Digital y Acceso Shomer" fill className="object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/20 to-transparent" />
+            <div className="absolute bottom-6 left-6 z-10">
+              <span className="inline-block px-3 py-1 bg-brand-blue-dim border border-brand-blue/30 text-brand-blue rounded-full text-[0.62rem] font-mono mb-2">INCLUIDO EN PROPUESTA B Y C</span>
+              <h4 className="font-display text-2xl uppercase mb-1 text-white">CONTROL BIOMÉTRICO</h4>
+              <p className="text-[0.65rem] text-brand-gray uppercase font-mono tracking-widest">Respeto, Convivencia y Tecnología</p>
             </div>
           </div>
           <div className="order-1 lg:order-2">

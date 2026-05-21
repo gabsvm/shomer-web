@@ -15,14 +15,14 @@ export function Vision() {
             <div className="absolute -inset-5 bg-[radial-gradient(ellipse_at_center,rgba(0,191,255,0.15),transparent_70%)] pointer-events-none" />
             <div className="rounded-lg overflow-hidden relative bg-[#0a0a0a] border border-white/5 shadow-2xl">
               <Image 
-                src="/images/device.png" 
-                alt="Línea VISION" 
+                src="/images/totem_lobby.jpg" 
+                alt="Tótem Inteligente Shomer" 
                 width={800} 
                 height={1000} 
                 className="w-full h-auto object-cover rounded-lg"
               />
               <div className="absolute bottom-5 left-5 right-5 bg-black/85 border border-brand-border rounded p-4 backdrop-blur-md flex justify-between items-center">
-                <span className="text-xs font-mono text-brand-gray tracking-widest uppercase">Línea VISION</span>
+                <span className="text-xs font-mono text-brand-gray tracking-widest uppercase">Tótem Inteligente Shomer</span>
                 <span className="flex items-center gap-2 text-xs font-mono text-brand-green">
                   <span className="w-1.5 h-1.5 rounded-full bg-brand-green shadow-[0_0_6px_#00E676] animate-pulse" />
                   Operativo 24/7
@@ -79,8 +79,8 @@ export function Vision() {
       <FadeUp delay={0.3} className="mt-16">
         <div className="relative rounded-lg overflow-hidden border border-brand-border shadow-2xl">
           <Image
-            src="/images/vision-pro.png"
-            alt="Shomer Vision Pro instalado en edificio"
+            src="/images/parlante_disuasivo_entrada.jpg"
+            alt="Sistema de Audio Disuasivo Shomer"
             width={2750}
             height={1536}
             className="w-full h-auto object-cover"
@@ -88,8 +88,8 @@ export function Vision() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
           <div className="absolute bottom-6 left-8 right-8 flex items-end justify-between">
             <div>
-              <p className="font-mono text-xs tracking-[0.18em] text-brand-blue uppercase mb-1">Línea VISION PRO</p>
-              <p className="font-display text-2xl md:text-3xl uppercase text-white leading-none">Instalado. Operativo. Invisible.</p>
+              <p className="font-mono text-xs tracking-[0.18em] text-brand-blue uppercase mb-1">Audio Disuasivo Bidireccional</p>
+              <p className="font-display text-2xl md:text-3xl uppercase text-white leading-none">Instalado. Operativo. Seguro.</p>
             </div>
             <Link
               href="#precios"
