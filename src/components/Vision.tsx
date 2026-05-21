@@ -7,6 +7,7 @@ import Link from "next/link";
 
 export function Vision() {
   const [viewMode, setViewMode] = useState<"photo" | "3d">("photo");
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   return (
     <section id="vision" className="py-24 px-6 md:px-10 bg-brand-black">
@@ -49,6 +50,19 @@ export function Vision() {
                   3D INTERACTIVO
                 </button>
               </div>
+
+              {/* Botón de Zoom / Pantalla Completa */}
+              {viewMode === "3d" && (
+                <button 
+                  onClick={() => setIsFullscreen(true)}
+                  className="absolute bottom-20 right-4 z-20 bg-black/80 hover:bg-brand-blue hover:text-brand-black border border-white/10 text-white p-2.5 rounded-full transition-all duration-300 shadow-lg flex items-center justify-center hover:scale-110 active:scale-95"
+                  title="Ampliar Vista 3D (Zoom)"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75v4.5m0-4.5h-4.5m4.5 0L15 9m5.25 11.25v-4.5m0 4.5h-4.5m4.5 0L15 15" />
+                  </svg>
+                </button>
+              )}
 
               <div className="absolute bottom-5 left-5 right-5 bg-black/85 border border-brand-border rounded p-4 backdrop-blur-md flex justify-between items-center z-10">
                 <span className="text-xs font-mono text-brand-gray tracking-widest uppercase">
@@ -132,6 +146,36 @@ export function Vision() {
         </div>
       </FadeUp>
       </div>
+
+      {/* Modal de Vista 3D Ampliada (Zoom Completo) */}
+      {isFullscreen && (
+        <div className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md flex items-center justify-center p-4 md:p-10 transition-all duration-300">
+          <div className="relative w-full h-full max-w-[1400px] max-h-[85vh] border border-white/10 rounded bg-[#0a0a0a] overflow-hidden flex flex-col shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+            {/* Header */}
+            <div className="flex justify-between items-center p-4 border-b border-white/5 bg-black/40">
+              <div>
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Visualizador 3D Detallado</h3>
+                <p className="text-[10px] text-brand-gray uppercase font-mono tracking-widest mt-0.5">Use el mouse o gestos táctiles para rotar y hacer zoom</p>
+              </div>
+              <button 
+                onClick={() => setIsFullscreen(false)}
+                className="text-brand-gray hover:text-white border border-white/10 hover:border-white/30 px-4 py-1.5 rounded-full transition-all text-[10px] font-mono tracking-widest uppercase bg-brand-surface/20"
+              >
+                CERRAR ✕
+              </button>
+            </div>
+            {/* Content */}
+            <div className="flex-1 relative bg-[#0a0a0a]">
+              <iframe 
+                src="https://my.spline.design/untitled-bG8GVacgvfJrDgbJSSGzJ6Pu/"
+                className="w-full h-full border-0"
+                title="Portero Inteligente Shomer 3D Pantalla Completa"
+                allow="vr; gyroscope; accelerometer"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
