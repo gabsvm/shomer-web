@@ -1,10 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { FadeUp } from "./FadeUp";
 import Image from "next/image";
 import Link from "next/link";
 
 export function Vision() {
+  const [viewMode, setViewMode] = useState<"photo" | "3d">("photo");
+
   return (
     <section id="vision" className="py-24 px-6 md:px-10 bg-brand-black">
       <div className="max-w-[1200px] mx-auto">
@@ -13,16 +16,44 @@ export function Vision() {
         <FadeUp>
           <div className="relative">
             <div className="absolute -inset-5 bg-[radial-gradient(ellipse_at_center,rgba(0,191,255,0.15),transparent_70%)] pointer-events-none" />
-            <div className="rounded-lg overflow-hidden relative bg-[#0a0a0a] border border-white/5 shadow-2xl">
-              <Image 
-                src="/images/device.png" 
-                alt="Línea VISION" 
-                width={800} 
-                height={1000} 
-                className="w-full h-auto object-cover rounded-lg"
-              />
-              <div className="absolute bottom-5 left-5 right-5 bg-black/85 border border-brand-border rounded p-4 backdrop-blur-md flex justify-between items-center">
-                <span className="text-xs font-mono text-brand-gray tracking-widest uppercase">Línea VISION</span>
+            <div className="aspect-[4/5] w-full rounded-lg overflow-hidden relative bg-[#0a0a0a] border border-white/5 shadow-2xl flex flex-col justify-between">
+              
+              {viewMode === "photo" ? (
+                <Image 
+                  src="/images/device.png" 
+                  alt="Línea VISION" 
+                  fill
+                  className="object-cover rounded-lg"
+                />
+              ) : (
+                <iframe 
+                  src="https://my.spline.design/untitled-bG8GVacgvfJrDgbJSSGzJ6Pu/"
+                  className="absolute inset-0 w-full h-full border-0 rounded-lg bg-[#0a0a0a]"
+                  title="Portero Inteligente Shomer 3D"
+                  allow="vr; gyroscope; accelerometer"
+                />
+              )}
+
+              {/* Selector de Modo */}
+              <div className="absolute top-4 right-4 z-20 flex gap-1.5 bg-black/60 border border-white/10 p-1 rounded-full backdrop-blur-sm">
+                <button 
+                  onClick={() => setViewMode("photo")}
+                  className={`px-3.5 py-1 rounded-full text-[10px] font-mono tracking-widest uppercase transition-all duration-300 ${viewMode === "photo" ? "bg-brand-blue text-brand-black font-bold" : "text-brand-gray hover:text-white"}`}
+                >
+                  FOTO
+                </button>
+                <button 
+                  onClick={() => setViewMode("3d")}
+                  className={`px-3.5 py-1 rounded-full text-[10px] font-mono tracking-widest uppercase transition-all duration-300 ${viewMode === "3d" ? "bg-brand-blue text-brand-black font-bold shadow-[0_0_8px_rgba(0,191,255,0.4)]" : "text-brand-gray hover:text-white"}`}
+                >
+                  3D INTERACTIVO
+                </button>
+              </div>
+
+              <div className="absolute bottom-5 left-5 right-5 bg-black/85 border border-brand-border rounded p-4 backdrop-blur-md flex justify-between items-center z-10">
+                <span className="text-xs font-mono text-brand-gray tracking-widest uppercase">
+                  Línea VISION {viewMode === "3d" && "3D"}
+                </span>
                 <span className="flex items-center gap-2 text-xs font-mono text-brand-green">
                   <span className="w-1.5 h-1.5 rounded-full bg-brand-green shadow-[0_0_6px_#00E676] animate-pulse" />
                   Operativo 24/7
