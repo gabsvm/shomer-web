@@ -83,8 +83,9 @@ export default function HotelesPage() {
               Al arribar, el lector de reconocimiento facial valida su rostro en menos de 200ms y destraba los accesos correspondientes, registrando la entrada de forma autónoma. Esto permite una operación sin personal en recepción las 24 horas del día, reduciendo costos de nómina mientras incrementa la satisfacción del cliente.
             </p>
           </div>
-          <div className="relative aspect-square md:aspect-video lg:aspect-square rounded border border-brand-border overflow-hidden bg-brand-surface/40">
-            <Image src="/images/fingerprint_reader_access.jpg" alt="Dispositivo de Acceso Biométrico Shomer en Hoteles" fill className="object-cover" />
+          <div className="relative aspect-square md:aspect-video lg:aspect-square rounded border border-brand-border overflow-hidden bg-brand-surface/40 p-4 flex items-center justify-center">
+            <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/5 to-transparent pointer-events-none" />
+            <Image src="/images/vision-pro.png" alt="Dispositivo de Acceso Biométrico Shomer en Hoteles" fill className="object-contain p-8" />
           </div>
         </div>
       </section>
