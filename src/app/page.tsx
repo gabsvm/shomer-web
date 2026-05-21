@@ -1,6 +1,7 @@
 import { Segments } from "@/components/Segments";
 import { Includes } from "@/components/Includes";
 import { WhyShomer } from "@/components/WhyShomer";
+import { SocialProof } from "@/components/SocialProof";
 import { VideoSection } from "@/components/VideoSection";
 import { FAQ } from "@/components/FAQ";
 import { Contact } from "@/components/Contact";
@@ -26,6 +27,7 @@ export default function Home() {
       <Pricing />
       <Includes />
       <WhyShomer />
+      <SocialProof />
       <VideoSection />
       
       {/* Club Shomer section is simple enough to put here or we can extract it. I'll put it here. */}
