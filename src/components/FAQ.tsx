@@ -5,28 +5,28 @@ import { FadeUp } from "./FadeUp";
 
 const faqs = [
   {
-    q: "¿Cuánto tarda la instalación y tiene algún costo adicional?",
-    a: "La instalación profesional demora entre 2 y 4 horas según el tamaño del edificio. Está incluida en el plan — sin costo extra, sin sorpresas. Nuestro técnico también capacita al administrador en el mismo momento.",
+    q: "¿Qué pasa si falla el sistema o se corta internet?",
+    a: "El sistema opera con redundancia. Ante falla de conectividad, el tótem mantiene el registro local y sincroniza cuando se restaura la conexión. La central de monitoreo tiene protocolos de contingencia activos las 24 horas, los 365 días del año.",
   },
   {
-    q: "¿El sistema funciona si se va la luz o el internet?",
-    a: "Sí. Contamos con respaldo de energía y protocolos de contingencia que garantizan el acceso incluso ante cortes de luz o internet. La central de monitoreo permanece operativa 24/7 en todo momento.",
+    q: "¿Quién gestiona las altas y bajas de residentes?",
+    a: "Shomer lo gestiona por completo. El administrador notifica el cambio — mudanza, nuevo residente, empleado nuevo — y nosotros actualizamos el sistema. Sin trabajo manual para el consorcio, sin sistemas que aprender a operar.",
   },
   {
-    q: "¿Cómo manejan las visitas eventuales y repartidores?",
-    a: "El administrador o cada residente puede generar un código de acceso de un solo uso con expiración automática de 5 minutos. El número del intercomunicador nunca se comparte, y no se instala ninguna app en el dispositivo del visitante.",
+    q: "¿Cuánto tarda la instalación?",
+    a: "La instalación estándar se completa en un día hábil. Incluye configuración completa, pruebas de funcionamiento y capacitación al administrador o encargado. Sin costo adicional.",
   },
   {
-    q: "¿El servicio tiene permanencia mínima o contrato de largo plazo?",
-    a: "No. Todos los planes son mes a mes. Podés cancelar cuando quieras sin penalidad ni trámites. Elegimos mantener clientes por la calidad del servicio, no por contratos.",
+    q: "¿El visitante necesita descargar una app?",
+    a: "No. El visitante escanea el QR del equipo y accede directamente desde el navegador de su celular. Sin instalaciones, sin cuentas, sin fricción. Compatible con cualquier smartphone iOS o Android.",
   },
   {
-    q: "¿Qué pasa cuando un inquilino se muda o cambia un empleado?",
-    a: "La gestión de altas y bajas de usuarios está incluida en el abono. Nos informás el cambio y nosotros lo hacemos — el administrador no tiene que operar ningún sistema ni hacer trámites manuales.",
+    q: "¿Qué pasa si necesito abrir la puerta en una emergencia un feriado o fin de semana?",
+    a: "La central de monitoreo opera 24/7 los 365 días del año. Las aperturas de emergencia — técnico de ascensor, reparación de bomba, bomberos — se gestionan remotamente con autorización del administrador o consejo de propietarios. Todo queda registrado.",
   },
   {
-    q: "¿Es compatible con el portero eléctrico que ya tenemos instalado?",
-    a: "En la gran mayoría de los casos sí. Antes de presentar cualquier propuesta, nuestro técnico evalúa la instalación existente sin cargo. Te confirmamos compatibilidad completa antes de que decidas.",
+    q: "¿Los datos de los residentes son seguros?",
+    a: "Toda la comunicación corre dentro del ecosistema Shomer, cifrada end-to-end. No se utilizan redes externas ni se expone ningún número personal. Los datos biométricos (Face ID) se procesan y almacenan bajo protocolos de seguridad estrictos en la base operativa Shomer.",
   },
 ];
 
