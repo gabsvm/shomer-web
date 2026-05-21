@@ -80,7 +80,7 @@ export default function BarriosCerradosPage() {
               Las demoras en los accesos vehiculares a barrios cerrados generan filas molestas en horarios pico y representan un blanco de vulnerabilidad. La solución de Shomer combina hardware avanzado LPR con software de encriptación que procesa la apertura en menos de medio segundo.
             </p>
             <p className="text-brand-gray-light leading-relaxed">
-              Gracias al procesamiento local de las patentes (Edge Computing), la apertura del portón o barrera es completamente autónoma. El sistema funciona ininterrumpidamente aun ante cortes de red o de suministro eléctrico local (empleando baterías redundantes), garantizando la continuidad de la operación del barrio.
+              Gracias al procesamiento local de las patentes (Edge Computing), la apertura del portón o barrera es completamente autónoma. El sistema funciona ininterrumpidamente aun ante cortes de red o de suministro eléctrico local (empleando un sistema de UPS con 6 horas de autonomía predeterminada), garantizando la continuidad de la operación del barrio.
             </p>
           </div>
           <div className="relative aspect-square md:aspect-video lg:aspect-square rounded border border-brand-border overflow-hidden bg-brand-surface/40 p-4 flex items-center justify-center">
@@ -115,7 +115,7 @@ export default function BarriosCerradosPage() {
         <div className="font-mono text-xs tracking-[0.18em] text-brand-red uppercase mb-3">Garantía Operativa</div>
         <h2 className="font-display text-[clamp(2rem,4vw,3rem)] leading-none uppercase mb-6">Autonomía y Resiliencia Eléctrica</h2>
         <p className="text-brand-gray-light mb-12 text-sm leading-relaxed max-w-[620px] mx-auto">
-          Todos nuestros dispositivos e intercomunicadores cuentan con sistemas de alimentación ininterrumpida y almacenamiento de datos local. Las patentes autorizadas y los registros de ingresos de residentes se sincronizan en la nube de forma selectiva, garantizando que el barrio siga funcionando normalmente aun si se corta internet o la luz en la zona.
+          Todos nuestros dispositivos e intercomunicadores cuentan con un sistema de UPS integrado que garantiza hasta 6 horas de autonomía y almacenamiento de datos local. Las patentes autorizadas y los registros de ingresos de residentes se sincronizan en la nube de forma selectiva, garantizando que el barrio siga funcionando normalmente aun si se corta la luz en la zona.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">

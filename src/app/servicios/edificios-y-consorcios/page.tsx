@@ -148,7 +148,7 @@ export default function EdificiosPage() {
             <div className="border border-brand-border bg-brand-surface p-6 rounded">
               <h4 className="font-mono text-xs text-brand-blue uppercase mb-2">Requisitos Técnicos</h4>
               <p className="text-xs text-brand-gray leading-relaxed">
-                Conexión a internet con IP pública fija y al menos 100 Mbps de subida (recomendado fibra óptica corporativa) y conexión a 220V.
+                Conexión a internet con IP pública fija (100 Mbps de subida recomendados) y alimentación 220V. Los controles de acceso incluyen un sistema de UPS con 6 horas de autonomía ante cortes eléctricos.
               </p>
             </div>
             <div className="border border-brand-border bg-brand-surface p-6 rounded">

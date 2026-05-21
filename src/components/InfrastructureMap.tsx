@@ -1,14 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FadeUp } from "./FadeUp";
-import { MapPin, Radio, Wifi, Zap, Award, Activity } from "lucide-react";
+import { Wifi, Zap, Activity } from "lucide-react";
 
 interface MapNode {
   id: string;
   name: string;
   role: string;
-  coords: { x: number; y: number };
+  coords: { lat: number; lng: number };
   latency: number;
   status: "ONLINE" | "STANDBY" | "ACTIVE";
   powerRedundancy: string;
@@ -18,16 +18,18 @@ interface MapNode {
 
 export function InfrastructureMap() {
   const [selectedNodeId, setSelectedNodeId] = useState<string>("puerto-madero");
+  const [mapLoaded, setMapLoaded] = useState(false);
+  const mapRef = useRef<any>(null);
 
   const nodes: MapNode[] = [
     {
       id: "puerto-madero",
       name: "Puerto Madero HQ (Central Principal)",
       role: "Central de Monitoreo Activo & Despacho",
-      coords: { x: 165, y: 110 },
+      coords: { lat: -34.6177, lng: -58.3621 },
       latency: 8,
       status: "ACTIVE",
-      powerRedundancy: "Baterías UPS + Generador Diésel de Emergencia",
+      powerRedundancy: "Baterías UPS (autonomía integrada de 6 horas ante cortes de luz)",
       netRedundancy: "Fibra Óptica Fibercorp + Respaldo Starlink",
       details: "Nuestra base principal. Alberga a la central de monitoristas homologados y el centro de coordinación de alertas al 911.",
     },
@@ -35,10 +37,10 @@ export function InfrastructureMap() {
       id: "palermo",
       name: "Palermo Hub (Central Redundante)",
       role: "Central de Respaldo Geográfico",
-      coords: { x: 135, y: 80 },
+      coords: { lat: -34.5818, lng: -58.4210 },
       latency: 12,
       status: "ONLINE",
-      powerRedundancy: "Baterías UPS de Grado Militar",
+      powerRedundancy: "Baterías UPS (autonomía integrada de 6 horas ante cortes)",
       netRedundancy: "Fibra Óptica Simétrica Tri-proveedor",
       details: "Nodo espejo activo. Sincroniza en tiempo real toda la información de accesos y flujos de video de forma encriptada.",
     },
@@ -46,10 +48,10 @@ export function InfrastructureMap() {
       id: "pilar",
       name: "Pilar Node (Base Zona Norte)",
       role: "Centro de Verificación Motorizada GBA",
-      coords: { x: 60, y: 50 },
+      coords: { lat: -34.4532, lng: -58.9137 },
       latency: 18,
       status: "ONLINE",
-      powerRedundancy: "Sistema Solar con Baterías de Respaldo",
+      powerRedundancy: "Baterías UPS (autonomía integrada de 6 horas ante cortes)",
       netRedundancy: "Conexión Inalámbrica de Alta Velocidad dedicada",
       details: "Base de despacho rápido para vehículos y motociclistas de verificación rápida en la zona de countries y barrios privados del norte.",
     },
@@ -57,10 +59,10 @@ export function InfrastructureMap() {
       id: "san-isidro",
       name: "San Isidro Node (Base GBA Norte)",
       role: "Base de Verificación Rápida",
-      coords: { x: 100, y: 65 },
+      coords: { lat: -34.4754, lng: -58.5262 },
       latency: 14,
       status: "ONLINE",
-      powerRedundancy: "Baterías UPS redundantes",
+      powerRedundancy: "Baterías UPS (autonomía integrada de 6 horas ante cortes)",
       netRedundancy: "Fibra Óptica Corporativa dedicada",
       details: "Punto de logística y distribución de patrullas perimetrales para la cobertura de San Isidro, San Fernando y Tigre.",
     },
@@ -68,8 +70,120 @@ export function InfrastructureMap() {
 
   const selectedNode = nodes.find((n) => n.id === selectedNodeId) || nodes[0];
 
+  // Dynamic Leaflet Loading
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const win = window as any;
+    if (win.L) {
+      setMapLoaded(true);
+      return;
+    }
+
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+    link.integrity = "sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=";
+    link.crossOrigin = "";
+    document.head.appendChild(link);
+
+    const script = document.createElement("script");
+    script.src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+    script.integrity = "sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=";
+    script.crossOrigin = "";
+    script.onload = () => {
+      setMapLoaded(true);
+    };
+    document.body.appendChild(script);
+  }, []);
+
+  // Initialize Map
+  useEffect(() => {
+    const win = window as any;
+    if (!mapLoaded || !win.L || mapRef.current) return;
+
+    const L = win.L;
+
+    // Create map
+    const map = L.map("leaflet-map", {
+      center: [-34.55, -58.60],
+      zoom: 10,
+      zoomControl: false,
+      attributionControl: false,
+    });
+
+    // Add Dark Matter Tile Layer from CartoDB (looks clean and monochromatic)
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+      maxZoom: 20,
+      subdomains: "abcd",
+    }).addTo(map);
+
+    mapRef.current = map;
+
+    // Add markers for each node
+    nodes.forEach((node) => {
+      const isCentral = node.id.includes("puerto") || node.id.includes("palermo");
+      
+      const customIcon = L.divIcon({
+        className: "custom-div-icon",
+        html: `
+          <div class="relative w-8 h-8 flex items-center justify-center cursor-pointer">
+            <div class="absolute w-8 h-8 rounded-full ${isCentral ? 'bg-[#00BFFF]/25' : 'bg-[#00E676]/25'} animate-ping" style="animation-duration: 3s;"></div>
+            <div class="w-4 h-4 rounded-full ${isCentral ? 'bg-[#00BFFF]' : 'bg-[#00E676]'} border-2 border-black shadow-[0_0_10px_rgba(0,0,0,0.5)]"></div>
+          </div>
+        `,
+        iconSize: [32, 32],
+        iconAnchor: [16, 16],
+      });
+
+      L.marker([node.coords.lat, node.coords.lng], { icon: customIcon })
+        .addTo(map)
+        .on("click", () => {
+          setSelectedNodeId(node.id);
+        });
+    });
+
+    return () => {
+      if (mapRef.current) {
+        mapRef.current.remove();
+        mapRef.current = null;
+      }
+    };
+  }, [mapLoaded]);
+
+  // Pan Map on Node Selection Change
+  useEffect(() => {
+    if (mapRef.current) {
+      const node = nodes.find((n) => n.id === selectedNodeId);
+      if (node) {
+        mapRef.current.setView([node.coords.lat, node.coords.lng], 12, {
+          animate: true,
+          duration: 1.2,
+        });
+      }
+    }
+  }, [selectedNodeId]);
+
   return (
     <section id="infraestructura" className="py-24 px-6 md:px-10 bg-brand-near-black border-t border-brand-border">
+      {/* Styles for Leaflet customization */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        .leaflet-container {
+          background: #0a0a0a !important;
+          outline: none;
+        }
+        .leaflet-grab {
+          cursor: grab;
+        }
+        .leaflet-dragging .leaflet-grab {
+          cursor: grabbing;
+        }
+        .custom-div-icon {
+          background: transparent !important;
+          border: none !important;
+        }
+      `}} />
+
       <div className="max-w-[1200px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left panel: Info & latency stats */}
@@ -100,6 +214,26 @@ export function InfrastructureMap() {
                 <p className="text-sm text-brand-gray leading-relaxed mb-6">{selectedNode.details}</p>
 
                 <div className="flex flex-col gap-4 border-t border-white/5 pt-5 text-xs text-brand-gray-light">
+                  {/* Selector nodes inside card */}
+                  <div className="mb-2">
+                    <span className="text-brand-gray font-mono block text-[0.68rem] uppercase mb-2">Seleccionar Nodo</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {nodes.map((node) => (
+                        <button
+                          key={node.id}
+                          onClick={() => setSelectedNodeId(node.id)}
+                          className={`px-2.5 py-1 text-[0.65rem] font-mono border rounded transition-all
+                            ${node.id === selectedNodeId
+                              ? "bg-brand-blue/10 border-brand-blue text-brand-blue"
+                              : "border-brand-border text-brand-gray hover:text-brand-gray-light hover:border-brand-gray"
+                            }`}
+                        >
+                          {node.id === "puerto-madero" ? "P. Madero" : node.name.split(" ")[0]}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
                   <div className="flex items-center gap-3">
                     <Activity className="w-4 h-4 text-brand-blue shrink-0" />
                     <div>
@@ -126,99 +260,30 @@ export function InfrastructureMap() {
             </FadeUp>
           </div>
 
-          {/* Right panel: Stylized Interactive GBA/CABA Map */}
+          {/* Right panel: Real Interactive Leaflet Map */}
           <div className="lg:col-span-7 border border-brand-border rounded bg-brand-surface min-h-[460px] flex flex-col justify-between p-6 relative overflow-hidden">
-            {/* Ambient grid */}
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:25px_25px] pointer-events-none" />
-
             <div className="flex justify-between items-center mb-6 relative z-10">
-              <span className="font-mono text-[0.7rem] text-brand-gray tracking-widest uppercase">Mapa Operativo CABA / GBA</span>
+              <span className="font-mono text-[0.7rem] text-brand-gray tracking-widest uppercase">Mapa Operativo Terreno (CABA / GBA)</span>
               <div className="flex gap-4 text-xs font-mono text-brand-gray">
                 <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-brand-blue" /> Centrales</span>
                 <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-brand-green" /> Bases</span>
               </div>
             </div>
 
-            {/* Stylized vector region representation */}
-            <div className="relative flex-grow flex items-center justify-center min-h-[300px]">
-              <svg width="340" height="300" viewBox="0 0 340 300" className="w-full max-w-[420px] h-auto">
-                {/* Stylized coast lines of Rio de la Plata */}
-                <path d="M 0,220 Q 80,180 160,130 T 340,60" fill="none" stroke="rgba(0,191,255,0.08)" strokeWidth="6" />
-                <path d="M 0,220 Q 80,180 160,130 T 340,60" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
-                
-                {/* River label */}
-                <text x="240" y="70" fill="rgba(255,255,255,0.15)" className="font-mono text-[0.62rem] uppercase tracking-[0.2em]" transform="rotate(-15, 240, 70)">
-                  Río de la Plata
-                </text>
-
-                {/* Major Highways/Avenues stylized representations */}
-                {/* General Paz */}
-                <path d="M 120,68 Q 115,100 130,120 T 170,128" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="2" strokeDasharray="3,3" />
-                {/* Panamericana */}
-                <path d="M 50,45 Q 85,60 120,68" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="2" />
-                {/* Lugones/Illia */}
-                <path d="M 120,68 Q 135,78 165,110" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="2" />
-
-                {/* Clickable Node hotspots on Map */}
-                {nodes.map((node) => {
-                  const isSelected = node.id === selectedNodeId;
-                  const isCentral = node.id.includes("puerto") || node.id.includes("palermo");
-                  return (
-                    <g 
-                      key={node.id} 
-                      className="cursor-pointer group"
-                      onClick={() => setSelectedNodeId(node.id)}
-                    >
-                      {/* Pulse effect */}
-                      <circle 
-                        cx={node.coords.x} 
-                        cy={node.coords.y} 
-                        r={isSelected ? 16 : 8} 
-                        fill={isCentral ? "rgba(0, 191, 255, 0.07)" : "rgba(0, 230, 118, 0.07)"}
-                        className={isSelected ? "animate-pulse" : "group-hover:scale-125 transition-transform"}
-                      />
-                      <circle 
-                        cx={node.coords.x} 
-                        cy={node.coords.y} 
-                        r={isSelected ? 6 : 3.5} 
-                        fill={isCentral ? "#00BFFF" : "#00E676"}
-                        className="transition-all duration-300"
-                        stroke={isSelected ? "#fff" : "transparent"}
-                        strokeWidth="1"
-                      />
-                      {/* Stylized visual selection indicator ring */}
-                      {isSelected && (
-                        <circle 
-                          cx={node.coords.x} 
-                          cy={node.coords.y} 
-                          r="22" 
-                          fill="none" 
-                          stroke={isCentral ? "#00BFFF" : "#00E676"} 
-                          strokeWidth="0.75" 
-                          strokeDasharray="4,4"
-                          className="animate-[spin_10s_linear_infinite]"
-                        />
-                      )}
-
-                      {/* Floating tooltip text on hover / select */}
-                      <text 
-                        x={node.coords.x + 10} 
-                        y={node.coords.y + 4} 
-                        fill={isSelected ? "#fff" : "rgba(255,255,255,0.4)"} 
-                        className="font-mono text-[0.62rem] font-semibold tracking-wider pointer-events-none transition-colors"
-                      >
-                        {node.id === "puerto-madero" ? "PUERTO MADERO HQ" : node.name.split(" ")[0].toUpperCase()}
-                      </text>
-                    </g>
-                  );
-                })}
-              </svg>
+            {/* Map Container */}
+            <div className="relative flex-grow min-h-[320px] rounded overflow-hidden border border-brand-border">
+              <div id="leaflet-map" className="absolute inset-0 w-full h-full" />
+              {!mapLoaded && (
+                <div className="absolute inset-0 bg-[#0a0a0a] flex items-center justify-center text-xs font-mono text-brand-gray">
+                  Cargando cartografía...
+                </div>
+              )}
             </div>
 
             {/* Bottom active feedback */}
             <div className="relative z-10 mt-6 pt-4 border-t border-white/5 flex justify-between text-xs text-brand-gray font-mono">
-              <span className="flex items-center gap-1"><Wifi className="w-3.5 h-3.5" /> Enlaces Activos: 2/2</span>
-              <span>Centrales Conectadas</span>
+              <span className="flex items-center gap-1"><Wifi className="w-3.5 h-3.5" /> Enlaces de Red Activos: 2/2</span>
+              <span className="text-brand-blue">Cartografía OpenStreetMap / CartoDB Dark</span>
             </div>
           </div>
         </div>
