@@ -6,7 +6,7 @@ import { FadeUp } from "./FadeUp";
 const faqs = [
   {
     q: "¿Qué pasa si falla el sistema o se corta internet?",
-    a: "El sistema opera con redundancia. Ante falla de conectividad, el tótem mantiene el registro local y sincroniza cuando se restaura la conexión. La central de monitoreo tiene protocolos de contingencia activos las 24 horas, los 365 días del año.",
+    a: "El sistema de acceso biométrico cuenta con batería de respaldo que mantiene la operación durante 6 horas ante un corte de luz o internet. Si el edificio requiere mayor autonomía, nuestros técnicos realizan visitas para reemplazar o ampliar las baterías según el caso. La central de monitoreo tiene protocolos de contingencia activos las 24 horas, los 365 días del año.",
   },
   {
     q: "¿Quién gestiona las altas y bajas de residentes?",
@@ -14,7 +14,7 @@ const faqs = [
   },
   {
     q: "¿Cuánto tarda la instalación?",
-    a: "La instalación estándar se completa en un día hábil. Incluye configuración completa, pruebas de funcionamiento y capacitación al administrador o encargado. Sin costo adicional.",
+    a: "La instalación lleva entre 2 y 4 días hábiles en la mayoría de los casos. El tiempo exacto depende de la magnitud del objetivo y la complejidad que suponga según la estructura del edificio. Incluye configuración completa, pruebas de funcionamiento y capacitación al administrador. Sin costo adicional.",
   },
   {
     q: "¿El visitante necesita descargar una app?",

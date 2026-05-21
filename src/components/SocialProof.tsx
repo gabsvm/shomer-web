@@ -4,11 +4,28 @@ import { FadeUp } from "./FadeUp";
 
 const reviews = [
   {
+    name: "Jonathan Komarofsky",
+    rating: 5,
+    time: "hace 3 meses",
+    text: "Desde que Shomer implementó su sistema integral, en Más Metros redujimos muchas horas de trabajo y de personal de seguridad. Nos gestionan el control de acceso y monitoreo de cámaras, y nos simplificaron la operación. Estamos muy satisfechos con su solución electrónica.",
+  },
+  {
+    name: "Sebastian Faur",
+    rating: 5,
+    time: "hace 3 meses",
+    text: "Gracias a Shomer, nuestra administración de consorcios tiene seguridad 24/7, con tótems, acceso biométrico y facial. Estamos muy satisfechos con su solución integral y su excelencia.",
+  },
+  {
+    name: "Shirel Radzi",
+    rating: 5,
+    time: "hace 6 meses",
+    text: "Tengo el servicio de Shomer hace casi un año, es genial, las veces que se sentaron en la puerta les pidieron que se retiren. Me siento más segura desde que protegen mi hogar.",
+  },
+  {
     name: "Magalyyy Antunez",
     rating: 5,
     time: "hace 1 año",
     text: "Excelente servicio, nada comparado con la seguridad que teníamos antes. Lo recomiendo.",
-    source: "Google",
   },
 ];
 
@@ -17,15 +34,48 @@ const clients = [
   { name: "+Metros Creadores de Espacios" },
 ];
 
+const MAPS_URL = "https://maps.app.goo.gl/6pcDXfy1M1NeR9eq8";
+
+function GoogleIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+      <path d="M12.545 10.239v3.821h5.445c-.712 2.315-2.647 3.972-5.445 3.972a6.033 6.033 0 1 1 0-12.064c1.498 0 2.866.549 3.921 1.453l2.814-2.814A9.969 9.969 0 0 0 12.545 2C7.021 2 2.543 6.477 2.543 12s4.478 10 10.002 10c8.396 0 10.249-7.85 9.426-11.748l-9.426-.013z" fill="#4285F4" />
+    </svg>
+  );
+}
+
 function Stars({ count }: { count: number }) {
   return (
     <div className="flex gap-0.5">
       {Array.from({ length: 5 }).map((_, i) => (
-        <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill={i < count ? "#00BFFF" : "none"} stroke="#00BFFF" strokeWidth="1.5">
+        <svg key={i} width="13" height="13" viewBox="0 0 24 24" fill={i < count ? "#00BFFF" : "none"} stroke="#00BFFF" strokeWidth="1.5">
           <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
         </svg>
       ))}
     </div>
+  );
+}
+
+function ReviewCard({ r, delay }: { r: typeof reviews[0]; delay: number }) {
+  return (
+    <FadeUp delay={delay}>
+      <div className="border border-brand-border rounded p-5 bg-brand-surface-2 flex flex-col gap-3 h-full relative">
+        <div className="absolute top-4 right-4">
+          <GoogleIcon />
+        </div>
+        <div className="flex items-center gap-3 pr-6">
+          <div className="w-9 h-9 rounded-full bg-brand-blue/20 border border-brand-blue/30 flex items-center justify-center font-display text-base text-brand-blue shrink-0">
+            {r.name[0]}
+          </div>
+          <div>
+            <div className="font-medium text-[0.88rem] leading-tight">{r.name}</div>
+            <div className="text-[0.7rem] text-brand-gray font-mono mt-0.5">{r.time}</div>
+          </div>
+        </div>
+        <Stars count={r.rating} />
+        <p className="text-[0.84rem] text-brand-gray-light leading-relaxed">"{r.text}"</p>
+      </div>
+    </FadeUp>
   );
 }
 
@@ -40,69 +90,37 @@ export function SocialProof() {
           </h2>
         </FadeUp>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-          {/* Reviews */}
-          <div className="flex flex-col gap-6">
-            {reviews.map((r) => (
-              <FadeUp key={r.name}>
-                <div className="border border-brand-border rounded p-6 bg-brand-surface-2 flex flex-col gap-4 relative">
-                  <div className="absolute top-5 right-5">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                      <path d="M12.545 10.239v3.821h5.445c-.712 2.315-2.647 3.972-5.445 3.972a6.033 6.033 0 1 1 0-12.064c1.498 0 2.866.549 3.921 1.453l2.814-2.814A9.969 9.969 0 0 0 12.545 2C7.021 2 2.543 6.477 2.543 12s4.478 10 10.002 10c8.396 0 10.249-7.85 9.426-11.748l-9.426-.013z" fill="#4285F4"/>
-                    </svg>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-brand-blue/20 border border-brand-blue/30 flex items-center justify-center font-display text-lg text-brand-blue">
-                      {r.name[0]}
-                    </div>
-                    <div>
-                      <div className="font-medium text-[0.9rem]">{r.name}</div>
-                      <div className="text-[0.72rem] text-brand-gray font-mono">{r.time} · {r.source}</div>
-                    </div>
-                  </div>
-                  <Stars count={r.rating} />
-                  <p className="text-[0.88rem] text-brand-gray-light leading-relaxed">"{r.text}"</p>
-                </div>
-              </FadeUp>
-            ))}
+        {/* Reviews grid 2×2 */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10">
+          {reviews.map((r, i) => (
+            <ReviewCard key={r.name} r={r} delay={i * 0.08} />
+          ))}
+        </div>
 
-            <FadeUp delay={0.1}>
-              <a
-                href="https://www.google.com/maps/search/Shomer+Security"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 text-[0.8rem] font-mono tracking-widest uppercase text-brand-gray hover:text-brand-blue transition-colors"
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                  <path d="M12.545 10.239v3.821h5.445c-.712 2.315-2.647 3.972-5.445 3.972a6.033 6.033 0 1 1 0-12.064c1.498 0 2.866.549 3.921 1.453l2.814-2.814A9.969 9.969 0 0 0 12.545 2C7.021 2 2.543 6.477 2.543 12s4.478 10 10.002 10c8.396 0 10.249-7.85 9.426-11.748l-9.426-.013z" fill="currentColor"/>
+        {/* Bottom bar: link Maps + clientes */}
+        <div className="flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between pt-8 border-t border-brand-border">
+          <a
+            href={MAPS_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray hover:text-brand-blue transition-colors"
+          >
+            <GoogleIcon />
+            Ver todas las reseñas en Google Maps →
+          </a>
+
+          <div className="flex flex-col sm:flex-row gap-4">
+            <p className="text-[0.7rem] font-mono tracking-widest uppercase text-brand-gray self-center hidden sm:block">Confían en Shomer:</p>
+            {clients.map((c) => (
+              <div key={c.name} className="flex items-center gap-2 px-4 py-2.5 border border-brand-border rounded bg-brand-surface-2">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#00BFFF" strokeWidth="1.5">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  <polyline points="9 22 9 12 15 12 15 22" />
                 </svg>
-                Ver reseñas en Google Maps →
-              </a>
-            </FadeUp>
-          </div>
-
-          {/* Client logos */}
-          <FadeUp delay={0.15}>
-            <div className="border border-brand-border rounded p-8 bg-brand-surface-2">
-              <p className="text-[0.72rem] font-mono tracking-[0.18em] uppercase text-brand-gray mb-8">Confían en Shomer</p>
-              <div className="flex flex-col gap-6">
-                {clients.map((c) => (
-                  <div key={c.name} className="flex items-center gap-4 py-5 border-b border-brand-border last:border-b-0">
-                    <div className="w-10 h-10 rounded border border-brand-blue/30 bg-brand-blue/5 flex items-center justify-center shrink-0">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00BFFF" strokeWidth="1.5">
-                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                        <polyline points="9 22 9 12 15 12 15 22" />
-                      </svg>
-                    </div>
-                    <span className="font-medium text-[0.95rem] text-brand-white">{c.name}</span>
-                  </div>
-                ))}
+                <span className="text-[0.82rem] font-medium text-brand-white">{c.name}</span>
               </div>
-              <p className="text-[0.72rem] text-brand-gray mt-8 leading-relaxed">
-                Administradores y desarrolladores inmobiliarios que eligieron Shomer como estándar de seguridad en sus edificios.
-              </p>
-            </div>
-          </FadeUp>
+            ))}
+          </div>
         </div>
       </div>
     </section>
