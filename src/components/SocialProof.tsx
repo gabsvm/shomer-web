@@ -34,7 +34,7 @@ const clients = [
   { name: "WorkingDepot",             src: "/images/clients/workingdepot.png" },
   { name: "+Metros Creadores de Espacios", src: "/images/clients/metros.png" },
   { name: "Grupo Vientos",            src: "/images/clients/grupovientos.png" },
-  { name: "Agudat Dodim",             src: "/images/clients/agudat.png" },
+  { name: "Agudat Dodim",             src: "/images/clients/agudat.webp" },
 ];
 
 const MAPS_URL = "https://maps.app.goo.gl/6pcDXfy1M1NeR9eq8";
