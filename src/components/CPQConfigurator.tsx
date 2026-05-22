@@ -123,190 +123,650 @@ export function CPQConfigurator() {
             </div>
 
             {/* Stylized Axonometric Drawing representation */}
-            <div className="relative z-10 w-full flex-grow flex items-center justify-center min-h-[220px]">
-              <svg width="280" height="200" viewBox="0 0 280 200" className="w-full max-w-[320px] h-auto drop-shadow-[0_8px_24px_rgba(0,191,255,0.05)]">
+            <div className="relative z-10 w-full flex-grow flex items-center justify-center min-h-[320px]">
+              <svg viewBox="0 0 400 300" className="w-full max-w-[420px] h-auto mx-auto drop-shadow-[0_12px_36px_rgba(0,191,255,0.08)]">
+                <style>
+                  {`
+                    @keyframes laser-flow {
+                      to { stroke-dashoffset: -20; }
+                    }
+                    .laser-fence {
+                      animation: laser-flow 1.2s linear infinite;
+                    }
+                    @keyframes radar-pulse {
+                      0% { r: 3; opacity: 0.8; }
+                      100% { r: 15; opacity: 0; }
+                    }
+                    .radar-pulse-circle {
+                      animation: radar-pulse 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+                    }
+                    @keyframes alert-glow {
+                      0%, 100% { opacity: 0.3; }
+                      50% { opacity: 0.9; }
+                    }
+                    .alert-light {
+                      animation: alert-glow 1.5s ease-in-out infinite;
+                    }
+                  `}
+                </style>
+                <defs>
+                  <filter id="glow-blue" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="3" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                  <filter id="glow-red" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="3" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                  <filter id="glow-green" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="3" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+
+                  <linearGradient id="glass-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="rgba(0, 191, 255, 0.18)" />
+                    <stop offset="100%" stopColor="rgba(0, 191, 255, 0.03)" />
+                  </linearGradient>
+
+                  <linearGradient id="warm-glow" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#f59e0b" />
+                    <stop offset="100%" stopColor="#b45309" />
+                  </linearGradient>
+                  
+                  <linearGradient id="cool-window" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#1e3a8a" stopOpacity="0.4" />
+                    <stop offset="100%" stopColor="#0f172a" stopOpacity="0.8" />
+                  </linearGradient>
+
+                  <linearGradient id="active-window" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#0284c7" stopOpacity="0.8" />
+                    <stop offset="100%" stopColor="#0369a1" stopOpacity="0.9" />
+                  </linearGradient>
+
+                  <linearGradient id="scan-cone-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="rgba(0, 191, 255, 0.25)" />
+                    <stop offset="100%" stopColor="rgba(0, 191, 255, 0.0)" />
+                  </linearGradient>
+                  
+                  <linearGradient id="totem-hologram" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="rgba(0, 191, 255, 0.3)" />
+                    <stop offset="100%" stopColor="rgba(0, 191, 255, 0.0)" />
+                  </linearGradient>
+
+                  <linearGradient id="left-wall-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#0f172a" />
+                    <stop offset="100%" stopColor="#1e293b" />
+                  </linearGradient>
+                  
+                  <linearGradient id="right-wall-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#1e293b" />
+                    <stop offset="100%" stopColor="#334155" />
+                  </linearGradient>
+
+                  <linearGradient id="top-roof-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#334155" />
+                    <stop offset="100%" stopColor="#1e293b" />
+                  </linearGradient>
+                  
+                  <linearGradient id="totem-screen" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#00bfff" />
+                    <stop offset="100%" stopColor="#093358" />
+                  </linearGradient>
+                </defs>
+
                 {/* Environment: Edificio Residencial */}
                 {env === "edificio" && (
                   <g>
-                    {/* Apartment Tower (4 Floors detailed isometric outline) */}
-                    {/* Ground floor & lobby */}
-                    <polygon points="90,130 150,100 210,130 210,165 150,195 90,165" fill="#141414" stroke="rgba(255,255,255,0.18)" strokeWidth="1" />
+                    {/* Lobby Floor Back/Base Grid */}
+                    <polygon points="200,270 130,235 200,200 270,235" fill="#09090b" stroke="rgba(255,255,255,0.05)" />
+                    
+                    {/* Ground floor / Lobby Structure */}
+                    <polygon points="200,270 130,235 130,195 200,230" fill="url(#left-wall-grad)" stroke="rgba(255,255,255,0.08)" strokeWidth="0.8" />
+                    <polygon points="200,270 270,235 270,195 200,230" fill="url(#right-wall-grad)" stroke="rgba(255,255,255,0.08)" strokeWidth="0.8" />
+
+                    {/* Floor 1 */}
+                    <polygon points="200,230 130,195 130,155 200,190" fill="url(#left-wall-grad)" stroke="rgba(255,255,255,0.08)" strokeWidth="0.8" />
+                    <polygon points="200,230 270,195 270,155 200,190" fill="url(#right-wall-grad)" stroke="rgba(255,255,255,0.08)" strokeWidth="0.8" />
+
                     {/* Floor 2 */}
-                    <polygon points="90,100 150,70 210,100 210,130 150,160 90,130" fill="#181818" stroke="rgba(255,255,255,0.14)" strokeWidth="1" />
+                    <polygon points="200,190 130,155 130,115 200,150" fill="url(#left-wall-grad)" stroke="rgba(255,255,255,0.08)" strokeWidth="0.8" />
+                    <polygon points="200,190 270,155 270,115 200,150" fill="url(#right-wall-grad)" stroke="rgba(255,255,255,0.08)" strokeWidth="0.8" />
+
                     {/* Floor 3 */}
-                    <polygon points="90,70 150,40 210,70 210,100 150,130 90,100" fill="#1c1c1c" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-                    {/* Floor 4 & Roof */}
-                    <polygon points="90,40 150,10 210,40 210,70 150,100 90,70" fill="#222" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
-                    {/* Roof top */}
-                    <polygon points="90,40 150,10 210,40 150,70" fill="#0c0c0c" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+                    <polygon points="200,150 130,115 130,75 200,110" fill="url(#left-wall-grad)" stroke="rgba(255,255,255,0.08)" strokeWidth="0.8" />
+                    <polygon points="200,150 270,115 270,75 200,110" fill="url(#right-wall-grad)" stroke="rgba(255,255,255,0.08)" strokeWidth="0.8" />
+
+                    {/* Roof Top */}
+                    <polygon points="200,110 270,75 200,40 130,75" fill="url(#top-roof-grad)" stroke="rgba(255,255,255,0.12)" strokeWidth="0.8" />
+
+                    {/* Glass balconies: Floor 2 */}
+                    <polygon points="200,180 130,145 130,135 200,170" fill="rgba(0, 191, 255, 0.15)" stroke="rgba(0, 191, 255, 0.4)" strokeWidth="1" />
+                    <polygon points="200,180 270,145 270,135 200,170" fill="rgba(0, 191, 255, 0.15)" stroke="rgba(0, 191, 255, 0.4)" strokeWidth="1" />
                     
-                    {/* Windows grid details */}
-                    <polygon points="105,115 115,110 115,122 105,127" fill="rgba(0,191,255,0.03)" stroke="rgba(255,255,255,0.15)" />
-                    <polygon points="125,105 135,100 135,112 125,117" fill="rgba(0,191,255,0.03)" stroke="rgba(255,255,255,0.15)" />
-                    <polygon points="165,110 175,115 175,127 165,122" fill="rgba(0,191,255,0.03)" stroke="rgba(255,255,255,0.15)" />
+                    {/* Glass balconies: Floor 1 */}
+                    <polygon points="200,220 130,185 130,175 200,210" fill="rgba(0, 191, 255, 0.15)" stroke="rgba(0, 191, 255, 0.4)" strokeWidth="1" />
+                    <polygon points="200,220 270,185 270,175 200,210" fill="rgba(0, 191, 255, 0.15)" stroke="rgba(0, 191, 255, 0.4)" strokeWidth="1" />
+
+                    {/* Windows grid rendering with conditional fills */}
+                    {/* Floor 3 Left */}
+                    <polygon points="145,103 157,96 157,84 145,91" fill={selectedSoftware.includes("shabat") ? "url(#warm-glow)" : "url(#cool-window)"} stroke="rgba(255,255,255,0.15)" />
+                    <polygon points="170,89 182,82 182,70 170,77" fill={selectedSoftware.includes("shabat") ? "url(#warm-glow)" : "url(#active-window)"} stroke="rgba(255,255,255,0.15)" />
                     
-                    {/* Glass lobby doors */}
-                    <polygon points="130,145 150,135 170,145 170,180 150,190 130,180" fill="rgba(0,191,255,0.08)" stroke="rgba(0,191,255,0.3)" strokeWidth="1" />
-                    <line x1="150" y1="135" x2="150" y2="190" stroke="rgba(0,191,255,0.3)" strokeWidth="1.5" />
+                    {/* Floor 3 Right */}
+                    <polygon points="218,82 230,89 230,77 218,70" fill={selectedSoftware.includes("shabat") ? "url(#warm-glow)" : "url(#cool-window)"} stroke="rgba(255,255,255,0.15)" />
+                    <polygon points="243,96 255,103 255,91 243,84" fill={selectedSoftware.includes("shabat") ? "url(#warm-glow)" : "url(#active-window)"} stroke="rgba(255,255,255,0.15)" />
+
+                    {/* Floor 2 Left */}
+                    <polygon points="145,143 157,136 157,124 145,131" fill={selectedSoftware.includes("shabat") ? "url(#warm-glow)" : "url(#cool-window)"} stroke="rgba(255,255,255,0.15)" />
+                    <polygon points="170,129 182,122 182,110 170,117" fill={selectedSoftware.includes("shabat") ? "url(#warm-glow)" : "rgba(30, 41, 59, 0.5)"} stroke="rgba(255,255,255,0.15)" />
+                    
+                    {/* Floor 2 Right */}
+                    <polygon points="218,122 230,129 230,117 218,110" fill={selectedSoftware.includes("shabat") ? "url(#warm-glow)" : "url(#active-window)"} stroke="rgba(255,255,255,0.15)" />
+                    <polygon points="243,136 255,143 255,131 243,124" fill={selectedSoftware.includes("shabat") ? "url(#warm-glow)" : "url(#cool-window)"} stroke="rgba(255,255,255,0.15)" />
+
+                    {/* Floor 1 Left */}
+                    <polygon points="145,183 157,176 157,164 145,171" fill={selectedSoftware.includes("shabat") ? "url(#warm-glow)" : "url(#active-window)"} stroke="rgba(255,255,255,0.15)" />
+                    <polygon points="170,169 182,162 182,150 170,157" fill={selectedSoftware.includes("shabat") ? "url(#warm-glow)" : "url(#cool-window)"} stroke="rgba(255,255,255,0.15)" />
+
+                    {/* Floor 1 Right */}
+                    <polygon points="218,162 230,169 230,157 218,150" fill={selectedSoftware.includes("shabat") ? "url(#warm-glow)" : "rgba(30, 41, 59, 0.5)"} stroke="rgba(255,255,255,0.15)" />
+                    <polygon points="243,176 255,183 255,171 243,164" fill={selectedSoftware.includes("shabat") ? "url(#warm-glow)" : "url(#active-window)"} stroke="rgba(255,255,255,0.15)" />
+
+                    {/* Ground Floor / Lobby Glass Facade */}
+                    <polygon points="195,228 140,200 140,230 195,258" fill="url(#glass-grad)" stroke="rgba(0, 191, 255, 0.3)" strokeWidth="0.8" />
+                    <polygon points="205,228 260,200 260,230 205,258" fill="url(#glass-grad)" stroke="rgba(0, 191, 255, 0.3)" strokeWidth="0.8" />
+                    
+                    {/* Glass Doors in the front lobby */}
+                    <polygon points="200,230 180,220 180,250 200,260" fill="rgba(0, 191, 255, 0.08)" stroke="rgba(0, 191, 255, 0.5)" strokeWidth="0.8" />
+                    <polygon points="200,230 220,220 220,250 200,260" fill="rgba(0, 191, 255, 0.08)" stroke="rgba(0, 191, 255, 0.5)" strokeWidth="0.8" />
+
+                    {/* Roof Penthouse */}
+                    <polygon points="200,105 180,95 180,75 200,85" fill="#1e293b" stroke="rgba(255,255,255,0.1)" />
+                    <polygon points="200,105 220,95 220,75 200,85" fill="#334155" stroke="rgba(255,255,255,0.1)" />
+                    <polygon points="200,85 220,95 200,102 180,95" fill="#475569" stroke="rgba(255,255,255,0.1)" />
+                    
+                    {/* Antenna & Beacon Red LED */}
+                    <line x1="200" y1="75" x2="200" y2="45" stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
+                    <circle cx="200" cy="45" r="2.5" fill="#ef4444" filter="url(#glow-red)" className="alert-light" />
                   </g>
                 )}
 
                 {/* Environment: Oficina / Empresa */}
                 {env === "empresa" && (
                   <g>
-                    {/* Corporate Office Floor Layout */}
-                    <polygon points="60,120 150,75 240,120 240,175 150,220 60,175" fill="#141414" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                    {/* Concrete slab under-lip */}
+                    <polygon points="90,215 90,225 200,280 310,225 310,215" fill="#0f172a" stroke="#1e293b" strokeWidth="0.8" />
                     
-                    {/* Inner office glass partitions */}
-                    <polygon points="100,120 150,95 200,120 150,145" fill="rgba(255,255,255,0.01)" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
-                    
-                    {/* Access Turnstiles representation */}
-                    <line x1="130" y1="155" x2="170" y2="135" stroke="rgba(0,230,118,0.3)" strokeWidth="2.5" />
-                    
-                    {/* Desks and monitors */}
-                    <polygon points="80,140 105,127 120,135 95,148" fill="#202020" stroke="rgba(255,255,255,0.08)" />
-                    <line x1="90" y1="132" x2="90" y2="126" stroke="#555" strokeWidth="1.5" />
-                    <polygon points="180,140 205,127 220,135 195,148" fill="#202020" stroke="rgba(255,255,255,0.08)" />
-                    <line x1="190" y1="132" x2="190" y2="126" stroke="#555" strokeWidth="1.5" />
+                    {/* Slab top surface */}
+                    <polygon points="200,270 310,215 200,160 90,215" fill="#1e293b" stroke="rgba(255,255,255,0.08)" strokeWidth="0.8" opacity="0.9" />
+
+                    {/* Back glass walls */}
+                    <polygon points="90,215 200,160 200,110 90,165" fill="rgba(0, 191, 255, 0.03)" stroke="rgba(0, 191, 255, 0.15)" strokeWidth="0.8" />
+                    <polygon points="310,215 200,160 200,110 310,165" fill="rgba(0, 191, 255, 0.03)" stroke="rgba(0, 191, 255, 0.15)" strokeWidth="0.8" />
+
+                    {/* Pillars */}
+                    <line x1="90" y1="215" x2="90" y2="165" stroke="#334155" strokeWidth="2.5" />
+                    <line x1="310" y1="215" x2="310" y2="165" stroke="#334155" strokeWidth="2.5" />
+                    <line x1="200" y1="160" x2="200" y2="110" stroke="#334155" strokeWidth="2.5" />
+
+                    {/* Partition wall in the back-center */}
+                    <polygon points="155,182.5 200,160 200,120 155,142.5" fill="rgba(0, 191, 255, 0.05)" stroke="rgba(0, 191, 255, 0.25)" strokeWidth="0.8" />
+                    <polygon points="155,182.5 175,192.5 175,152.5 155,142.5" fill="rgba(0, 191, 255, 0.05)" stroke="rgba(0, 191, 255, 0.25)" strokeWidth="0.8" />
+
+                    {/* Desk Group A (Left side) */}
+                    <polygon points="130,215 160,200 175,207.5 145,222.5" fill="#0f172a" stroke="rgba(255,255,255,0.15)" strokeWidth="0.8" />
+                    <line x1="130" y1="215" x2="130" y2="225" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
+                    <line x1="160" y1="200" x2="160" y2="210" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
+                    <line x1="145" y1="222.5" x2="145" y2="232.5" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
+                    <polygon points="148,206 154,203 154,196 148,199" fill="#00BFFF" stroke="#fff" strokeWidth="0.5" filter="url(#glow-blue)" />
+                    <line x1="151" y1="201.5" x2="151" y2="204" stroke="#fff" strokeWidth="0.8" />
+                    <polygon points="144,212 150,209 153,210.5 147,213.5" fill="#374151" />
+
+                    {/* Desk Group B (Right side) */}
+                    <polygon points="225,207.5 255,192.5 270,200 240,215" fill="#0f172a" stroke="rgba(255,255,255,0.15)" strokeWidth="0.8" />
+                    <line x1="225" y1="207.5" x2="225" y2="217.5" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
+                    <line x1="255" y1="192.5" x2="255" y2="202.5" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
+                    <line x1="240" y1="215" x2="240" y2="225" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
+                    <polygon points="243,198 249,195 249,188 243,191" fill="#00BFFF" stroke="#fff" strokeWidth="0.5" filter="url(#glow-blue)" />
+                    <line x1="246" y1="193.5" x2="246" y2="196" stroke="#fff" strokeWidth="0.8" />
+
+                    {/* Server Rack Cabinet */}
+                    <polygon points="235,180 220,172.5 220,137.5 235,145" fill="#111827" stroke="rgba(255,255,255,0.15)" />
+                    <polygon points="235,180 250,172.5 250,137.5 235,145" fill="#1f2937" stroke="rgba(255,255,255,0.15)" />
+                    <polygon points="235,145 250,137.5 235,130 220,137.5" fill="#374151" stroke="rgba(255,255,255,0.15)" />
+                    <circle cx="225" cy="145" r="0.8" fill="#00E676" />
+                    <circle cx="229" cy="143" r="0.8" fill="#ef4444" className="alert-light" />
+                    <circle cx="225" cy="151" r="0.8" fill="#00BFFF" />
+                    <circle cx="229" cy="149" r="0.8" fill="#00E676" />
+                    <circle cx="225" cy="157" r="0.8" fill="#00E676" />
+                    <circle cx="229" cy="155" r="0.8" fill="#3b82f6" />
+
+                    {/* Corporate logo on reception wall */}
+                    <polygon points="195,200 195,160 235,140 235,180" fill="#111827" stroke="rgba(255,255,255,0.1)" />
+                    <text transform="translate(201, 169) rotate(-26.5)" fill="#00BFFF" fontSize="6.5" fontFamily="monospace" fontWeight="bold" letterSpacing="0.8" filter="url(#glow-blue)">SHOMER</text>
+
+                    {/* Speed gates / Turnstiles pillars */}
+                    <rect x="178" y="222" width="3" height="15" fill="#374151" rx="0.5" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" />
+                    <rect x="193" y="214.5" width="3" height="15" fill="#374151" rx="0.5" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" />
+                    <rect x="208" y="207" width="3" height="15" fill="#374151" rx="0.5" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" />
+
+                    {selectedHardware.includes("barrera") ? (
+                      <g>
+                        <line x1="179.5" y1="229.5" x2="194.5" y2="222" stroke="#ef4444" strokeWidth="2.5" filter="url(#glow-red)" />
+                        <line x1="194.5" y1="222" x2="209.5" y2="214.5" stroke="#ef4444" strokeWidth="2.5" filter="url(#glow-red)" />
+                      </g>
+                    ) : (
+                      <g opacity="0.3">
+                        <line x1="179.5" y1="229.5" x2="194.5" y2="222" stroke="#fff" strokeWidth="1.5" />
+                        <line x1="194.5" y1="222" x2="209.5" y2="214.5" stroke="#fff" strokeWidth="1.5" />
+                      </g>
+                    )}
                   </g>
                 )}
 
                 {/* Environment: Country / Barrio Cerrado */}
                 {env === "barrio" && (
                   <g>
-                    {/* Gated Entrance roads & lanes */}
-                    <polygon points="40,115 150,60 260,115 150,170" fill="#121212" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
-                    {/* Double Lane dividers */}
-                    <line x1="150" y1="60" x2="150" y2="170" stroke="rgba(255,255,255,0.06)" strokeWidth="1" strokeDasharray="3,3" />
+                    {/* Forest/Grass Background Slab */}
+                    <polygon points="20,240 200,150 380,240 200,330" fill="#022c22" stroke="rgba(16,185,129,0.15)" strokeWidth="0.8" />
                     
-                    {/* Detailed guard house cabin */}
-                    <polygon points="130,90 150,80 170,90 170,120 150,130 130,120" fill="#1d1d1d" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-                    <polygon points="130,90 150,80 170,90 150,100" fill="#282828" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-                    {/* Glass window */}
-                    <polygon points="135,97 145,92 145,107 135,112" fill="rgba(0,191,255,0.08)" stroke="rgba(0,191,255,0.3)" />
+                    {/* Asphalt driveway roads */}
+                    <polygon points="60,280 200,210 250,235 110,305" fill="#1e293b" stroke="rgba(255,255,255,0.06)" />
+                    <polygon points="150,235 290,165 340,190 200,260" fill="#1e293b" stroke="rgba(255,255,255,0.06)" />
+                    
+                    {/* Lane separation line */}
+                    <line x1="85" y1="292.5" x2="225" y2="222.5" stroke="rgba(255,255,255,0.3)" strokeWidth="1.2" strokeDasharray="5,5" />
+                    <line x1="175" y1="247.5" x2="315" y2="177.5" stroke="rgba(255,255,255,0.3)" strokeWidth="1.2" strokeDasharray="5,5" />
 
-                    {/* Perimeter Fence Line running across */}
-                    <path d="M 20,120 L 130,175 M 170,195 L 280,250" fill="none" stroke="rgba(255,59,48,0.25)" strokeWidth="1.5" strokeDasharray="2.5,2.5" />
+                    {/* Concrete island in the middle for guardhouse */}
+                    <polygon points="160,225 210,200 235,212.5 185,237.5" fill="#475569" stroke="#64748b" strokeWidth="0.8" />
+                    
+                    {/* Security guardhouse */}
+                    <polygon points="195,220 180,212.5 180,182.5 195,190" fill="url(#left-wall-grad)" stroke="rgba(255,255,255,0.1)" />
+                    <polygon points="195,220 215,210 215,180 195,190" fill="url(#right-wall-grad)" stroke="rgba(255,255,255,0.1)" />
+                    <polygon points="195,188 175,178 200,165.5 220,175.5" fill="url(#top-roof-grad)" stroke="rgba(255,255,255,0.15)" />
+                    
+                    {/* Panoramic windows */}
+                    <polygon points="183,205 192,209.5 192,197 183,192.5" fill="rgba(0,191,255,0.15)" stroke="rgba(0,191,255,0.4)" />
+                    <polygon points="200,207.5 212,201.5 212,189 200,195" fill="rgba(0,191,255,0.15)" stroke="rgba(0,191,255,0.4)" />
+
+                    {/* Low-poly 3D Tree 1 */}
+                    <line x1="70" y1="210" x2="70" y2="195" stroke="#78350f" strokeWidth="2" />
+                    <polygon points="70,195 55,180 85,180" fill="#047857" />
+                    <polygon points="70,183 58,170 82,170" fill="#059669" />
+                    <polygon points="70,172 62,160 78,160" fill="#10b981" />
+
+                    {/* Low-poly 3D Tree 2 */}
+                    <line x1="330" y1="260" x2="330" y2="245" stroke="#78350f" strokeWidth="2" />
+                    <polygon points="330,245 315,230 345,230" fill="#047857" />
+                    <polygon points="330,233 318,220 342,220" fill="#059669" />
+                    <polygon points="330,222 322,210 338,210" fill="#10b981" />
+
+                    {/* Barriers base poles */}
+                    <rect x="165" y="222" width="4" height="10" fill="#334155" rx="0.5" />
+                    <rect x="225" y="195" width="4" height="10" fill="#334155" rx="0.5" />
+
+                    {/* Entry Barrier Arm */}
+                    {selectedHardware.includes("barrera") ? (
+                      <g>
+                        <line x1="167" y1="225" x2="120" y2="248.5" stroke="#ef4444" strokeWidth="3" filter="url(#glow-red)" />
+                        <circle cx="167" cy="225" r="2" fill="#ef4444" className="alert-light" />
+                      </g>
+                    ) : (
+                      <line x1="167" y1="225" x2="120" y2="248.5" stroke="#94a3b8" strokeWidth="1.5" opacity="0.4" />
+                    )}
+
+                    {/* Exit Barrier Arm */}
+                    {selectedHardware.includes("barrera") ? (
+                      <g>
+                        <line x1="227" y1="198" x2="274" y2="174.5" stroke="#ef4444" strokeWidth="3" filter="url(#glow-red)" />
+                        <circle cx="227" cy="198" r="2" fill="#ef4444" className="alert-light" />
+                      </g>
+                    ) : (
+                      <line x1="227" y1="198" x2="274" y2="174.5" stroke="#94a3b8" strokeWidth="1.5" opacity="0.4" />
+                    )}
                   </g>
                 )}
 
                 {/* Environment: Hotel / Airbnb */}
                 {env === "hotel" && (
                   <g>
-                    {/* Hotel Corridor and Lobby Layout */}
-                    <polygon points="70,120 150,80 230,120 230,170 150,210 70,170" fill="#141414" stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
+                    {/* Floor slab */}
+                    <polygon points="200,270 320,210 200,150 80,210" fill="#1c1917" stroke="rgba(255,255,255,0.05)" />
+                    <polygon points="80,210 80,220 200,280 320,220 320,210 Z" fill="#0c0a09" stroke="#292524" strokeWidth="0.8" />
                     
-                    {/* Room Door 1 */}
-                    <polygon points="95,112 95,138 110,130 110,105" fill="#252525" stroke="rgba(255,255,255,0.18)" />
-                    
-                    {/* Room Door 2 */}
-                    <polygon points="190,112 190,138 205,130 205,105" fill="#252525" stroke="rgba(255,255,255,0.18)" />
+                    {/* Tiled floor lines for premium texture */}
+                    <line x1="140" y1="240" x2="260" y2="180" stroke="rgba(255,255,255,0.03)" strokeWidth="0.8" />
+                    <line x1="110" y1="225" x2="230" y2="165" stroke="rgba(255,255,255,0.03)" strokeWidth="0.8" />
+                    <line x1="170" y1="255" x2="290" y2="195" stroke="rgba(255,255,255,0.03)" strokeWidth="0.8" />
 
-                    {/* Check-in automation counter desk */}
-                    <polygon points="130,160 160,145 175,152 145,167" fill="#1f1f1f" stroke="rgba(255,255,255,0.08)" />
+                    {/* Back-walls */}
+                    <polygon points="80,210 200,150 200,80 80,140" fill="#292524" stroke="rgba(255,255,255,0.05)" />
+                    <polygon points="320,210 200,150 200,80 320,140" fill="#292524" stroke="rgba(255,255,255,0.05)" />
+
+                    {/* Wood panel sections */}
+                    <polygon points="90,195 140,170 140,110 90,135" fill="#451a03" opacity="0.85" stroke="rgba(255,255,255,0.06)" />
+                    <polygon points="310,195 260,170 260,110 310,135" fill="#451a03" opacity="0.85" stroke="rgba(255,255,255,0.06)" />
+
+                    {/* Left Guest Door */}
+                    <polygon points="145,167.5 170,155 170,95 145,107.5" fill="#1c1917" stroke="#b45309" strokeWidth="1.2" />
+                    <polygon points="143,168.5 172,154 172,94 143,108.5" fill="none" stroke="#78350f" strokeWidth="0.8" />
+                    <circle cx="150" cy="138" r="1.2" fill="#d97706" />
+
+                    {/* Right Guest Door */}
+                    <polygon points="255,167.5 230,155 230,95 255,107.5" fill="#1c1917" stroke="#b45309" strokeWidth="1.2" />
+                    <polygon points="257,168.5 228,154 228,94 257,108.5" fill="none" stroke="#78350f" strokeWidth="0.8" />
+                    <circle cx="250" cy="138" r="1.2" fill="#d97706" />
+
+                    {/* Wall sconces and V-light glow */}
+                    <polygon points="115,130 95,95 135,95" fill="rgba(245,158,11,0.18)" />
+                    <polygon points="115,130 90,165 140,165" fill="rgba(245,158,11,0.18)" />
+                    <rect x="114" y="125" width="2" height="10" fill="#78350f" rx="0.5" />
+
+                    <polygon points="285,130 265,95 305,95" fill="rgba(245,158,11,0.18)" />
+                    <polygon points="285,130 260,165 310,165" fill="rgba(245,158,11,0.18)" />
+                    <rect x="284" y="125" width="2" height="10" fill="#78350f" rx="0.5" />
+
+                    {/* Automated check-in terminal desk */}
+                    <polygon points="210,240 240,225 255,232.5 225,247.5" fill="#e2e8f0" stroke="rgba(0,0,0,0.15)" />
+                    <polygon points="210,240 225,247.5 225,262.5 210,255" fill="#cbd5e1" />
+                    <polygon points="255,232.5 225,247.5 225,262.5 255,247.5" fill="#94a3b8" />
+                    <polygon points="228,236 234,233 234,226 228,229" fill="#00BFFF" stroke="#fff" strokeWidth="0.5" filter="url(#glow-blue)" />
+
+                    {selectedHardware.includes("barrera") && (
+                      <g filter="url(#glow-green)">
+                        <rect x="146.5" y="133" width="2" height="4" rx="0.5" fill="#00E676" />
+                        <rect x="251.5" y="133" width="2" height="4" rx="0.5" fill="#00E676" />
+                      </g>
+                    )}
                   </g>
                 )}
 
-                {/* Device Indicators (Activated dynamically) */}
+                {/* Hardware: Totem Inteligente (Dynamic 3D model overlay) */}
                 {selectedHardware.includes("totem") && (
-                  <g className="animate-pulse">
-                    {/* Totem Location based on environment */}
-                    {env === "edificio" && (
-                      <g>
-                        <circle cx="115" cy="175" r="14" fill="rgba(0, 191, 255, 0.08)" />
-                        <circle cx="115" cy="175" r="4" fill="#00BFFF" />
-                        <line x1="115" y1="175" x2="115" y2="145" stroke="#00BFFF" strokeWidth="1.5" />
-                        <rect x="109" y="140" width="12" height="12" rx="2" fill="#00BFFF" />
-                      </g>
-                    )}
-                    {env === "barrio" && (
-                      <g>
-                        <circle cx="110" cy="140" r="14" fill="rgba(0, 191, 255, 0.08)" />
-                        <circle cx="110" cy="140" r="4" fill="#00BFFF" />
-                        <line x1="110" y1="140" x2="110" y2="110" stroke="#00BFFF" strokeWidth="1.5" />
-                        <rect x="104" y="105" width="12" height="12" rx="2" fill="#00BFFF" />
-                      </g>
-                    )}
-                    {env !== "edificio" && env !== "barrio" && (
-                      <g>
-                        <circle cx="80" cy="135" r="14" fill="rgba(0, 191, 255, 0.08)" />
-                        <circle cx="80" cy="135" r="4" fill="#00BFFF" />
-                        <line x1="80" y1="135" x2="80" y2="105" stroke="#00BFFF" strokeWidth="1.5" />
-                        <rect x="74" y="100" width="12" height="12" rx="2" fill="#00BFFF" />
-                      </g>
-                    )}
+                  <g>
+                    {(() => {
+                      let tx = 110, ty = 245;
+                      if (env === "edificio") { tx = 115; ty = 245; }
+                      else if (env === "empresa") { tx = 110; ty = 245; }
+                      else if (env === "barrio") { tx = 110; ty = 260; }
+                      else if (env === "hotel") { tx = 110; ty = 245; }
+
+                      return (
+                        <g>
+                          {/* Under-totem glow shadow */}
+                          <ellipse cx={tx} cy={ty} rx="12" ry="6" fill="rgba(0, 191, 255, 0.2)" filter="url(#glow-blue)" />
+
+                          {/* Hologram/sight cone of the Tótem */}
+                          <polygon points={`${tx},${ty-46.5} ${tx-40},${ty+15} ${tx+20},${ty+45}`} fill="url(#totem-hologram)" opacity="0.65" style={{ pointerEvents: 'none' }} />
+
+                          {/* Totem Base structure (3D Column) */}
+                          <polygon points={`${tx},${ty} ${tx-6},${ty-3} ${tx-6},${ty-48} ${tx},${ty-45}`} fill="#111827" stroke="rgba(255,255,255,0.15)" strokeWidth="0.8" />
+                          <polygon points={`${tx},${ty} ${tx+6},${ty-3} ${tx+6},${ty-48} ${tx},${ty-45}`} fill="#1f2937" stroke="rgba(255,255,255,0.15)" strokeWidth="0.8" />
+                          <polygon points={`${tx},${ty-45} ${tx+6},${ty-48} ${tx},${ty-51} ${tx-6},${ty-48}`} fill="#374151" stroke="rgba(255,255,255,0.15)" strokeWidth="0.8" />
+
+                          {/* Glowing side neon borders */}
+                          <line x1={tx-6} y1={ty-3} x2={tx-6} y2={ty-48} stroke="#00BFFF" strokeWidth="1" filter="url(#glow-blue)" />
+                          <line x1={tx+6} y1={ty-3} x2={tx+6} y2={ty-48} stroke="#00BFFF" strokeWidth="1" filter="url(#glow-blue)" />
+
+                          {/* Vertical LED Screen on the right face */}
+                          <polygon points={`${tx+0.5},${ty-12} ${tx+5},${ty-14.25} ${tx+5},${ty-42} ${tx+0.5},${ty-40}`} fill="url(#totem-screen)" />
+                          
+                          {/* Operator avatar silhouette inside the screen */}
+                          <circle cx={tx+2.75} cy={ty-32} r="2" fill="#fff" opacity="0.8" />
+                          <path d={`M ${tx+1},${ty-26} Q ${tx+2.75},${ty-29} ${tx+4.5},${ty-26}`} fill="none" stroke="#fff" strokeWidth="1.5" opacity="0.8" />
+                          
+                          {/* Screen scan lines or pulse */}
+                          <line x1={tx+0.5} y1={ty-22} x2={tx+5} y2={ty-24.25} stroke="#00BFFF" strokeWidth="1" opacity="0.6">
+                            <animate attributeName="opacity" values="0.2;1;0.2" dur="2s" repeatCount="indefinite" />
+                          </line>
+
+                          {/* Camera Lens at the top */}
+                          <circle cx={tx} cy={ty-46.5} r="1.5" fill="#111" stroke="#ef4444" strokeWidth="0.5" />
+                        </g>
+                      );
+                    })()}
                   </g>
                 )}
 
+                {/* Hardware: Facial ID Access Control System Overlay */}
                 {selectedHardware.includes("facial") && (
                   <g>
-                    {/* Face ID Reader Position */}
-                    {env === "edificio" && (
-                      <g>
-                        <circle cx="150" cy="150" r="8" fill="rgba(0, 230, 118, 0.15)" />
-                        <circle cx="150" cy="150" r="3" fill="#00E676" />
-                      </g>
-                    )}
-                    {env === "empresa" && (
-                      <g>
-                        <circle cx="150" cy="145" r="8" fill="rgba(0, 230, 118, 0.15)" />
-                        <circle cx="150" cy="145" r="3" fill="#00E676" />
-                      </g>
-                    )}
-                    {env === "hotel" && (
-                      <g>
-                        <circle cx="145" cy="153" r="8" fill="rgba(0, 230, 118, 0.15)" />
-                        <circle cx="145" cy="153" r="3" fill="#00E676" />
-                      </g>
-                    )}
-                    {env !== "edificio" && env !== "empresa" && env !== "hotel" && (
-                      <g>
-                        <circle cx="150" cy="120" r="8" fill="rgba(0, 230, 118, 0.15)" />
-                        <circle cx="150" cy="120" r="3" fill="#00E676" />
-                      </g>
-                    )}
+                    {(() => {
+                      let fx = 138, fy = 210;
+                      if (env === "edificio") { fx = 138; fy = 210; }
+                      else if (env === "empresa") { fx = 185; fy = 212; }
+                      else if (env === "barrio") { fx = 182; fy = 182; }
+                      else if (env === "hotel") { fx = 142; fy = 145; }
+
+                      return (
+                        <g filter="url(#glow-green)">
+                          {/* Small biometric reader on wall */}
+                          <rect x={fx-1.5} y={fy-3} width="3" height="6" fill="#00E676" rx="0.5" />
+                          
+                          {/* Pulsating green radar circle under target */}
+                          <circle cx={fx+12} cy={fy+12} r="4" fill="none" stroke="#00E676" strokeWidth="0.8" className="radar-pulse-circle" />
+                          
+                          {/* Scanning laser beam */}
+                          <line x1={fx} y1={fy} x2={fx+12} y2={fy+12} stroke="#00E676" strokeWidth="0.8" opacity="0.8">
+                            <animate attributeName="opacity" values="0.2;0.8;0.2" dur="1.5s" repeatCount="indefinite" />
+                          </line>
+                          
+                          {/* Floating face mesh target */}
+                          <g transform={`translate(${fx+6}, ${fy+6})`}>
+                            {/* Brackets [ ] */}
+                            <path d="M 0,3 L 0,0 L 3,0" fill="none" stroke="#00E676" strokeWidth="0.8" />
+                            <path d="M 9,0 L 12,0 L 12,3" fill="none" stroke="#00E676" strokeWidth="0.8" />
+                            <path d="M 0,9 L 0,12 L 3,12" fill="none" stroke="#00E676" strokeWidth="0.8" />
+                            <path d="M 9,12 L 12,12 L 12,9" fill="none" stroke="#00E676" strokeWidth="0.8" />
+                            
+                            {/* Glowing dots representing face mesh */}
+                            <circle cx="3" cy="4" r="0.5" fill="#00E676" />
+                            <circle cx="6" cy="3" r="0.5" fill="#00E676" />
+                            <circle cx="9" cy="4" r="0.5" fill="#00E676" />
+                            <circle cx="4" cy="7" r="0.5" fill="#00E676" />
+                            <circle cx="8" cy="7" r="0.5" fill="#00E676" />
+                            <circle cx="6" cy="9" r="0.5" fill="#00E676" />
+                          </g>
+                        </g>
+                      );
+                    })()}
                   </g>
                 )}
 
+                {/* Hardware: Camaras HD dome + sweeping cone */}
                 {selectedHardware.includes("camaras") && (
                   <g>
-                    {/* Camera scan zone */}
-                    {env === "barrio" && (
-                      <g>
-                        <polygon points="170,90 230,110 200,150" fill="rgba(255, 255, 255, 0.03)" stroke="rgba(255, 255, 255, 0.05)" />
-                        <circle cx="170" cy="90" r="4.5" fill="#fff" stroke="#888" strokeWidth="1" />
-                        <line x1="170" y1="90" x2="190" y2="105" stroke="#fff" strokeWidth="1" />
-                      </g>
-                    )}
-                    {env !== "barrio" && (
-                      <g>
-                        <polygon points="210,40 270,75 230,110" fill="rgba(255, 255, 255, 0.03)" stroke="rgba(255, 255, 255, 0.05)" />
-                        <circle cx="210" cy="40" r="4.5" fill="#fff" stroke="#888" strokeWidth="1" />
-                        <line x1="210" y1="40" x2="230" y2="55" stroke="#fff" strokeWidth="1" />
-                      </g>
-                    )}
+                    {(() => {
+                      let cams: Array<{x: number, y: number, rx: number, ry: number}> = [];
+                      if (env === "edificio") {
+                        cams = [
+                          { x: 130, y: 155, rx: -30, ry: 40 },
+                          { x: 270, y: 115, rx: -40, ry: 50 }
+                        ];
+                      } else if (env === "empresa") {
+                        cams = [
+                          { x: 90, y: 165, rx: 30, ry: 40 },
+                          { x: 310, y: 165, rx: -40, ry: 40 }
+                        ];
+                      } else if (env === "barrio") {
+                        cams = [
+                          { x: 215, y: 172, rx: -30, ry: 40 },
+                          { x: 180, y: 182, rx: -30, ry: 40 }
+                        ];
+                      } else if (env === "hotel") {
+                        cams = [
+                          { x: 80, y: 140, rx: 40, ry: 50 },
+                          { x: 320, y: 140, rx: -40, ry: 50 }
+                        ];
+                      }
+
+                      return cams.map((cam, idx) => (
+                        <g key={idx}>
+                          <path d={`M ${cam.x-3},${cam.y} A 3,3 0 0,1 ${cam.x+3},${cam.y} Z`} fill="#f3f4f6" stroke="#4b5563" strokeWidth="0.5" />
+                          <circle cx={cam.x} cy={cam.y} r="1.5" fill="#111" />
+                          <circle cx={cam.x+0.8} cy={cam.y} r="0.6" fill="#ef4444" className="alert-light" />
+                          
+                          <g transform={`rotate(0, ${cam.x}, ${cam.y})`}>
+                            <polygon points={`${cam.x},${cam.y} ${cam.x + cam.rx - 15},${cam.y + cam.ry} ${cam.x + cam.rx + 15},${cam.y + cam.ry}`} fill="url(#scan-cone-grad)" opacity="0.35" style={{ pointerEvents: 'none' }}>
+                              <animateTransform
+                                attributeName="transform"
+                                type="rotate"
+                                values={`-15 ${cam.x} ${cam.y}; 15 ${cam.x} ${cam.y}; -15 ${cam.x} ${cam.y}`}
+                                dur="4s"
+                                repeatCount="indefinite"
+                              />
+                            </polygon>
+                          </g>
+                        </g>
+                      ));
+                    })()}
                   </g>
                 )}
 
-                {selectedHardware.includes("barrera") && (
+                {/* Software: Cruce de Linea IA (Glowing red laser fence) */}
+                {selectedSoftware.includes("linea") && (
                   <g>
-                    {/* Barrier gate across entrance lanes */}
-                    {env === "barrio" && (
-                      <g>
-                        <circle cx="115" cy="130" r="3.5" fill="#FF3B30" />
-                        <line x1="115" y1="130" x2="148" y2="114" stroke="#FF3B30" strokeWidth="2.5" />
-                        <circle cx="185" cy="165" r="3.5" fill="#FF3B30" />
-                        <line x1="185" y1="165" x2="152" y2="182" stroke="#FF3B30" strokeWidth="2.5" />
-                      </g>
-                    )}
-                    {env !== "barrio" && (
-                      <g>
-                        <circle cx="180" cy="155" r="3.5" fill="#FF3B30" />
-                        <line x1="180" y1="155" x2="215" y2="138" stroke="#FF3B30" strokeWidth="2.5" />
-                      </g>
-                    )}
+                    {(() => {
+                      let fencePaths: string[] = [];
+                      let alertPositions: Array<{x: number, y: number}> = [];
+
+                      if (env === "edificio") {
+                        fencePaths = [
+                          "M 70,255 L 130,235",
+                          "M 270,235 L 330,255"
+                        ];
+                        alertPositions = [
+                          { x: 100, y: 245 },
+                          { x: 300, y: 245 }
+                        ];
+                      } else if (env === "empresa") {
+                        fencePaths = [
+                          "M 90,215 L 200,270",
+                          "M 200,270 L 310,215"
+                        ];
+                        alertPositions = [
+                          { x: 145, y: 242.5 },
+                          { x: 255, y: 242.5 }
+                        ];
+                      } else if (env === "barrio") {
+                        fencePaths = [
+                          "M 20,240 L 60,280",
+                          "M 340,200 L 380,240"
+                        ];
+                        alertPositions = [
+                          { x: 40, y: 260 },
+                          { x: 360, y: 220 }
+                        ];
+                      } else if (env === "hotel") {
+                        fencePaths = [
+                          "M 80,210 L 200,270",
+                          "M 200,270 L 320,210"
+                        ];
+                        alertPositions = [
+                          { x: 140, y: 240 },
+                          { x: 260, y: 240 }
+                        ];
+                      }
+
+                      return (
+                        <g>
+                          {fencePaths.map((d, idx) => (
+                            <path
+                              key={idx}
+                              d={d}
+                              stroke="#ef4444"
+                              strokeWidth="2.5"
+                              strokeDasharray="6,4"
+                              fill="none"
+                              filter="url(#glow-red)"
+                              className="laser-fence"
+                            />
+                          ))}
+                          {alertPositions.map((pos, idx) => (
+                            <g key={idx} transform={`translate(${pos.x - 4}, ${pos.y - 4})`} className="alert-light">
+                              <polygon points="4,0 8,3 8,7 4,10 0,7 0,3" fill="#ef4444" filter="url(#glow-red)" />
+                              <text x="3.5" y="7" fill="#fff" fontSize="5.5" fontWeight="bold" fontFamily="monospace">!</text>
+                            </g>
+                          ))}
+                        </g>
+                      );
+                    })()}
                   </g>
                 )}
+
+                {/* Software: LPR Patentes Scan Overlay */}
+                {selectedSoftware.includes("patentes") && (
+                  <g>
+                    {(() => {
+                      let px = 120, py = 240;
+                      if (env === "edificio") { px = 150; py = 250; }
+                      else if (env === "empresa") { px = 160; py = 240; }
+                      else if (env === "barrio") { px = 110; py = 245; }
+                      else if (env === "hotel") { px = 160; py = 245; }
+
+                      return (
+                        <g>
+                          <polygon points={`${px},${py} ${px+50},${py-25} ${px+70},${py-15} ${px+20},${py+10}`} fill="rgba(0, 230, 118, 0.06)" stroke="rgba(0, 230, 118, 0.25)" strokeWidth="0.8" />
+                          <line x1={px} y1={py} x2={px+20} y2={py+10} stroke="#00E676" strokeWidth="1.5" filter="url(#glow-green)">
+                            <animateTransform
+                              attributeName="transform"
+                              type="translate"
+                              values="0,0; 50,-25; 0,0"
+                              dur="3s"
+                              repeatCount="indefinite"
+                            />
+                          </line>
+                          
+                          <g transform={`translate(${px+10}, ${py-35})`}>
+                            <rect x="0" y="0" width="62" height="15" rx="2" fill="rgba(9, 9, 11, 0.85)" stroke="#00E676" strokeWidth="1" filter="url(#glow-green)" />
+                            <text x="5" y="10" fill="#00E676" fontSize="6.5" fontFamily="monospace" fontWeight="bold">ARG-724 | OK</text>
+                          </g>
+                        </g>
+                      );
+                    })()}
+                  </g>
+                )}
+
+                {/* Stacking HUD dashboard for Software Modules */}
+                {(() => {
+                  let offsetY = 40;
+                  const hudElements = [];
+                  
+                  if (selectedSoftware.includes("horarios")) {
+                    hudElements.push(
+                      <g key="horarios" transform={`translate(295, ${offsetY})`}>
+                        <rect x="0" y="0" width="95" height="42" rx="3" fill="rgba(9, 9, 11, 0.85)" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+                        <text x="6" y="10" fill="#a1a1aa" fontSize="5.5" fontFamily="monospace" fontWeight="bold">LOG DE ACCESOS</text>
+                        <text x="6" y="20" fill="#00E676" fontSize="5.5" fontFamily="monospace">08:02 JPerez [IN]</text>
+                        <text x="6" y="28" fill="#00E676" fontSize="5.5" fontFamily="monospace">08:15 MDiaz  [IN]</text>
+                        <text x="6" y="36" fill="#3b82f6" fontSize="5.5" fontFamily="monospace">08:44 RSmith [OUT]</text>
+                      </g>
+                    );
+                    offsetY += 46;
+                  }
+                  
+                  if (selectedSoftware.includes("shabat")) {
+                    hudElements.push(
+                      <g key="shabat" transform={`translate(295, ${offsetY})`}>
+                        <rect x="0" y="0" width="95" height="28" rx="3" fill="rgba(245, 158, 11, 0.05)" stroke="#fbbf24" strokeWidth="1" />
+                        <text x="6" y="11" fill="#fbbf24" fontSize="6.5" fontFamily="monospace" fontWeight="bold">MODO SHABAT</text>
+                        <text x="6" y="20" fill="#d97706" fontSize="5.5" fontFamily="monospace">ACCESO AUTOMÁTICO</text>
+                      </g>
+                    );
+                  }
+                  
+                  return hudElements;
+                })()}
               </svg>
             </div>
 
