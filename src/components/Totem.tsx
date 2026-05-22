@@ -12,7 +12,7 @@ export function Totem() {
   return (
     <section id="totem" className="bg-brand-surface p-0">
       <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[600px]">
-        <div className="relative overflow-hidden aspect-video lg:aspect-auto min-h-[420px] lg:min-h-full bg-brand-black flex items-center justify-center">
+        <div className="relative overflow-hidden w-full h-[300px] sm:h-[400px] lg:h-auto lg:min-h-full bg-brand-black flex items-center justify-center">
           
           {viewMode === "in-situ" ? (
             <>
