@@ -1,17 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Bebas_Neue, DM_Sans, Space_Mono } from "next/font/google";
+import { Montserrat, Inter, Space_Mono } from "next/font/google";
 import "./globals.css";
 
-const bebasNeue = Bebas_Neue({
-  weight: "400",
+const montserrat = Montserrat({
   subsets: ["latin"],
-  variable: "--font-bebas-neue",
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-montserrat",
 });
 
-const dmSans = DM_Sans({
+const inter = Inter({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-dm-sans",
+  variable: "--font-inter",
 });
 
 const spaceMono = Space_Mono({
@@ -85,7 +85,7 @@ export default function RootLayout({
   return (
     <html lang="es" className="scroll-smooth">
       <body
-        className={`${bebasNeue.variable} ${dmSans.variable} ${spaceMono.variable} antialiased bg-brand-black text-brand-white font-body`}
+        className={`${montserrat.variable} ${inter.variable} ${spaceMono.variable} antialiased bg-brand-black text-brand-white font-body`}
       >
         {children}
         <script

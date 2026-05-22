@@ -81,7 +81,7 @@ export function Hero() {
             </FadeUp>
 
             <FadeUp delay={0.2}>
-              <h1 className="font-display text-[clamp(2.5rem,7vw,5.5rem)] leading-[0.92] tracking-wide uppercase mb-6 text-brand-white">
+              <h1 className="font-display text-[clamp(2.5rem,7vw,5.5rem)] leading-[1.1] tracking-[0.12em] uppercase mb-6 text-brand-white">
                 La seguridad<br />que <em className="text-brand-blue not-italic">no</em><br />descansa.
               </h1>
             </FadeUp>
