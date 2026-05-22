@@ -132,13 +132,13 @@ export function PodcastSection() {
             <FadeUp>
               <div className="font-mono text-xs tracking-[0.18em] text-brand-blue uppercase mb-3 flex items-center gap-2">
                 <Sparkles size={14} className="text-brand-blue animate-pulse" />
-                NotebookLM Deep Dive
+                Shomer Audio Guía
               </div>
               <h2 className="font-display text-[clamp(2.2rem,5vw,3.6rem)] leading-none uppercase mb-6">
                 Explicación de<br />Planes en <em className="text-brand-blue not-italic">Audio.</em>
               </h2>
               <p className="text-base text-brand-gray-light leading-relaxed mb-6 font-light">
-                ¿Querés entender a fondo cómo funcionan nuestros planes de monitoreo inteligente? Escuchá esta conversación interactiva generada por Inteligencia Artificial. Explica de forma natural y dinámica el funcionamiento del Tótem, los abonos y cómo logramos seguridad continua sin intermediarios.
+                ¿Querés entender a fondo cómo funcionan nuestros planes de monitoreo inteligente? Escuchá esta conversación interactiva. Explica de forma natural y dinámica el funcionamiento del Tótem, los abonos y cómo logramos seguridad continua sin intermediarios.
               </p>
               <div className="flex items-center gap-3 text-xs font-mono text-brand-gray bg-white/5 border border-white/5 rounded-full px-4 py-2 w-fit">
                 <Headphones size={14} className="text-brand-blue" />
