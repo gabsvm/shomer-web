@@ -133,10 +133,12 @@ export function Hero() {
                 {/* Active CCTV Terminal Mockup (Wow-factor active scanner) */}
                 <div className="relative w-full h-[160px] bg-[#050505] rounded border border-brand-border flex items-center justify-center overflow-hidden select-none">
                   {/* CCTV Video Image */}
-                  <img
+                  <Image
                     src="/images/cctv_hall_sec.png"
                     alt="Active CCTV Monitoring"
-                    className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 390px"
+                    className="object-cover pointer-events-none"
                     style={{
                       filter: "brightness(0.6) contrast(1.25) saturate(0.2) sepia(0.15) hue-rotate(85deg)"
                     }}

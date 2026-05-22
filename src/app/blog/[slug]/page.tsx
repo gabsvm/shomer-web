@@ -1,12 +1,11 @@
-"use client";
-
-import { use, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { posts, Post } from "@/data/posts";
-import { ArrowLeft, Calendar, Clock, Share2, Shield, MessageSquare, CheckCircle } from "lucide-react";
+import { posts } from "@/data/posts";
+import { ArrowLeft, Calendar, Clock } from "lucide-react";
+import { BlogProgressBar, BlogShareButton } from "./BlogDetailClient";
+import { Metadata } from "next";
 
 interface PostPageProps {
   params: Promise<{
@@ -14,25 +13,34 @@ interface PostPageProps {
   }>;
 }
 
-export default function PostPage({ params }: PostPageProps) {
-  const resolvedParams = use(params);
-  const slug = resolvedParams.slug;
+export async function generateStaticParams() {
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+  const { slug } = await params;
   const post = posts.find((p) => p.slug === slug);
-
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [copied, setCopied] = useState(false);
-
-  // Monitor scroll for reading progress bar
-  useEffect(() => {
-    const handleScroll = () => {
-      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalScroll > 0) {
-        setScrollProgress((window.scrollY / totalScroll) * 100);
-      }
+  if (!post) {
+    return {
+      title: "Artículo no encontrado — Shomer Security",
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }
+  return {
+    title: `${post.title} — Shomer Security`,
+    description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      images: [{ url: post.image }],
+    },
+  };
+}
+
+export default async function PostPage({ params }: PostPageProps) {
+  const { slug } = await params;
+  const post = posts.find((p) => p.slug === slug);
 
   if (!post) {
     return (
@@ -57,14 +65,6 @@ export default function PostPage({ params }: PostPageProps) {
   const relatedPosts = posts
     .filter((p) => p.id !== post.id)
     .slice(0, 2);
-
-  const handleShare = () => {
-    if (typeof window !== "undefined") {
-      navigator.clipboard.writeText(window.location.href);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
-  };
 
   const parseMarkdownInline = (text: string) => {
     return text
@@ -172,10 +172,7 @@ export default function PostPage({ params }: PostPageProps) {
   return (
     <main className="min-h-screen bg-brand-black text-brand-white flex flex-col justify-between">
       {/* Reading Progress Indicator */}
-      <div 
-        className="fixed top-0 left-0 h-[3px] bg-brand-blue z-50 transition-all duration-75" 
-        style={{ width: `${scrollProgress}%` }}
-      />
+      <BlogProgressBar />
       
       <Navbar />
 
@@ -192,12 +189,7 @@ export default function PostPage({ params }: PostPageProps) {
               <ArrowLeft className="w-4 h-4" /> Volver al blog
             </Link>
 
-            <button
-              onClick={handleShare}
-              className="inline-flex items-center gap-2 text-xs font-mono tracking-wider uppercase text-brand-gray hover:text-brand-blue transition-colors"
-            >
-              <Share2 className="w-4 h-4" /> {copied ? "Copiado!" : "Compartir"}
-            </button>
+            <BlogShareButton />
           </div>
 
           {/* Tag & Meta */}
