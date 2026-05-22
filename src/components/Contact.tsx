@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FadeUp } from "./FadeUp";
 import { ChevronDown } from "lucide-react";
 
@@ -8,6 +8,25 @@ type Status = "idle" | "sending" | "ok" | "error";
 
 export function Contact() {
   const [status, setStatus] = useState<Status>("idle");
+  const [tipoEspacio, setTipoEspacio] = useState("Edificio / Consorcio");
+  const [consulta, setConsulta] = useState("");
+
+  useEffect(() => {
+    const handleSetQuote = (e: Event) => {
+      const customEvent = e as CustomEvent<{
+        tipoEspacio: string;
+        consulta: string;
+      }>;
+      if (customEvent.detail) {
+        setTipoEspacio(customEvent.detail.tipoEspacio);
+        setConsulta(customEvent.detail.consulta);
+      }
+    };
+    window.addEventListener("shomer-set-quote", handleSetQuote);
+    return () => {
+      window.removeEventListener("shomer-set-quote", handleSetQuote);
+    };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,6 +47,7 @@ export function Contact() {
       if (json.success) {
         setStatus("ok");
         form.reset();
+        setConsulta("");
       } else {
         setStatus("error");
       }
@@ -108,12 +128,17 @@ export function Contact() {
               <div className="flex flex-col gap-2">
                 <label className="text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray">Tipo de espacio</label>
                 <div className="relative w-full">
-                  <select name="tipo_espacio" className="w-full bg-white/5 border border-brand-border rounded pl-4 pr-10 py-3 text-white outline-none focus:border-brand-blue transition-colors appearance-none cursor-pointer">
-                    <option className="bg-brand-surface-2 text-white">Edificio / Consorcio</option>
-                    <option className="bg-brand-surface-2 text-white">Empresa</option>
-                    <option className="bg-brand-surface-2 text-white">Country / Barrio Cerrado</option>
-                    <option className="bg-brand-surface-2 text-white">Hotel</option>
-                    <option className="bg-brand-surface-2 text-white">Otro</option>
+                  <select 
+                    name="tipo_espacio" 
+                    value={tipoEspacio}
+                    onChange={(e) => setTipoEspacio(e.target.value)}
+                    className="w-full bg-white/5 border border-brand-border rounded pl-4 pr-10 py-3 text-white outline-none focus:border-brand-blue transition-colors appearance-none cursor-pointer"
+                  >
+                    <option className="bg-brand-surface-2 text-white" value="Edificio / Consorcio">Edificio / Consorcio</option>
+                    <option className="bg-brand-surface-2 text-white" value="Empresa">Empresa</option>
+                    <option className="bg-brand-surface-2 text-white" value="Country / Barrio Cerrado">Country / Barrio Cerrado</option>
+                    <option className="bg-brand-surface-2 text-white" value="Hotel">Hotel</option>
+                    <option className="bg-brand-surface-2 text-white" value="Otro">Otro</option>
                   </select>
                   <ChevronDown className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-gray" />
                 </div>
@@ -121,7 +146,13 @@ export function Contact() {
 
               <div className="flex flex-col gap-2">
                 <label className="text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray">Consulta</label>
-                <textarea name="consulta" placeholder="Contanos sobre tu espacio..." className="w-full bg-white/5 border border-brand-border rounded px-4 py-3 text-white outline-none focus:border-brand-blue transition-colors min-h-[120px] resize-y" />
+                <textarea 
+                  name="consulta" 
+                  value={consulta}
+                  onChange={(e) => setConsulta(e.target.value)}
+                  placeholder="Contanos sobre tu espacio..." 
+                  className="w-full bg-white/5 border border-brand-border rounded px-4 py-3 text-white outline-none focus:border-brand-blue transition-colors min-h-[120px] resize-y" 
+                />
               </div>
 
               {status === "error" && (

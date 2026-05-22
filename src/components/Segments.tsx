@@ -48,17 +48,25 @@ export function Segments() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {segments.map((segment, i) => (
-            <FadeUp key={segment.title} delay={i * 0.08} className="h-full">
-              <Link href={segment.href} className="group relative flex flex-col justify-between rounded overflow-hidden min-h-[240px] h-full bg-brand-surface border border-brand-border hover:border-brand-blue/40 transition-colors duration-300 p-8">
-                <div className={`absolute inset-0 bg-gradient-to-br ${segment.gradient} pointer-events-none`} />
+            <FadeUp 
+              key={segment.title} 
+              direction={i % 2 === 0 ? "left" : "right"} 
+              delay={i * 0.1} 
+              className="h-full"
+            >
+              <Link 
+                href={segment.href} 
+                className="group relative flex flex-col justify-between rounded overflow-hidden min-h-[240px] h-full bg-brand-surface border border-brand-border hover:border-brand-blue/60 hover:scale-[1.01] hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,191,255,0.06)] transition-all duration-300 p-8"
+              >
+                <div className={`absolute inset-0 bg-gradient-to-br ${segment.gradient} opacity-50 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none`} />
                 <div className="relative z-10">
                   <div className="text-[0.72rem] font-mono tracking-[0.15em] uppercase text-brand-blue mb-3">
                     {segment.label}
                   </div>
-                  <h3 className="font-display text-[2rem] uppercase leading-none mb-4">
+                  <h3 className="font-display text-[2rem] uppercase leading-none mb-4 group-hover:text-brand-blue transition-colors duration-300">
                     {segment.title}
                   </h3>
-                  <p className="text-[0.85rem] text-brand-gray leading-relaxed">
+                  <p className="text-[0.85rem] text-brand-gray group-hover:text-brand-gray-light transition-colors duration-300 leading-relaxed">
                     {segment.desc}
                   </p>
                 </div>

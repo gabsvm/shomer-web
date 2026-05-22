@@ -21,9 +21,10 @@ export function Footer() {
           <div>
             <h4 className="text-[0.72rem] font-mono tracking-[0.15em] uppercase text-brand-gray mb-5">Productos</h4>
             <ul className="flex flex-col gap-3">
-              <li><a href="#vision" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Línea VISION</a></li>
-              <li><a href="#totem" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Tótem de Seguridad</a></li>
-              <li><a href="#precios" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Planes y precios</a></li>
+              <li><Link href="/#vision" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Línea VISION</Link></li>
+              <li><Link href="/#totem" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Tótem de Seguridad</Link></li>
+              <li><Link href="/#precios" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Planes y precios</Link></li>
+              <li><Link href="/blog" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Blog</Link></li>
               <li><a href="https://shomer-club-v2.vercel.app" target="_blank" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Club Shomer</a></li>
             </ul>
           </div>
