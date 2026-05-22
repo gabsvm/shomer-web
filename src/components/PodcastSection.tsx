@@ -5,10 +5,47 @@ import { Play, Pause, Volume2, VolumeX, Headphones, Sparkles, RotateCcw } from "
 import { motion } from "framer-motion";
 import { FadeUp } from "./FadeUp";
 
+interface Track {
+  id: string;
+  tabLabel: string;
+  title: string;
+  subtitle: string;
+  src: string;
+  durationSec: number;
+  badge: string;
+  coverText: string;
+}
+
+const TRACKS: Track[] = [
+  {
+    id: "totem",
+    tabLabel: "Monitoreo & Tótem",
+    title: "Planes de Seguridad & Tótem",
+    subtitle: "Conversación interactiva sobre tecnología virtual",
+    src: "/audio/podcast-shomer.m4a",
+    durationSec: 1295, // 21:35
+    badge: "TÓTEM & MONITOREO",
+    coverText: "TÓTEM"
+  },
+  {
+    id: "vision",
+    tabLabel: "Portería Shomer Vision",
+    title: "Portero Inteligente Shomer Vision",
+    subtitle: "Explicación detallada del sistema de accesos",
+    src: "/audio/shomer-vision.m4a",
+    durationSec: 600, // 10:00 default fallback until uploaded
+    badge: "SHOMER VISION",
+    coverText: "VISION"
+  }
+];
+
 export function PodcastSection() {
+  const [activeTrackIdx, setActiveTrackIdx] = useState(0);
+  const currentTrack = TRACKS[activeTrackIdx];
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(1295); // 21:35 fallback matching actual file length
+  const [duration, setDuration] = useState(currentTrack.durationSec);
   const [playbackRate, setPlaybackRate] = useState(1);
   const [volume, setVolume] = useState(0.8);
   const [isMuted, setIsMuted] = useState(false);
@@ -41,7 +78,26 @@ export function PodcastSection() {
       audio.removeEventListener("durationchange", updateDuration);
       audio.removeEventListener("canplay", updateDuration);
     };
-  }, []);
+  }, [activeTrackIdx]);
+
+  const handleTrackChange = (idx: number) => {
+    if (idx === activeTrackIdx) return;
+    setIsPlaying(false);
+    setCurrentTime(0);
+    setDuration(TRACKS[idx].durationSec);
+    setActiveTrackIdx(idx);
+
+    if (audioRef.current) {
+      audioRef.current.pause();
+      // Allow react to update the src DOM attr first, then trigger load manually
+      setTimeout(() => {
+        if (audioRef.current) {
+          audioRef.current.load();
+          audioRef.current.playbackRate = playbackRate;
+        }
+      }, 0);
+    }
+  };
 
   // Cycle playback speed: 1x -> 1.25x -> 1.5x -> 2x
   const handleSpeedCycle = () => {
@@ -72,7 +128,6 @@ export function PodcastSection() {
   const handleTimeUpdate = () => {
     if (audioRef.current) {
       setCurrentTime(audioRef.current.currentTime);
-      // Fallback in case loading events did not trigger state change
       if (audioRef.current.duration && !isNaN(audioRef.current.duration) && duration !== audioRef.current.duration) {
         setDuration(audioRef.current.duration);
       }
@@ -139,7 +194,6 @@ export function PodcastSection() {
 
   // Generate bar animations for visualizer
   const visualizerBars = Array.from({ length: 24 }).map((_, i) => {
-    // Generate different anim properties for each bar
     const randomDuration = 0.5 + Math.random() * 0.7;
     const randomDelay = Math.random() * 0.3;
     return {
@@ -166,10 +220,10 @@ export function PodcastSection() {
                 Shomer Audio Guía
               </div>
               <h2 className="font-display text-[clamp(2.2rem,5vw,3.6rem)] leading-none uppercase mb-6">
-                Explicación de<br />Planes en <em className="text-brand-blue not-italic">Audio.</em>
+                Explicación de<br />Servicios en <em className="text-brand-blue not-italic">Audio.</em>
               </h2>
               <p className="text-base text-brand-gray-light leading-relaxed mb-6 font-light">
-                ¿Querés entender a fondo cómo funcionan nuestros planes de monitoreo inteligente? Escuchá esta conversación interactiva. Explica de forma natural y dinámica el funcionamiento del Tótem, los abonos y cómo logramos seguridad continua sin intermediarios.
+                ¿Querés entender a fondo cómo funciona la seguridad inteligente de Shomer? Escuchá nuestras guías de audio interactivas. Explican de forma natural y dinámica el funcionamiento del Tótem, el sistema Shomer Vision, los abonos y cómo logramos protección continua sin intermediarios.
               </p>
               <div className="flex items-center gap-3 text-xs font-mono text-brand-gray bg-white/5 border border-white/5 rounded-full px-4 py-2 w-fit">
                 <Headphones size={14} className="text-brand-blue" />
@@ -179,157 +233,179 @@ export function PodcastSection() {
           </div>
 
           {/* Right Column: Audio Player */}
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-7 w-full">
             <FadeUp delay={0.2}>
-              <div className="relative bg-black/60 border border-brand-border rounded-xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl flex flex-col sm:flex-row gap-6 sm:gap-8 items-center overflow-hidden">
+              <div className="relative bg-black/60 border border-brand-border rounded-xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl flex flex-col overflow-hidden">
                 
-                {/* Vinyl/Cover Art Mockup */}
-                <div className="relative w-40 h-40 shrink-0 rounded-lg overflow-hidden border border-white/10 bg-gradient-to-br from-brand-surface-2 to-brand-black flex flex-col items-center justify-center p-4 shadow-lg group">
-                  {/* Decorative soundwave circle */}
-                  <div className="absolute inset-2 rounded-full border border-brand-blue/20 flex items-center justify-center animate-[spin_10s_linear_infinite]" 
-                    style={{ animationPlayState: isPlaying ? "running" : "paused" }}>
-                    <div className="w-24 h-24 rounded-full border border-dashed border-brand-blue/30 flex items-center justify-center">
-                      <div className="w-12 h-12 rounded-full bg-brand-blue/5 border border-brand-blue/40 flex items-center justify-center" />
-                    </div>
-                  </div>
-                  
-                  {/* Branding inside cover */}
-                  <div className="relative z-10 flex flex-col items-center text-center">
-                    <span className="font-display text-2xl uppercase tracking-wider text-white">SHOMER</span>
-                    <span className="text-[7px] font-mono tracking-widest text-brand-blue uppercase mt-1">Deep Dive</span>
-                    <div className="mt-4 px-2 py-0.5 rounded bg-brand-blue/10 border border-brand-blue/20 text-[6px] font-mono text-brand-blue uppercase tracking-widest">
-                      AUDIO PODCAST
-                    </div>
-                  </div>
+                {/* Playlist Selector Tabs */}
+                <div className="flex border-b border-white/10 w-full mb-6 pb-0.5 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                  {TRACKS.map((track, idx) => (
+                    <button
+                      key={track.id}
+                      onClick={() => handleTrackChange(idx)}
+                      className={`pb-2.5 px-4 font-display text-[10px] sm:text-xs uppercase tracking-wider border-b-2 transition-all cursor-pointer whitespace-nowrap ${
+                        activeTrackIdx === idx
+                          ? "border-brand-blue text-white"
+                          : "border-transparent text-brand-gray hover:text-white"
+                      }`}
+                    >
+                      {track.tabLabel}
+                    </button>
+                  ))}
                 </div>
 
-                {/* Player Interface */}
-                <div className="flex-1 w-full flex flex-col justify-between self-stretch py-1">
-                  <div>
-                    <div className="flex justify-between items-start gap-4 mb-2">
-                      <div>
-                        <h3 className="font-display text-xl sm:text-2xl uppercase text-white leading-tight tracking-wide">
-                          Planes de Seguridad & Tótem
-                        </h3>
-                        <p className="text-xs text-brand-gray mt-1">
-                          Conversación interactiva sobre tecnología virtual
-                        </p>
+                {/* Player Row */}
+                <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-center w-full">
+                  
+                  {/* Vinyl/Cover Art Mockup */}
+                  <div className="relative w-40 h-40 shrink-0 rounded-lg overflow-hidden border border-white/10 bg-gradient-to-br from-brand-surface-2 to-brand-black flex flex-col items-center justify-center p-4 shadow-lg group">
+                    {/* Decorative soundwave circle */}
+                    <div className="absolute inset-2 rounded-full border border-brand-blue/20 flex items-center justify-center animate-[spin_10s_linear_infinite]" 
+                      style={{ animationPlayState: isPlaying ? "running" : "paused" }}>
+                      <div className="w-24 h-24 rounded-full border border-dashed border-brand-blue/30 flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-full bg-brand-blue/5 border border-brand-blue/40 flex items-center justify-center" />
+                      </div>
+                    </div>
+                    
+                    {/* Branding inside cover */}
+                    <div className="relative z-10 flex flex-col items-center text-center">
+                      <span className="font-display text-2xl uppercase tracking-wider text-white">SHOMER</span>
+                      <span className="text-[7px] font-mono tracking-widest text-brand-blue uppercase mt-1">{currentTrack.coverText}</span>
+                      <div className="mt-4 px-2 py-0.5 rounded bg-brand-blue/10 border border-brand-blue/20 text-[6px] font-mono text-brand-blue uppercase tracking-widest">
+                        {currentTrack.badge}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Player Interface */}
+                  <div className="flex-1 w-full flex flex-col justify-between self-stretch py-1">
+                    <div>
+                      <div className="flex justify-between items-start gap-4 mb-2">
+                        <div>
+                          <h3 className="font-display text-xl sm:text-2xl uppercase text-white leading-tight tracking-wide">
+                            {currentTrack.title}
+                          </h3>
+                          <p className="text-xs text-brand-gray mt-1">
+                            {currentTrack.subtitle}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Sound Waves Animation */}
+                      <div className="h-10 flex items-end justify-between gap-[2px] py-2 overflow-hidden w-full opacity-90 border-b border-brand-border mb-4">
+                        {visualizerBars.map((bar, idx) => (
+                          <motion.div
+                            key={idx}
+                            className="w-1 sm:w-1.5 rounded-t bg-brand-blue"
+                            initial={{ height: 4 }}
+                            animate={isPlaying ? {
+                              height: bar.heights
+                            } : { height: 4 }}
+                            transition={isPlaying ? {
+                              duration: bar.duration,
+                              repeat: Infinity,
+                              repeatType: "mirror",
+                              ease: "easeInOut",
+                              delay: bar.delay
+                            } : { duration: 0.3 }}
+                          />
+                        ))}
                       </div>
                     </div>
 
-                    {/* Sound Waves Animation */}
-                    <div className="h-10 flex items-end justify-between gap-[2px] py-2 overflow-hidden w-full opacity-90 border-b border-brand-border mb-4">
-                      {visualizerBars.map((bar, idx) => (
-                        <motion.div
-                          key={idx}
-                          className="w-1 sm:w-1.5 rounded-t bg-brand-blue"
-                          initial={{ height: 4 }}
-                          animate={isPlaying ? {
-                            height: bar.heights
-                          } : { height: 4 }}
-                          transition={isPlaying ? {
-                            duration: bar.duration,
-                            repeat: Infinity,
-                            repeatType: "mirror",
-                            ease: "easeInOut",
-                            delay: bar.delay
-                          } : { duration: 0.3 }}
-                        />
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* HTML Audio element */}
-                  <audio
-                    ref={audioRef}
-                    src="/audio/podcast-shomer.m4a"
-                    onTimeUpdate={handleTimeUpdate}
-                    onLoadedMetadata={handleLoadedMetadata}
-                    onDurationChange={handleLoadedMetadata}
-                    onCanPlay={handleLoadedMetadata}
-                    onEnded={handleAudioEnded}
-                    preload="auto"
-                  />
-
-                  {/* Scrubber / Progress Bar */}
-                  <div className="flex flex-col gap-1.5 mb-6">
-                    <input
-                      ref={progressBarRef}
-                      type="range"
-                      min={0}
-                      max={duration || 100}
-                      value={currentTime}
-                      onChange={handleScrub}
-                      className="w-full h-1 bg-brand-border rounded-lg appearance-none cursor-pointer accent-brand-blue focus:outline-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-brand-blue [&::-webkit-slider-thumb]:appearance-none"
+                    {/* HTML Audio element */}
+                    <audio
+                      ref={audioRef}
+                      src={currentTrack.src}
+                      onTimeUpdate={handleTimeUpdate}
+                      onLoadedMetadata={handleLoadedMetadata}
+                      onDurationChange={handleLoadedMetadata}
+                      onCanPlay={handleLoadedMetadata}
+                      onEnded={handleAudioEnded}
+                      preload="auto"
                     />
-                    <div className="flex justify-between text-[10px] font-mono text-brand-gray">
-                      <span>{formatTime(currentTime)}</span>
-                      <span>{formatTime(duration)}</span>
-                    </div>
-                  </div>
 
-                  {/* Controls Toolbar */}
-                  <div className="flex items-center justify-between gap-4">
-                    {/* Left: Speed */}
-                    <button
-                      onClick={handleSpeedCycle}
-                      className="px-2.5 py-1 border border-brand-border hover:border-brand-blue hover:text-brand-blue rounded text-[10px] font-mono text-brand-gray transition-colors cursor-pointer w-14 text-center shrink-0"
-                      title="Velocidad de reproducción"
-                    >
-                      {playbackRate.toFixed(2)}x
-                    </button>
-
-                    {/* Center: Playback actions */}
-                    <div className="flex items-center gap-4">
-                      {/* Skip back 15s */}
-                      <button 
-                        onClick={skipBackward} 
-                        className="text-brand-gray hover:text-brand-blue transition-colors cursor-pointer"
-                        title="Retroceder 15s"
-                      >
-                        <RotateCcw size={16} className="-scale-x-100" />
-                      </button>
-
-                      {/* Play/Pause */}
-                      <button
-                        onClick={togglePlay}
-                        className="w-12 h-12 rounded-full bg-brand-blue text-brand-black flex items-center justify-center hover:scale-105 hover:bg-white shadow-[0_0_15px_rgba(0,191,255,0.3)] transition-all cursor-pointer shrink-0"
-                        title={isPlaying ? "Pausar" : "Reproducir"}
-                      >
-                        {isPlaying ? <Pause size={20} fill="currentColor" /> : <Play size={20} className="ml-1" fill="currentColor" />}
-                      </button>
-
-                      {/* Skip forward 15s */}
-                      <button 
-                        onClick={skipForward} 
-                        className="text-brand-gray hover:text-brand-blue transition-colors cursor-pointer"
-                        title="Adelantar 15s"
-                      >
-                        <RotateCcw size={16} />
-                      </button>
-                    </div>
-
-                    {/* Right: Volume */}
-                    <div className="flex items-center gap-2 max-w-[80px] sm:max-w-[100px] shrink-0">
-                      <button
-                        onClick={toggleMute}
-                        className="text-brand-gray hover:text-brand-blue transition-colors cursor-pointer"
-                      >
-                        {isMuted || volume === 0 ? <VolumeX size={16} /> : <Volume2 size={16} />}
-                      </button>
+                    {/* Scrubber / Progress Bar */}
+                    <div className="flex flex-col gap-1.5 mb-6">
                       <input
+                        ref={progressBarRef}
                         type="range"
                         min={0}
-                        max={1}
-                        step={0.1}
-                        value={isMuted ? 0 : volume}
-                        onChange={handleVolumeChange}
-                        className="w-12 sm:w-16 h-1 bg-brand-border rounded-lg appearance-none cursor-pointer accent-brand-blue focus:outline-none [&::-webkit-slider-thumb]:w-2 [&::-webkit-slider-thumb]:h-2 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-brand-blue [&::-webkit-slider-thumb]:appearance-none"
+                        max={duration || 100}
+                        value={currentTime}
+                        onChange={handleScrub}
+                        className="w-full h-1 bg-brand-border rounded-lg appearance-none cursor-pointer accent-brand-blue focus:outline-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-brand-blue [&::-webkit-slider-thumb]:appearance-none"
                       />
+                      <div className="flex justify-between text-[10px] font-mono text-brand-gray">
+                        <span>{formatTime(currentTime)}</span>
+                        <span>{formatTime(duration)}</span>
+                      </div>
                     </div>
-                  </div>
 
+                    {/* Controls Toolbar */}
+                    <div className="flex items-center justify-between gap-4">
+                      {/* Left: Speed */}
+                      <button
+                        onClick={handleSpeedCycle}
+                        className="px-2.5 py-1 border border-brand-border hover:border-brand-blue hover:text-brand-blue rounded text-[10px] font-mono text-brand-gray transition-colors cursor-pointer w-14 text-center shrink-0"
+                        title="Velocidad de reproducción"
+                      >
+                        {playbackRate.toFixed(2)}x
+                      </button>
+
+                      {/* Center: Playback actions */}
+                      <div className="flex items-center gap-4">
+                        {/* Skip back 15s */}
+                        <button 
+                          onClick={skipBackward} 
+                          className="text-brand-gray hover:text-brand-blue transition-colors cursor-pointer"
+                          title="Retroceder 15s"
+                        >
+                          <RotateCcw size={16} className="-scale-x-100" />
+                        </button>
+
+                        {/* Play/Pause */}
+                        <button
+                          onClick={togglePlay}
+                          className="w-12 h-12 rounded-full bg-brand-blue text-brand-black flex items-center justify-center hover:scale-105 hover:bg-white shadow-[0_0_15px_rgba(0,191,255,0.3)] transition-all cursor-pointer shrink-0"
+                          title={isPlaying ? "Pausar" : "Reproducir"}
+                        >
+                          {isPlaying ? <Pause size={20} fill="currentColor" /> : <Play size={20} className="ml-1" fill="currentColor" />}
+                        </button>
+
+                        {/* Skip forward 15s */}
+                        <button 
+                          onClick={skipForward} 
+                          className="text-brand-gray hover:text-brand-blue transition-colors cursor-pointer"
+                          title="Adelantar 15s"
+                        >
+                          <RotateCcw size={16} />
+                        </button>
+                      </div>
+
+                      {/* Right: Volume */}
+                      <div className="flex items-center gap-2 max-w-[80px] sm:max-w-[100px] shrink-0">
+                        <button
+                          onClick={toggleMute}
+                          className="text-brand-gray hover:text-brand-blue transition-colors cursor-pointer"
+                        >
+                          {isMuted || volume === 0 ? <VolumeX size={16} /> : <Volume2 size={16} />}
+                        </button>
+                        <input
+                          type="range"
+                          min={0}
+                          max={1}
+                          step={0.1}
+                          value={isMuted ? 0 : volume}
+                          onChange={handleVolumeChange}
+                          className="w-12 sm:w-16 h-1 bg-brand-border rounded-lg appearance-none cursor-pointer accent-brand-blue focus:outline-none [&::-webkit-slider-thumb]:w-2 [&::-webkit-slider-thumb]:h-2 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-brand-blue [&::-webkit-slider-thumb]:appearance-none"
+                        />
+                      </div>
+                    </div>
+
+                  </div>
                 </div>
+
               </div>
             </FadeUp>
           </div>
