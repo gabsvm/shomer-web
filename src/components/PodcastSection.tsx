@@ -33,7 +33,7 @@ const TRACKS: Track[] = [
     title: "Portero Inteligente Shomer Vision",
     subtitle: "Explicación detallada del sistema de accesos",
     src: "/audio/shomer-vision.m4a",
-    durationSec: 600, // 10:00 default fallback until uploaded
+    durationSec: 1455, // 24:15 actual file length
     badge: "SHOMER VISION",
     coverText: "VISION"
   }
