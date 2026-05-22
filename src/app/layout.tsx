@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat, Inter, Space_Mono } from "next/font/google";
+import { Outfit, Inter, Space_Mono } from "next/font/google";
 import "./globals.css";
 
-const montserrat = Montserrat({
+const outfit = Outfit({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
-  variable: "--font-montserrat",
+  variable: "--font-outfit",
 });
 
 const inter = Inter({
@@ -85,7 +85,7 @@ export default function RootLayout({
   return (
     <html lang="es" className="scroll-smooth">
       <body
-        className={`${montserrat.variable} ${inter.variable} ${spaceMono.variable} antialiased bg-brand-black text-brand-white font-body`}
+        className={`${outfit.variable} ${inter.variable} ${spaceMono.variable} antialiased bg-brand-black text-brand-white font-body`}
       >
         {children}
         <script
