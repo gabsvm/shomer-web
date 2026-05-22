@@ -33,7 +33,7 @@ export function InfrastructureMap() {
       status: "ACTIVE",
       powerRedundancy: "Baterías UPS (autonomía integrada de 6 horas ante cortes de luz)",
       netRedundancy: "Fibra Óptica Fibercorp + Respaldo Starlink",
-      details: "Nuestra base principal. Alberga a la central de monitoristas homologados y el centro de coordinación de alertas al 911.",
+      details: "Nuestra base de operaciones principal. Alberga a la central de monitoristas homologados y el centro de coordinación y despacho directo con las fuerzas policiales.",
       region: "ba",
     },
     {
@@ -41,35 +41,59 @@ export function InfrastructureMap() {
       name: "Palermo Hub (Central Redundante)",
       role: "Central de Respaldo Geográfico",
       coords: { lat: -34.5818, lng: -58.4210 },
-      latency: 12,
+      latency: 10,
       status: "ONLINE",
-      powerRedundancy: "Baterías UPS (autonomía integrada de 6 horas ante cortes)",
+      powerRedundancy: "Baterías UPS (autonomía de 6 horas ante cortes)",
       netRedundancy: "Fibra Óptica Simétrica Tri-proveedor",
-      details: "Nodo espejo activo. Sincroniza en tiempo real toda la información de accesos y flujos de video de forma encriptada.",
+      details: "Nodo espejo georredundante activo. Sincroniza en tiempo real toda la información de accesos y flujos de video encriptado AES-256.",
       region: "ba",
     },
     {
-      id: "pilar",
-      name: "Pilar Node (Base Zona Norte)",
-      role: "Centro de Verificación Motorizada GBA",
-      coords: { lat: -34.4532, lng: -58.9137 },
-      latency: 18,
-      status: "ONLINE",
-      powerRedundancy: "Baterías UPS (autonomía integrada de 6 horas ante cortes)",
-      netRedundancy: "Conexión Inalámbrica de Alta Velocidad dedicada",
-      details: "Base de despacho rápido para vehículos y motociclistas de verificación rápida en la zona de countries y barrios privados del norte.",
-      region: "ba",
-    },
-    {
-      id: "san-isidro",
-      name: "San Isidro Node (Base GBA Norte)",
-      role: "Base de Verificación Rápida",
-      coords: { lat: -34.4754, lng: -58.5262 },
+      id: "nordelta",
+      name: "Nordelta Cluster (GBA Norte)",
+      role: "Complejo Residencial & Comercial",
+      coords: { lat: -34.4082, lng: -58.6415 },
       latency: 14,
       status: "ONLINE",
-      powerRedundancy: "Baterías UPS (autonomía integrada de 6 horas ante cortes)",
-      netRedundancy: "Fibra Óptica Corporativa dedicada",
-      details: "Punto de logística y distribución de patrullas perimetrales para la cobertura de San Isidro, San Fernando y Tigre.",
+      powerRedundancy: "Respaldo eléctrico local + Tótems Shomer redundantes",
+      netRedundancy: "Fibra Óptica Comercial + Respaldo Starlink",
+      details: "Corredor de alta seguridad en Tigre y Nordelta. Protege complejos cerrados y locales: Puerta Norte (1, 2, Locales, Exteriores) y Complejo Vientos (1, 2, Locales, Exteriores).",
+      region: "ba",
+    },
+    {
+      id: "caballito",
+      name: "Caballito Cluster (Eje Avellaneda / Boyacá)",
+      role: "Corredor Residencial de Alta Densidad",
+      coords: { lat: -34.6225, lng: -58.4520 },
+      latency: 12,
+      status: "ONLINE",
+      powerRedundancy: "Baterías integradas Shomer por consorcio",
+      netRedundancy: "Conexión de red de fibra dedicada",
+      details: "Eje residencial estratégico que agrupa 18 edificios con tótems Shomer, incluyendo consorcios en Av. Avellaneda (1817, 1902, 1974, 2282, 2460, 2566, 2631), Boyacá (361, 602, 652), Felipe Vallese, Falcón, Páez, Caracas, Artigas y Neuquén.",
+      region: "ba",
+    },
+    {
+      id: "belgrano",
+      name: "Belgrano Cluster (Eje Cuba / Amenábar)",
+      role: "Corredor Residencial Premium",
+      coords: { lat: -34.5575, lng: -58.4590 },
+      latency: 11,
+      status: "ONLINE",
+      powerRedundancy: "Baterías de respaldo Shomer por edificio",
+      netRedundancy: "Red de fibra simétrica corporativa",
+      details: "Zona residencial premium con alta densidad de tótems Shomer. Consolida consorcios como Cuba 2550, Conesa 2151, Amenábar (1762, 3022), Drago, Arévalo, Lafinur y Luis María Campos 1248.",
+      region: "ba",
+    },
+    {
+      id: "recoleta",
+      name: "Recoleta & Almagro Cluster",
+      role: "Corredor Céntrico de Alta Densidad",
+      coords: { lat: -34.5950, lng: -58.4120 },
+      latency: 13,
+      status: "ONLINE",
+      powerRedundancy: "Baterías locales y tótems autónomos Shomer",
+      netRedundancy: "Enlaces de fibra dedicados e independientes",
+      details: "Consolida consorcios inteligentes en Av. Santa Fe 1780, Pueyrredón (468, 480, 834, 910, 924), Laprida (967, 1264), Corrientes 2945, Humahuaca 3631, Cabrera y Anchorena (888, 896).",
       region: "ba",
     },
     {
@@ -79,12 +103,13 @@ export function InfrastructureMap() {
       coords: { lat: 25.7617, lng: -80.1918 },
       latency: 42,
       status: "ACTIVE",
-      powerRedundancy: "Baterías UPS (autonomía integrada de 6 horas ante cortes de energía)",
+      powerRedundancy: "Baterías UPS (autonomía integrada de 6 horas ante huracanes/cortes)",
       netRedundancy: "Fibra Óptica Redundante Premium + Backhaul Starlink Pro",
-      details: "Nuestra central de respaldo internacional ubicada en Miami, Florida. Provee soporte redundante geográfico ante desastres locales y atiende solicitudes fuera del huso horario de Sudamérica.",
+      details: "Nuestra central de respaldo internacional en Miami, Florida. Provee soporte georredundante ante desastres climáticos locales y atiende solicitudes nocturnas del hemisferio sur.",
       region: "miami",
     },
   ];
+
 
   const selectedNode = nodes.find((n) => n.id === selectedNodeId) || nodes[0];
 
@@ -137,6 +162,25 @@ export function InfrastructureMap() {
     }).addTo(map);
 
     mapRef.current = map;
+
+    // Add heatmap/coverage zones (glowing semi-transparent circles)
+    const heatmapZones = [
+      { center: [-34.595, -58.435], radius: 8000, color: "#00BFFF" }, // CABA Core
+      { center: [-34.42, -58.62], radius: 14000, color: "#00BFFF" },  // GBA Norte (Nordelta/Tigre/San Isidro/Pilar)
+      { center: [-34.62, -58.55], radius: 8000, color: "#00BFFF" },   // GBA Oeste
+      { center: [25.7617, -80.1918], radius: 9000, color: "#00BFFF" } // Miami USA
+    ];
+
+    heatmapZones.forEach(zone => {
+      L.circle(zone.center, {
+        radius: zone.radius,
+        color: zone.color,
+        fillColor: zone.color,
+        fillOpacity: 0.05,
+        weight: 1,
+        dashArray: "4,6",
+      }).addTo(map);
+    });
 
     // Add markers for each node
     nodes.forEach((node) => {
