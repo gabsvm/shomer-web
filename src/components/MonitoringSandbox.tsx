@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { FadeUp } from "./FadeUp";
-import { Shield, Radio, Bell, Users, Eye, Zap, RefreshCw } from "lucide-react";
+import { Shield, Radio, Bell, Users, Eye, Zap, RefreshCw, Activity, Volume2 } from "lucide-react";
 
 interface LogEvent {
   id: string;
@@ -15,12 +15,26 @@ export function MonitoringSandbox() {
   const [alarmActive, setAlarmActive] = useState(false);
   const [activeCam, setActiveCam] = useState<1 | 2>(1);
   const [scanProgress, setScanProgress] = useState(0);
+  const [currentTime, setCurrentTime] = useState("");
   const [logs, setLogs] = useState<LogEvent[]>([
     { id: "1", time: "16:30:12", type: "success", message: "Conexión encriptada establecida con Hub Buenos Aires" },
     { id: "2", time: "16:31:05", type: "info", message: "Sistema LPR: Ingreso vehicular autorizado (Patente: AF445HH)" },
     { id: "3", time: "16:32:44", type: "info", message: "Acceso Facial: Juan González (Propietario 4° B) - Rostro validado 98.7%" },
     { id: "4", time: "16:33:15", type: "success", message: "Autochequeo de seguridad perimetral: Todos los nodos activos" },
   ]);
+
+  // Live ticking clock
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const dateStr = now.toLocaleDateString("es-AR", { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\//g, "-");
+      const timeStr = now.toTimeString().split(" ")[0];
+      setCurrentTime(`${dateStr} ${timeStr}`);
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Scanning bar animation
   useEffect(() => {
@@ -64,7 +78,6 @@ export function MonitoringSandbox() {
   // Trigger Panic simulation
   const handleTriggerAlarm = () => {
     if (alarmActive) {
-      // Revert alarm
       setAlarmActive(false);
       const now = new Date();
       const timeString = now.toTimeString().split(" ")[0];
@@ -99,7 +112,7 @@ export function MonitoringSandbox() {
                 En un <em className="text-brand-blue not-italic">solo panel.</em>
               </h2>
               <p className="text-brand-gray-light leading-relaxed max-w-[520px] font-light">
-                Interactuá con nuestro simulador del **Centro de Control Shomer**. Visualizá cómo la Inteligencia Artificial analiza flujos y responde en milisegundos ante intrusiones simuladas. Hacé clic en "Simular Pánico" para ver la respuesta operativa.
+                Interactuá con nuestro simulador del **Centro de Control Shomer**. Visualizá cómo la Inteligencia Artificial analiza flujos reales y responde en milisegundos ante intrusiones simuladas. Hacé clic en "Simular Alerta de Intrusión" para ver la respuesta operativa.
               </p>
             </FadeUp>
           </div>
@@ -131,7 +144,7 @@ export function MonitoringSandbox() {
               <div className="flex items-center gap-2">
                 <span className={`w-2 h-2 rounded-full ${alarmActive ? "bg-brand-red animate-ping" : "bg-brand-green animate-pulse"}`} />
                 <span className="font-mono text-xs text-brand-white uppercase tracking-wider">
-                  {alarmActive ? "CÁMARA: ZONA CRÍTICA - INTENTOS DE ACCESO" : `CÁMARA 0${activeCam} - EN VIVO`}
+                  {alarmActive ? "CÁMARA: ALERTA DE INTROMISIÓN EN VIVO" : `CÁMARA 0${activeCam} - EN VIVO`}
                 </span>
               </div>
               <div className="flex gap-2">
@@ -161,76 +174,160 @@ export function MonitoringSandbox() {
             </div>
 
             {/* Viewport Frame */}
-            <div className="relative aspect-video rounded overflow-hidden border border-brand-border bg-[#050505] flex items-center justify-center">
+            <div className="relative aspect-video rounded overflow-hidden border border-brand-border bg-[#050505] flex items-center justify-center select-none shadow-[inset_0_4px_20px_rgba(0,0,0,0.8)]">
+              
+              {/* Realistic Background Image with CCTV Filter */}
+              <img
+                src={activeCam === 1 ? "/images/cctv_hall_sec.png" : "/images/cctv_lpr_sec.png"}
+                alt="CCTV Background Feed"
+                className="absolute inset-0 w-full h-full object-cover transition-all duration-700 pointer-events-none"
+                style={{
+                  filter: alarmActive
+                    ? "brightness(0.45) contrast(1.3) saturate(0.9) sepia(0.25) hue-rotate(320deg)"
+                    : "brightness(0.6) contrast(1.2) saturate(0.3) sepia(0.1) hue-rotate(80deg)"
+                }}
+              />
+
               {/* Scanline Animation */}
               <div 
-                className="absolute left-0 right-0 h-[1.5px] bg-brand-blue/20 pointer-events-none z-10 shadow-[0_0_8px_#00BFFF]"
+                className="absolute left-0 right-0 h-[1.5px] bg-brand-blue/15 pointer-events-none z-10 shadow-[0_0_6px_rgba(0,191,255,0.4)]"
                 style={{ top: `${scanProgress}%` }}
               />
 
-              {/* Grid Lines */}
-              <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+              {/* Subtle Screen Scanline Overlay */}
+              <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[size:100%_4px,6px_100%] pointer-events-none z-10 opacity-75" />
+
+              {/* Screen Vignette */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,rgba(0,0,0,0.65)_100%)] pointer-events-none z-10" />
 
               {/* Screen Flashing if Alarm Active */}
               {alarmActive && (
-                <div className="absolute inset-0 bg-brand-red/10 animate-pulse pointer-events-none z-20 border-4 border-brand-red" />
+                <div className="absolute inset-0 bg-brand-red/5 animate-pulse pointer-events-none z-20 border-[3px] border-brand-red/80" />
               )}
 
-              {/* SVG-based AI Camera Feed Mock */}
-              <svg viewBox="0 0 640 360" className="w-full h-full text-brand-gray/20">
-                {/* Background Structure Lines */}
-                <line x1="80" y1="300" x2="200" y2="240" stroke="currentColor" strokeWidth="1" />
-                <line x1="200" y1="240" x2="440" y2="240" stroke="currentColor" strokeWidth="1" />
-                <line x1="440" y1="240" x2="560" y2="300" stroke="currentColor" strokeWidth="1" />
+              {/* SVG-based AI Camera Feed Overlays */}
+              <svg viewBox="0 0 640 360" className="absolute inset-0 w-full h-full text-brand-white z-20 pointer-events-none select-none">
                 
-                <line x1="200" y1="240" x2="200" y2="80" stroke="currentColor" strokeWidth="1" strokeDasharray="3 3" />
-                <line x1="440" y1="240" x2="440" y2="80" stroke="currentColor" strokeWidth="1" strokeDasharray="3 3" />
+                {/* Corner Frame Brackets */}
+                <path d="M 20 40 L 20 20 L 40 20" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" fill="none" />
+                <path d="M 600 20 L 620 20 L 620 40" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" fill="none" />
+                <path d="M 20 320 L 20 340 L 40 340" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" fill="none" />
+                <path d="M 600 340 L 620 340 L 620 320" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" fill="none" />
 
-                {/* Cam 1: Lobby Entrance */}
+                {/* CCTV HUD Elements */}
+                {/* Blinking REC indicator */}
+                <g className="translate-x-[25px] translate-y-[32px]">
+                  <circle cx="0" cy="0" r="4.5" fill="#FF3B30" className={alarmActive ? "animate-ping" : "animate-pulse"} />
+                  <circle cx="0" cy="0" r="4.5" fill="#FF3B30" />
+                  <text x="12" y="3.5" fill="rgba(255,255,255,0.8)" fontSize="10" fontWeight="bold" fontFamily="monospace" letterSpacing="1">REC</text>
+                </g>
+
+                {/* Camera metadata top left */}
+                <text x="95" y="36" fill="rgba(255,255,255,0.8)" fontSize="10" fontFamily="monospace" letterSpacing="0.5">
+                  {activeCam === 1 ? "CAM 01 - HALL ENTRADA" : "CAM 02 - COCHERA LPR"}
+                </text>
+
+                {/* Live clock top right */}
+                <text x="615" y="36" textAnchor="end" fill="rgba(255,255,255,0.8)" fontSize="10" fontFamily="monospace">
+                  {currentTime}
+                </text>
+
+                {/* Stream stats bottom left */}
+                <g className="translate-x-[25px] translate-y-[325px]" fontSize="9" fontFamily="monospace" fill="rgba(255,255,255,0.5)">
+                  <text x="0" y="0">FPS: 30.00</text>
+                  <text x="75" y="0">BITRATE: {alarmActive ? "6520" : "4124"} Kbps</text>
+                  <text x="180" y="0">STREAM: H.265 (AES-256)</text>
+                  <text x="320" y="0" fill={alarmActive ? "#FF3B30" : "#00E676"} className={alarmActive ? "animate-pulse" : ""}>
+                    {alarmActive ? "ESTADO: EMERGENCIA ACTIVA" : "LINK: PRIMARIO FIBRA"}
+                  </text>
+                </g>
+
+                {/* Cam 1: Lobby Entrance (Normal Mode) */}
                 {!alarmActive && activeCam === 1 && (
                   <g>
-                    {/* Simulated scanning targets */}
-                    {/* Person 1 (Entering) */}
-                    <g className="translate-x-[260px] translate-y-[150px]">
-                      <rect x="0" y="0" width="80" height="150" fill="none" stroke="#00E676" strokeWidth="1.5" className="animate-pulse" />
-                      <line x1="0" y1="0" x2="15" y2="0" stroke="#00E676" strokeWidth="3" />
-                      <line x1="0" y1="0" x2="0" y2="15" stroke="#00E676" strokeWidth="3" />
-                      <rect x="0" y="-18" width="70" height="18" fill="#00E676" />
-                      <text x="4" y="-5" fill="black" fontSize="9" fontWeight="bold" fontFamily="monospace">ROSTRO OK [98.2%]</text>
-                      {/* Stick figure wireframe */}
-                      <circle cx="40" cy="30" r="12" fill="none" stroke="rgba(0, 230, 118, 0.4)" strokeWidth="1.5" />
-                      <line x1="40" y1="42" x2="40" y2="100" stroke="rgba(0, 230, 118, 0.4)" strokeWidth="1.5" />
-                      <line x1="40" y1="60" x2="20" y2="80" stroke="rgba(0, 230, 118, 0.4)" strokeWidth="1.5" />
-                      <line x1="40" y1="60" x2="60" y2="80" stroke="rgba(0, 230, 118, 0.4)" strokeWidth="1.5" />
-                      <line x1="40" y1="100" x2="25" y2="140" stroke="rgba(0, 230, 118, 0.4)" strokeWidth="1.5" />
-                      <line x1="40" y1="100" x2="55" y2="140" stroke="rgba(0, 230, 118, 0.4)" strokeWidth="1.5" />
-                    </g>
+                    {/* Face Scan Bounding Box (Centered-left on door/lobby walkway) */}
+                    <g className="translate-x-[240px] translate-y-[90px]">
+                      {/* Box corner brackets */}
+                      <path d="M 0 20 L 0 0 L 20 0" stroke="#00E676" strokeWidth="2.5" fill="none" />
+                      <path d="M 120 0 L 140 0 L 140 20" stroke="#00E676" strokeWidth="2.5" fill="none" />
+                      <path d="M 0 160 L 0 180 L 20 180" stroke="#00E676" strokeWidth="2.5" fill="none" />
+                      <path d="M 120 180 L 140 180 L 140 160" stroke="#00E676" strokeWidth="2.5" fill="none" />
+                      
+                      {/* Solid inner border representing detected face target */}
+                      <rect x="15" y="15" width="110" height="150" fill="rgba(0, 230, 118, 0.05)" stroke="rgba(0, 230, 118, 0.25)" strokeWidth="1" strokeDasharray="3 3" />
+                      
+                      {/* Facial recognition mesh grid */}
+                      <g opacity="0.3" stroke="#00E676" strokeWidth="0.8">
+                        <line x1="30" y1="20" x2="30" y2="160" />
+                        <line x1="55" y1="20" x2="55" y2="160" />
+                        <line x1="85" y1="20" x2="85" y2="160" />
+                        <line x1="110" y1="20" x2="110" y2="160" />
+                        
+                        <line x1="20" y1="35" x2="120" y2="35" />
+                        <line x1="20" y1="65" x2="120" y2="65" />
+                        <line x1="20" y1="95" x2="120" y2="95" />
+                        <line x1="20" y1="125" x2="120" y2="125" />
+                        <line x1="20" y1="145" x2="120" y2="145" />
 
-                    {/* Technical details overlay */}
-                    <text x="30" y="50" fill="rgba(255,255,255,0.4)" fontSize="10" fontFamily="monospace">FPS: 30.00</text>
-                    <text x="30" y="70" fill="rgba(255,255,255,0.4)" fontSize="10" fontFamily="monospace">STREAM: H.265 (SECURE)</text>
-                    <text x="30" y="90" fill="#00E676" fontSize="10" fontFamily="monospace" className="animate-pulse">DISPOSITIVO: EN LÍNEA</text>
+                        {/* Node dots */}
+                        <circle cx="55" cy="65" r="2" fill="#00E676" />
+                        <circle cx="85" cy="65" r="2" fill="#00E676" />
+                        <circle cx="70" cy="95" r="2" fill="#00E676" />
+                        <circle cx="55" cy="125" r="2" fill="#00E676" />
+                        <circle cx="85" cy="125" r="2" fill="#00E676" />
+                      </g>
+
+                      {/* Scanning horizontal laser line */}
+                      <line x1="10" y1="30" x2="130" y2="30" stroke="#00E676" strokeWidth="1.5" opacity="0.8" className="animate-bounce" style={{ animationDuration: "3s" }} />
+
+                      {/* UI Tag Header */}
+                      <rect x="0" y="-22" width="125" height="18" fill="#00E676" rx="1" />
+                      <text x="6" y="-10" fill="black" fontSize="9" fontWeight="bold" fontFamily="monospace">ROSTRO DETECTADO</text>
+                      
+                      {/* Sub-label info */}
+                      <g fontSize="8.5" fontFamily="monospace" fill="#00E676" fontWeight="bold" className="translate-y-[198px]">
+                        <text x="0" y="0" fill="#00E676">ID: RESIDENTE (4° B)</text>
+                        <text x="0" y="10" fill="#00E676">BIOMETRÍA: OK [98.7%]</text>
+                        <text x="0" y="20" fill="#00E676">ACCESO: PERMITIDO</text>
+                      </g>
+                    </g>
                   </g>
                 )}
 
-                {/* Cam 2: Garage Gate LPR */}
+                {/* Cam 2: Garage Gate LPR (Normal Mode) */}
                 {!alarmActive && activeCam === 2 && (
                   <g>
-                    {/* Gate outline */}
-                    <polygon points="120,280 200,220 440,220 520,280" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                    
-                    {/* Simulated car */}
-                    <g className="translate-x-[220px] translate-y-[130px]">
-                      <rect x="0" y="40" width="200" height="90" fill="none" stroke="#00BFFF" strokeWidth="1.5" />
-                      <rect x="0" y="22" width="120" height="18" fill="#00BFFF" />
-                      <text x="4" y="34" fill="black" fontSize="9" fontWeight="bold" fontFamily="monospace">VEHÍCULO DETECTADO</text>
+                    {/* Vehicle Scan Bounding Box (Positioned as a car entering driveway) */}
+                    <g className="translate-x-[150px] translate-y-[110px]">
+                      {/* Vehicle detection border */}
+                      <rect x="0" y="0" width="340" height="170" fill="rgba(0, 191, 255, 0.03)" stroke="#00BFFF" strokeWidth="1.5" strokeDasharray="4 4" />
                       
-                      {/* License plate bounding box */}
-                      <g className="translate-x-[65px] translate-y-[85px]">
-                        <rect x="0" y="0" width="70" height="22" fill="none" stroke="#00E676" strokeWidth="2" />
-                        <rect x="0" y="-12" width="60" height="12" fill="#00E676" />
-                        <text x="3" y="-3" fill="black" fontSize="8" fontWeight="bold" fontFamily="monospace">LPR: AF445HH</text>
-                        <text x="12" y="16" fill="#00E676" fontSize="11" fontWeight="bold" fontFamily="monospace">AF 445 HH</text>
+                      {/* Box corner brackets */}
+                      <path d="M 0 15 L 0 0 L 15 0" stroke="#00BFFF" strokeWidth="2.5" fill="none" />
+                      <path d="M 325 0 L 340 0 L 340 15" stroke="#00BFFF" strokeWidth="2.5" fill="none" />
+                      <path d="M 0 155 L 0 170 L 15 170" stroke="#00BFFF" strokeWidth="2.5" fill="none" />
+                      <path d="M 325 170 L 340 170 L 340 155" stroke="#00BFFF" strokeWidth="2.5" fill="none" />
+
+                      <rect x="0" y="-20" width="135" height="16" fill="#00BFFF" rx="1" />
+                      <text x="6" y="-9" fill="black" fontSize="9" fontWeight="bold" fontFamily="monospace">VEHÍCULO IDENTIFICADO</text>
+
+                      {/* License Plate Recognition Box */}
+                      <g className="translate-x-[120px] translate-y-[100px]">
+                        <rect x="0" y="0" width="100" height="30" fill="rgba(0, 230, 118, 0.1)" stroke="#00E676" strokeWidth="2" />
+                        <rect x="0" y="-14" width="70" height="12" fill="#00E676" rx="1" />
+                        <text x="4" y="-5" fill="black" fontSize="7.5" fontWeight="bold" fontFamily="monospace">LPR ACTIVE</text>
+                        <text x="50" y="20" textAnchor="middle" fill="#00E676" fontSize="13" fontWeight="bold" fontFamily="monospace" letterSpacing="1">AF 445 HH</text>
+                      </g>
+
+                      {/* Zoom detail frame in top-right */}
+                      <g className="translate-x-[215px] translate-y-[15px]">
+                        <rect x="0" y="0" width="110" height="60" fill="rgba(0, 0, 0, 0.75)" stroke="#00BFFF" strokeWidth="1" />
+                        <line x1="0" y1="14" x2="110" y2="14" stroke="#00BFFF" strokeWidth="0.8" />
+                        <text x="6" y="10" fill="#00BFFF" fontSize="7" fontWeight="bold" fontFamily="monospace">LPR ZOOM ANALYTICS</text>
+                        
+                        <text x="6" y="26" fill="rgba(255,255,255,0.8)" fontSize="7.5" fontFamily="monospace">PATENTE: AF445HH</text>
+                        <text x="6" y="37" fill="rgba(255,255,255,0.8)" fontSize="7.5" fontFamily="monospace">REGISTRO: AUTORIZADO</text>
+                        <text x="6" y="48" fill="#00E676" fontSize="7.5" fontWeight="bold" fontFamily="monospace">PORTÓN: ABRIENDO...</text>
                       </g>
                     </g>
                   </g>
@@ -239,47 +336,79 @@ export function MonitoringSandbox() {
                 {/* Active Intruders (DANGER STATE) */}
                 {alarmActive && (
                   <g>
-                    {/* Threat target 1 */}
-                    <g className="translate-x-[120px] translate-y-[90px] animate-bounce" style={{ animationDuration: "2s" }}>
-                      <rect x="0" y="0" width="110" height="200" fill="none" stroke="#FF3B30" strokeWidth="2" />
-                      <line x1="0" y1="0" x2="20" y2="0" stroke="#FF3B30" strokeWidth="4" />
-                      <line x1="0" y1="0" x2="0" y2="20" stroke="#FF3B30" strokeWidth="4" />
-                      <line x1="110" y1="200" x2="90" y2="200" stroke="#FF3B30" strokeWidth="4" />
-                      <line x1="110" y1="200" x2="110" y2="180" stroke="#FF3B30" strokeWidth="4" />
+                    {/* Intrusion Warning Line */}
+                    <path d="M 20,240 L 620,240" stroke="#FF3B30" strokeWidth="2" strokeDasharray="6,4" className="animate-pulse" />
+                    <rect x="250" y="231" width="140" height="16" fill="#FF3B30" rx="1" />
+                    <text x="320" y="242" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold" fontFamily="monospace" letterSpacing="0.5">LÍNEA PERIMETRAL VIOLADA</text>
+
+                    {/* Threat Target 1 (Merodeador en primer plano) */}
+                    <g className="translate-x-[110px] translate-y-[80px]">
+                      <rect x="0" y="0" width="130" height="210" fill="none" stroke="#FF3B30" strokeWidth="2.5" />
                       
-                      <rect x="0" y="-18" width="105" height="18" fill="#FF3B30" />
-                      <text x="4" y="-5" fill="white" fontSize="8" fontWeight="bold" fontFamily="monospace">ALERTA: CRUCE DE LÍNEA</text>
+                      {/* Warning brackets */}
+                      <path d="M -8 -8 L 12 -8 M -8 -8 L -8 12" stroke="#FF3B30" strokeWidth="3" fill="none" />
+                      <path d="M 138 -8 L 118 -8 M 138 -8 L 138 12" stroke="#FF3B30" strokeWidth="3" fill="none" />
+                      <path d="M -8 218 L 12 218 M -8 218 L -8 198" stroke="#FF3B30" strokeWidth="3" fill="none" />
+                      <path d="M 138 218 L 118 218 M 138 218 L 138 198" stroke="#FF3B30" strokeWidth="3" fill="none" />
+
+                      <rect x="0" y="-20" width="130" height="18" fill="#FF3B30" rx="1" />
+                      <text x="6" y="-8" fill="white" fontSize="8" fontWeight="bold" fontFamily="monospace" letterSpacing="0.2">CRÍTICO: OBJETO NO IDENTIFICADO</text>
+                      
+                      {/* Aim reticle overlay */}
+                      <circle cx="65" cy="80" r="14" fill="none" stroke="#FF3B30" strokeWidth="1" strokeDasharray="3 2" />
+                      <line x1="65" y1="55" x2="65" y2="105" stroke="#FF3B30" strokeWidth="0.8" opacity="0.7" />
+                      <line x1="40" y1="80" x2="90" y2="80" stroke="#FF3B30" strokeWidth="0.8" opacity="0.7" />
+
+                      {/* Text info label */}
+                      <g fontSize="8" fontFamily="monospace" fill="#FF3B30" fontWeight="bold" className="translate-y-[225px]">
+                        <text x="0" y="0">TIPO: MERODEADOR</text>
+                        <text x="0" y="9">TIEMPO PERMANENCIA: 14s</text>
+                        <text x="0" y="18" fill="#FF3B30" className="animate-pulse">DISUASIÓN AUDIBLE ACTIVADA</text>
+                      </g>
                     </g>
 
-                    {/* Threat target 2 */}
-                    <g className="translate-x-[410px] translate-y-[120px] animate-pulse">
-                      <rect x="0" y="0" width="90" height="170" fill="none" stroke="#FF3B30" strokeWidth="2" />
-                      <rect x="0" y="-18" width="85" height="18" fill="#FF3B30" />
-                      <text x="4" y="-5" fill="white" fontSize="8" fontWeight="bold" fontFamily="monospace">PRESENCIA SOSPECHOSA</text>
+                    {/* Threat Target 2 (Segundo intruso / Punto perimetral trasero) */}
+                    <g className="translate-x-[420px] translate-y-[110px]">
+                      <rect x="0" y="0" width="100" height="170" fill="rgba(255, 59, 48, 0.05)" stroke="#FF3B30" strokeWidth="1.5" />
+                      
+                      <rect x="0" y="-18" width="100" height="15" fill="#FF3B30" rx="1" />
+                      <text x="5" y="-8" fill="white" fontSize="7.5" fontWeight="bold" fontFamily="monospace">PRESENCIA ANÓMALA 02</text>
+                      
+                      <g fontSize="8" fontFamily="monospace" fill="#FF3B30" fontWeight="bold" className="translate-y-[185px]">
+                        <text x="0" y="0">SEGUIMIENTO ACTIVO</text>
+                        <text x="0" y="9">COBERTURA VIRTUAL: 100%</text>
+                      </g>
                     </g>
 
-                    {/* Technical Emergency overlays */}
-                    <text x="30" y="50" fill="#FF3B30" fontSize="11" fontWeight="bold" fontFamily="monospace" className="animate-pulse">ALARMA CENTRAL ACTIVA</text>
-                    <text x="30" y="70" fill="#FF3B30" fontSize="10" fontFamily="monospace">ALTAVOZ DISUASIVO: ACTIVO</text>
-                    <text x="30" y="90" fill="rgba(255,255,255,0.6)" fontSize="10" fontFamily="monospace">OPERADOR CONECTADO: DUPLEX HABILITADO</text>
+                    {/* Warning overlay top center */}
+                    <g className="translate-x-[320px] translate-y-[70px]">
+                      <rect x="-130" y="-15" width="260" height="24" fill="rgba(0,0,0,0.85)" stroke="#FF3B30" strokeWidth="1" />
+                      <text x="0" y="1" textAnchor="middle" fill="#FF3B30" fontSize="9.5" fontWeight="bold" fontFamily="monospace" className="animate-pulse">
+                        ALTAVOZ DISUASIVO SHOMER ACTIVO
+                      </text>
+                    </g>
                   </g>
                 )}
               </svg>
 
-              {/* Siren Red/Blue Overlay Flashing */}
+              {/* Siren Red Overlay Flashing (Alert Bar HUD) */}
               {alarmActive && (
-                <div className="absolute top-4 left-4 z-20 flex items-center gap-2 bg-brand-red/90 text-white px-3 py-1.5 rounded-sm font-mono text-[10px] tracking-widest uppercase font-bold animate-pulse">
-                  <Bell className="w-3.5 h-3.5 animate-bounce" /> ALERTA DE INTROMISIÓN
+                <div className="absolute top-4 left-[200px] right-[200px] z-30 flex items-center justify-center gap-2 bg-brand-red text-white px-4 py-1.5 rounded-sm font-mono text-[9px] tracking-widest uppercase font-bold animate-pulse shadow-[0_0_15px_rgba(255,59,48,0.5)]">
+                  <Activity className="w-3.5 h-3.5 animate-bounce" /> ALERTA DE INTROMISIÓN - ACCIÓN OPERATIVA
                 </div>
               )}
             </div>
 
             {/* Legend & Help Info */}
-            <p className="text-[10px] text-brand-gray uppercase font-mono tracking-wider">
-              {alarmActive 
-                ? "Simulación: El monitorista está enviando patrullas y hablando por el audio de doble vía." 
-                : "El algoritmo perimetral local analiza e identifica peatones y patentes de forma instantánea."
-              }
+            <p className="text-[10px] text-brand-gray uppercase font-mono tracking-wider flex items-center gap-1.5 min-h-[16px]">
+              {alarmActive ? (
+                <>
+                  <Volume2 className="w-3 h-3 text-brand-red animate-pulse shrink-0" />
+                  <span>Simulación: Operador interactuando por audio bidireccional y despachando patrulla de apoyo.</span>
+                </>
+              ) : (
+                <span>El algoritmo perimetral local analiza e identifica peatones y patentes de forma instantánea.</span>
+              )}
             </p>
           </div>
 

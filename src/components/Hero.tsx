@@ -130,86 +130,93 @@ export function Hero() {
                   </span>
                 </div>
 
-                {/* Cybernetic Wireframe SVG (Rotating dome + laser scan) */}
-                <div className="relative w-full h-[150px] bg-brand-surface/60 rounded border border-brand-border flex items-center justify-center overflow-hidden">
+                {/* Active CCTV Terminal Mockup (Wow-factor active scanner) */}
+                <div className="relative w-full h-[160px] bg-[#050505] rounded border border-brand-border flex items-center justify-center overflow-hidden select-none">
+                  {/* CCTV Video Image */}
+                  <img
+                    src="/images/cctv_hall_sec.png"
+                    alt="Active CCTV Monitoring"
+                    className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+                    style={{
+                      filter: "brightness(0.6) contrast(1.25) saturate(0.2) sepia(0.15) hue-rotate(85deg)"
+                    }}
+                  />
+
                   {/* Grid overlay */}
-                  <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:16px_16px]" />
+                  <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:12px_12px] pointer-events-none" />
                   
                   {/* Cyber Scanner line */}
-                  <div className="absolute left-0 right-0 h-[1px] bg-brand-blue/30 shadow-[0_0_8px_#00BFFF]" style={{
-                    animation: "laser-flow 3.5s linear infinite"
+                  <div className="absolute left-0 right-0 h-[1.5px] bg-brand-blue/40 shadow-[0_0_8px_#00BFFF] pointer-events-none z-10" style={{
+                    animation: "laser-flow 4s linear infinite"
                   }} />
 
-                  <svg viewBox="0 0 200 120" className="w-full h-[130px] z-10 text-brand-blue/30">
-                    <defs>
-                      <filter id="glow-hud-blue" x="-20%" y="-20%" width="140%" height="140%">
-                        <feGaussianBlur stdDeviation="2" result="blur" />
-                        <feMerge>
-                          <feMergeNode in="blur" />
-                          <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                      </filter>
-                      <linearGradient id="glow-grad-hud" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="rgba(0, 191, 255, 0.2)" />
-                        <stop offset="100%" stopColor="rgba(0, 191, 255, 0.0)" />
-                      </linearGradient>
-                    </defs>
-                    
-                    {/* Rotating dome base */}
-                    <ellipse cx="100" cy="30" rx="35" ry="10" fill="none" stroke="currentColor" strokeWidth="1" />
-                    <ellipse cx="100" cy="30" rx="40" ry="12" fill="none" stroke="currentColor" strokeWidth="0.8" strokeDasharray="3,3" />
-                    
-                    {/* Security Dome structure */}
-                    <path d="M 65,30 A 35,35 0 0,0 135,30 Z" fill="none" stroke="#00BFFF" strokeWidth="1.2" filter="url(#glow-hud-blue)" />
-                    
-                    {/* Inner Rotating Laser Core */}
-                    <g>
-                      <line x1="100" y1="30" x2="75" y2="90" stroke="#00E676" strokeWidth="1.5" filter="url(#glow-hud-blue)" opacity="0.8">
-                        <animateTransform
-                          attributeName="transform"
-                          type="rotate"
-                          from="0 100 30"
-                          to="360 100 30"
-                          dur="6s"
-                          repeatCount="indefinite"
-                        />
-                      </line>
-                      <polygon points="100,30 65,95 85,95" fill="url(#glow-grad-hud)" opacity="0.4">
-                        <animateTransform
-                          attributeName="transform"
-                          type="rotate"
-                          from="0 100 30"
-                          to="360 100 30"
-                          dur="6s"
-                          repeatCount="indefinite"
-                        />
-                      </polygon>
-                    </g>
-                    
-                    {/* Access Floor Plane */}
-                    <polygon points="40,95 160,95 180,110 20,110" fill="rgba(255,255,255,0.02)" stroke="currentColor" strokeWidth="0.8" />
-                    <line x1="100" y1="95" x2="100" y2="110" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2,2" />
-                    
-                    {/* Face scan HUD overlay target */}
-                    <g transform="translate(140, 45)" className="animate-pulse">
-                      <path d="M 0,2 L 0,0 L 2,0" fill="none" stroke="#00E676" strokeWidth="0.8" />
-                      <path d="M 8,0 L 10,0 L 10,2" fill="none" stroke="#00E676" strokeWidth="0.8" />
-                      <path d="M 0,8 L 0,10 L 2,10" fill="none" stroke="#00E676" strokeWidth="0.8" />
-                      <path d="M 8,10 L 10,10 L 10,8" fill="none" stroke="#00E676" strokeWidth="0.8" />
-                      <text x="-4" y="16" fill="#00E676" fontSize="5" fontFamily="monospace">ROSTRO OK</text>
+                  {/* Screen Vignette */}
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,rgba(0,0,0,0.6)_100%)] pointer-events-none z-10" />
+
+                  {/* SVG overlays */}
+                  <svg viewBox="0 0 320 180" className="absolute inset-0 w-full h-full text-brand-white z-20 pointer-events-none">
+                    {/* Blinking REC indicator */}
+                    <g transform="translate(15, 18)">
+                      <circle cx="0" cy="0" r="2.5" fill="#FF3B30" className="animate-pulse" />
+                      <text x="6" y="2.5" fill="rgba(255,255,255,0.85)" fontSize="6" fontWeight="bold" fontFamily="monospace" letterSpacing="0.5">REC</text>
                     </g>
 
-                    <g transform="translate(30, 45)">
-                      <circle cx="5" cy="5" r="4" fill="none" stroke="#FF3B30" strokeWidth="0.8" />
-                      <line x1="5" y1="1" x2="5" y2="9" stroke="#FF3B30" strokeWidth="0.8" />
-                      <line x1="1" y1="5" x2="9" y2="5" stroke="#FF3B30" strokeWidth="0.8" />
-                      <text x="-6" y="16" fill="#FF3B30" fontSize="5" fontFamily="monospace">LPR LOCK</text>
+                    <text x="45" y="20.5" fill="rgba(255,255,255,0.85)" fontSize="6" fontFamily="monospace" letterSpacing="0.3">
+                      CAM_01_HALL_SEC
+                    </text>
+
+                    {/* Corner Frame Brackets */}
+                    <path d="M 10 20 L 10 10 L 20 10" stroke="rgba(255,255,255,0.35)" strokeWidth="0.8" fill="none" />
+                    <path d="M 300 10 L 310 10 L 310 20" stroke="rgba(255,255,255,0.35)" strokeWidth="0.8" fill="none" />
+                    <path d="M 10 160 L 10 170 L 20 170" stroke="rgba(255,255,255,0.35)" strokeWidth="0.8" fill="none" />
+                    <path d="M 300 170 L 310 170 L 310 160" stroke="rgba(255,255,255,0.35)" strokeWidth="0.8" fill="none" />
+
+                    {/* Face Scan Bounding Box on Lobby Entrance */}
+                    <g transform="translate(130, 45)">
+                      {/* Box corner brackets */}
+                      <path d="M 0 10 L 0 0 L 10 0" stroke="#00E676" strokeWidth="1.2" fill="none" />
+                      <path d="M 50 0 L 60 0 L 60 10" stroke="#00E676" strokeWidth="1.2" fill="none" />
+                      <path d="M 0 70 L 0 80 L 10 80" stroke="#00E676" strokeWidth="1.2" fill="none" />
+                      <path d="M 50 80 L 60 80 L 60 70" stroke="#00E676" strokeWidth="1.2" fill="none" />
+                      
+                      {/* Target area */}
+                      <rect x="5" y="5" width="50" height="70" fill="rgba(0, 230, 118, 0.04)" stroke="rgba(0, 230, 118, 0.15)" strokeWidth="0.5" strokeDasharray="2,2" />
+                      
+                      {/* Scanning bar */}
+                      <line x1="3" y1="10" x2="57" y2="10" stroke="#00E676" strokeWidth="0.8" opacity="0.8">
+                        <animate attributeName="y1" values="8;72;8" dur="2.5s" repeatCount="indefinite" />
+                        <animate attributeName="y2" values="8;72;8" dur="2.5s" repeatCount="indefinite" />
+                      </line>
+
+                      {/* Bio Target Tag */}
+                      <rect x="0" y="-12" width="52" height="9" fill="#00E676" rx="0.5" />
+                      <text x="3" y="-5.5" fill="black" fontSize="4.5" fontWeight="bold" fontFamily="monospace">ROSTRO DETECTADO</text>
+                      
+                      {/* Sub-labels */}
+                      <g fontSize="4.5" fontFamily="monospace" fill="#00E676" fontWeight="bold" transform="translate(0, 88)">
+                        <text x="0" y="0">ID: PROPIETARIO (4B)</text>
+                        <text x="0" y="5.5">BIOMETRÍA: OK [98.7%]</text>
+                      </g>
+                    </g>
+
+                    {/* Secondary monitoring node */}
+                    <g transform="translate(225, 65)">
+                      <rect x="0" y="0" width="55" height="55" fill="none" stroke="#00BFFF" strokeWidth="0.8" strokeDasharray="3,2" opacity="0.6" />
+                      <text x="3" y="7" fill="#00BFFF" fontSize="4.5" fontFamily="monospace" fontWeight="bold" opacity="0.75">ZONA 02 (ACCESO)</text>
+                      <text x="3" y="13" fill="#00BFFF" fontSize="4" fontFamily="monospace" opacity="0.6">ESTADO: SEGURO</text>
+                    </g>
+
+                    {/* Threat indicator (0% danger) */}
+                    <g transform="translate(15, 155)" fontSize="5.5" fontFamily="monospace" fill="rgba(255,255,255,0.6)">
+                      <text x="0" y="0">FPS: 30.00</text>
+                      <text x="45" y="0">BITRATE: 4120 Kbps</text>
+                      <text x="105" y="0" fill="#00E676">ESCUDO IA: ACTIVO</text>
                     </g>
                   </svg>
 
-                  <div className="absolute bottom-2 left-3 right-3 flex justify-between items-center font-mono text-[8px] text-brand-gray">
-                    <span>SECTOR: ACCESO PRINCIPAL</span>
-                    <span className="text-brand-blue">CAM_01_DOME</span>
+                  <div className="absolute bottom-2 left-3 right-3 flex justify-between items-center font-mono text-[8px] text-brand-gray z-20">
+                    <span>SECTOR: INGRESO PRINCIPAL</span>
+                    <span className="text-brand-blue">CAM_01_LOBBY</span>
                   </div>
                 </div>
 
