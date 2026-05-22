@@ -13,6 +13,7 @@ import { Vision } from "@/components/Vision";
 import { Totem } from "@/components/Totem";
 import { Pricing } from "@/components/Pricing";
 import { CPQConfigurator } from "@/components/CPQConfigurator";
+import { PodcastSection } from "@/components/PodcastSection";
 import { InfrastructureMap } from "@/components/InfrastructureMap";
 import { MonitoringSandbox } from "@/components/MonitoringSandbox";
 import { Footer } from "@/components/Footer";
@@ -31,6 +32,7 @@ export default function Home() {
       <MonitoringSandbox />
       <Pricing />
       <CPQConfigurator />
+      <PodcastSection />
       <Includes />
       <WhyShomer />
       <SocialProof />
