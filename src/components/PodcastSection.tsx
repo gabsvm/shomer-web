@@ -8,13 +8,40 @@ import { FadeUp } from "./FadeUp";
 export function PodcastSection() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState(1295); // 21:35 fallback matching actual file length
   const [playbackRate, setPlaybackRate] = useState(1);
   const [volume, setVolume] = useState(0.8);
   const [isMuted, setIsMuted] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const progressBarRef = useRef<HTMLInputElement | null>(null);
+
+  // Sync duration robustly, resolving any React hydration/media load race conditions
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const updateDuration = () => {
+      if (audio.duration && !isNaN(audio.duration)) {
+        setDuration(audio.duration);
+      }
+    };
+
+    // If metadata is already loaded before React binds event listeners
+    if (audio.readyState >= 1 && audio.duration && !isNaN(audio.duration)) {
+      setDuration(audio.duration);
+    }
+
+    audio.addEventListener("loadedmetadata", updateDuration);
+    audio.addEventListener("durationchange", updateDuration);
+    audio.addEventListener("canplay", updateDuration);
+
+    return () => {
+      audio.removeEventListener("loadedmetadata", updateDuration);
+      audio.removeEventListener("durationchange", updateDuration);
+      audio.removeEventListener("canplay", updateDuration);
+    };
+  }, []);
 
   // Cycle playback speed: 1x -> 1.25x -> 1.5x -> 2x
   const handleSpeedCycle = () => {
@@ -45,6 +72,10 @@ export function PodcastSection() {
   const handleTimeUpdate = () => {
     if (audioRef.current) {
       setCurrentTime(audioRef.current.currentTime);
+      // Fallback in case loading events did not trigger state change
+      if (audioRef.current.duration && !isNaN(audioRef.current.duration) && duration !== audioRef.current.duration) {
+        setDuration(audioRef.current.duration);
+      }
     }
   };
 
@@ -142,7 +173,7 @@ export function PodcastSection() {
               </p>
               <div className="flex items-center gap-3 text-xs font-mono text-brand-gray bg-white/5 border border-white/5 rounded-full px-4 py-2 w-fit">
                 <Headphones size={14} className="text-brand-blue" />
-                Duración aprox: {duration ? formatTime(duration) : "8:00"} min
+                Duración: {formatTime(duration)} min
               </div>
             </FadeUp>
           </div>
@@ -214,8 +245,10 @@ export function PodcastSection() {
                     src="/audio/podcast-shomer.m4a"
                     onTimeUpdate={handleTimeUpdate}
                     onLoadedMetadata={handleLoadedMetadata}
+                    onDurationChange={handleLoadedMetadata}
+                    onCanPlay={handleLoadedMetadata}
                     onEnded={handleAudioEnded}
-                    preload="metadata"
+                    preload="auto"
                   />
 
                   {/* Scrubber / Progress Bar */}
