@@ -18,7 +18,7 @@ export function MonitoringSandbox() {
   const [currentTime, setCurrentTime] = useState("");
   const [logs, setLogs] = useState<LogEvent[]>([
     { id: "1", time: "16:30:12", type: "success", message: "Conexión encriptada establecida con Hub Buenos Aires" },
-    { id: "2", time: "16:31:05", type: "info", message: "Sistema LPR: Ingreso vehicular autorizado (Patente: AF445HH)" },
+    { id: "2", time: "16:31:05", type: "info", message: "Sistema LPR: Ingreso vehicular autorizado (Patente: B-XY 7890)" },
     { id: "3", time: "16:32:44", type: "info", message: "Acceso Facial: Juan González (Propietario 4° B) - Rostro validado 98.7%" },
     { id: "4", time: "16:33:15", type: "success", message: "Autochequeo de seguridad perimetral: Todos los nodos activos" },
   ]);
@@ -216,7 +216,7 @@ export function MonitoringSandbox() {
 
                 {/* CCTV HUD Elements */}
                 {/* Blinking REC indicator */}
-                <g className="translate-x-[25px] translate-y-[32px]">
+                <g transform="translate(25, 32)">
                   <circle cx="0" cy="0" r="4.5" fill="#FF3B30" className={alarmActive ? "animate-ping" : "animate-pulse"} />
                   <circle cx="0" cy="0" r="4.5" fill="#FF3B30" />
                   <text x="12" y="3.5" fill="rgba(255,255,255,0.8)" fontSize="10" fontWeight="bold" fontFamily="monospace" letterSpacing="1">REC</text>
@@ -233,7 +233,7 @@ export function MonitoringSandbox() {
                 </text>
 
                 {/* Stream stats bottom left */}
-                <g className="translate-x-[25px] translate-y-[325px]" fontSize="9" fontFamily="monospace" fill="rgba(255,255,255,0.5)">
+                <g transform="translate(25, 325)" fontSize="9" fontFamily="monospace" fill="rgba(255,255,255,0.5)">
                   <text x="0" y="0">FPS: 30.00</text>
                   <text x="75" y="0">BITRATE: {alarmActive ? "6520" : "4124"} Kbps</text>
                   <text x="180" y="0">STREAM: H.265 (AES-256)</text>
@@ -245,50 +245,45 @@ export function MonitoringSandbox() {
                 {/* Cam 1: Lobby Entrance (Normal Mode) */}
                 {!alarmActive && activeCam === 1 && (
                   <g>
-                    {/* Face Scan Bounding Box (Centered-left on door/lobby walkway) */}
-                    <g className="translate-x-[240px] translate-y-[90px]">
+                    {/* Face Scan Bounding Box (Centered on the resident woman walking forward) */}
+                    <g transform="translate(345, 255)">
                       {/* Box corner brackets */}
-                      <path d="M 0 20 L 0 0 L 20 0" stroke="#00E676" strokeWidth="2.5" fill="none" />
-                      <path d="M 120 0 L 140 0 L 140 20" stroke="#00E676" strokeWidth="2.5" fill="none" />
-                      <path d="M 0 160 L 0 180 L 20 180" stroke="#00E676" strokeWidth="2.5" fill="none" />
-                      <path d="M 120 180 L 140 180 L 140 160" stroke="#00E676" strokeWidth="2.5" fill="none" />
+                      <path d="M 0 6 L 0 0 L 6 0" stroke="#00E676" strokeWidth="2.5" fill="none" />
+                      <path d="M 14 0 L 20 0 L 20 6" stroke="#00E676" strokeWidth="2.5" fill="none" />
+                      <path d="M 0 16 L 0 22 L 6 22" stroke="#00E676" strokeWidth="2.5" fill="none" />
+                      <path d="M 14 22 L 20 22 L 20 16" stroke="#00E676" strokeWidth="2.5" fill="none" />
                       
                       {/* Solid inner border representing detected face target */}
-                      <rect x="15" y="15" width="110" height="150" fill="rgba(0, 230, 118, 0.05)" stroke="rgba(0, 230, 118, 0.25)" strokeWidth="1" strokeDasharray="3 3" />
+                      <rect x="3" y="3" width="14" height="16" fill="rgba(0, 230, 118, 0.05)" stroke="rgba(0, 230, 118, 0.25)" strokeWidth="1" strokeDasharray="3 3" />
                       
                       {/* Facial recognition mesh grid */}
                       <g opacity="0.3" stroke="#00E676" strokeWidth="0.8">
-                        <line x1="30" y1="20" x2="30" y2="160" />
-                        <line x1="55" y1="20" x2="55" y2="160" />
-                        <line x1="85" y1="20" x2="85" y2="160" />
-                        <line x1="110" y1="20" x2="110" y2="160" />
+                        <line x1="7" y1="3" x2="7" y2="19" />
+                        <line x1="13" y1="3" x2="13" y2="19" />
                         
-                        <line x1="20" y1="35" x2="120" y2="35" />
-                        <line x1="20" y1="65" x2="120" y2="65" />
-                        <line x1="20" y1="95" x2="120" y2="95" />
-                        <line x1="20" y1="125" x2="120" y2="125" />
-                        <line x1="20" y1="145" x2="120" y2="145" />
+                        <line x1="3" y1="8" x2="17" y2="8" />
+                        <line x1="3" y1="14" x2="17" y2="14" />
 
                         {/* Node dots */}
-                        <circle cx="55" cy="65" r="2" fill="#00E676" />
-                        <circle cx="85" cy="65" r="2" fill="#00E676" />
-                        <circle cx="70" cy="95" r="2" fill="#00E676" />
-                        <circle cx="55" cy="125" r="2" fill="#00E676" />
-                        <circle cx="85" cy="125" r="2" fill="#00E676" />
+                        <circle cx="10" cy="11" r="1" fill="#00E676" />
+                        <circle cx="7" cy="8" r="0.7" fill="#00E676" />
+                        <circle cx="13" cy="8" r="0.7" fill="#00E676" />
+                        <circle cx="7" cy="14" r="0.7" fill="#00E676" />
+                        <circle cx="13" cy="14" r="0.7" fill="#00E676" />
                       </g>
 
                       {/* Scanning horizontal laser line */}
-                      <line x1="10" y1="30" x2="130" y2="30" stroke="#00E676" strokeWidth="1.5" opacity="0.8" className="animate-bounce" style={{ animationDuration: "3s" }} />
+                      <line x1="3" y1="6" x2="17" y2="6" stroke="#00E676" strokeWidth="1.2" opacity="0.8" className="animate-bounce" style={{ animationDuration: "3.5s" }} />
 
                       {/* UI Tag Header */}
-                      <rect x="0" y="-22" width="125" height="18" fill="#00E676" rx="1" />
-                      <text x="6" y="-10" fill="black" fontSize="9" fontWeight="bold" fontFamily="monospace">ROSTRO DETECTADO</text>
+                      <rect x="-50" y="-18" width="120" height="14" fill="#00E676" rx="1" />
+                      <text x="10" y="-8" textAnchor="middle" fill="black" fontSize="7.5" fontWeight="bold" fontFamily="monospace">ROSTRO DETECTADO</text>
                       
                       {/* Sub-label info */}
-                      <g fontSize="8.5" fontFamily="monospace" fill="#00E676" fontWeight="bold" className="translate-y-[198px]">
-                        <text x="0" y="0" fill="#00E676">ID: RESIDENTE (4° B)</text>
-                        <text x="0" y="10" fill="#00E676">BIOMETRÍA: OK [98.7%]</text>
-                        <text x="0" y="20" fill="#00E676">ACCESO: PERMITIDO</text>
+                      <g fontSize="8" fontFamily="monospace" fill="#00E676" fontWeight="bold" transform="translate(0, 80)">
+                        <text x="10" y="0" textAnchor="middle" fill="#00E676">ID: RESIDENTE (4° B)</text>
+                        <text x="10" y="9" textAnchor="middle" fill="#00E676">BIOMETRÍA: OK [98.7%]</text>
+                        <text x="10" y="18" textAnchor="middle" fill="#00E676">ACCESO: PERMITIDO</text>
                       </g>
                     </g>
                   </g>
@@ -298,34 +293,34 @@ export function MonitoringSandbox() {
                 {!alarmActive && activeCam === 2 && (
                   <g>
                     {/* Vehicle Scan Bounding Box (Positioned as a car entering driveway) */}
-                    <g className="translate-x-[150px] translate-y-[110px]">
+                    <g transform="translate(230, 160)">
                       {/* Vehicle detection border */}
-                      <rect x="0" y="0" width="340" height="170" fill="rgba(0, 191, 255, 0.03)" stroke="#00BFFF" strokeWidth="1.5" strokeDasharray="4 4" />
+                      <rect x="0" y="0" width="390" height="175" fill="rgba(0, 191, 255, 0.03)" stroke="#00BFFF" strokeWidth="1.5" strokeDasharray="4 4" />
                       
                       {/* Box corner brackets */}
                       <path d="M 0 15 L 0 0 L 15 0" stroke="#00BFFF" strokeWidth="2.5" fill="none" />
-                      <path d="M 325 0 L 340 0 L 340 15" stroke="#00BFFF" strokeWidth="2.5" fill="none" />
-                      <path d="M 0 155 L 0 170 L 15 170" stroke="#00BFFF" strokeWidth="2.5" fill="none" />
-                      <path d="M 325 170 L 340 170 L 340 155" stroke="#00BFFF" strokeWidth="2.5" fill="none" />
+                      <path d="M 375 0 L 390 0 L 390 15" stroke="#00BFFF" strokeWidth="2.5" fill="none" />
+                      <path d="M 0 160 L 0 175 L 15 175" stroke="#00BFFF" strokeWidth="2.5" fill="none" />
+                      <path d="M 375 175 L 390 175 L 390 160" stroke="#00BFFF" strokeWidth="2.5" fill="none" />
 
                       <rect x="0" y="-20" width="135" height="16" fill="#00BFFF" rx="1" />
                       <text x="6" y="-9" fill="black" fontSize="9" fontWeight="bold" fontFamily="monospace">VEHÍCULO IDENTIFICADO</text>
 
-                      {/* License Plate Recognition Box */}
-                      <g className="translate-x-[120px] translate-y-[100px]">
-                        <rect x="0" y="0" width="100" height="30" fill="rgba(0, 230, 118, 0.1)" stroke="#00E676" strokeWidth="2" />
-                        <rect x="0" y="-14" width="70" height="12" fill="#00E676" rx="1" />
-                        <text x="4" y="-5" fill="black" fontSize="7.5" fontWeight="bold" fontFamily="monospace">LPR ACTIVE</text>
-                        <text x="50" y="20" textAnchor="middle" fill="#00E676" fontSize="13" fontWeight="bold" fontFamily="monospace" letterSpacing="1">AF 445 HH</text>
+                      {/* License Plate Recognition Box (Aligned perfectly with B-XY 7890 plate) */}
+                      <g transform="translate(16, 110)">
+                        <rect x="0" y="0" width="50" height="22" fill="rgba(0, 230, 118, 0.1)" stroke="#00E676" strokeWidth="1.5" />
+                        <rect x="0" y="-10" width="45" height="9" fill="#00E676" rx="0.5" />
+                        <text x="4" y="-3" fill="black" fontSize="6.5" fontWeight="bold" fontFamily="monospace">LPR ACTIVE</text>
+                        <text x="25" y="15.5" textAnchor="middle" fill="#00E676" fontSize="9.5" fontWeight="bold" fontFamily="monospace" letterSpacing="0.5">B-XY 7890</text>
                       </g>
 
                       {/* Zoom detail frame in top-right */}
-                      <g className="translate-x-[215px] translate-y-[15px]">
+                      <g transform="translate(270, 15)">
                         <rect x="0" y="0" width="110" height="60" fill="rgba(0, 0, 0, 0.75)" stroke="#00BFFF" strokeWidth="1" />
                         <line x1="0" y1="14" x2="110" y2="14" stroke="#00BFFF" strokeWidth="0.8" />
                         <text x="6" y="10" fill="#00BFFF" fontSize="7" fontWeight="bold" fontFamily="monospace">LPR ZOOM ANALYTICS</text>
                         
-                        <text x="6" y="26" fill="rgba(255,255,255,0.8)" fontSize="7.5" fontFamily="monospace">PATENTE: AF445HH</text>
+                        <text x="6" y="26" fill="rgba(255,255,255,0.8)" fontSize="7.5" fontFamily="monospace">PATENTE: B-XY 7890</text>
                         <text x="6" y="37" fill="rgba(255,255,255,0.8)" fontSize="7.5" fontFamily="monospace">REGISTRO: AUTORIZADO</text>
                         <text x="6" y="48" fill="#00E676" fontSize="7.5" fontWeight="bold" fontFamily="monospace">PORTÓN: ABRIENDO...</text>
                       </g>
@@ -341,47 +336,47 @@ export function MonitoringSandbox() {
                     <rect x="250" y="231" width="140" height="16" fill="#FF3B30" rx="1" />
                     <text x="320" y="242" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold" fontFamily="monospace" letterSpacing="0.5">LÍNEA PERIMETRAL VIOLADA</text>
 
-                    {/* Threat Target 1 (Merodeador en primer plano) */}
-                    <g className="translate-x-[110px] translate-y-[80px]">
-                      <rect x="0" y="0" width="130" height="210" fill="none" stroke="#FF3B30" strokeWidth="2.5" />
+                    {/* Threat Target 1 (Merodeador en primer plano - Aligned with pedestrian on far left) */}
+                    <g transform="translate(72, 150)">
+                      <rect x="0" y="0" width="30" height="80" fill="none" stroke="#FF3B30" strokeWidth="2.5" />
                       
                       {/* Warning brackets */}
-                      <path d="M -8 -8 L 12 -8 M -8 -8 L -8 12" stroke="#FF3B30" strokeWidth="3" fill="none" />
-                      <path d="M 138 -8 L 118 -8 M 138 -8 L 138 12" stroke="#FF3B30" strokeWidth="3" fill="none" />
-                      <path d="M -8 218 L 12 218 M -8 218 L -8 198" stroke="#FF3B30" strokeWidth="3" fill="none" />
-                      <path d="M 138 218 L 118 218 M 138 218 L 138 198" stroke="#FF3B30" strokeWidth="3" fill="none" />
+                      <path d="M -6 -6 L 8 -6 M -6 -6 L -6 8" stroke="#FF3B30" strokeWidth="3" fill="none" />
+                      <path d="M 36 -6 L 22 -6 M 36 -6 L 36 8" stroke="#FF3B30" strokeWidth="3" fill="none" />
+                      <path d="M -6 86 L 8 86 M -6 86 L -6 72" stroke="#FF3B30" strokeWidth="3" fill="none" />
+                      <path d="M 36 86 L 22 86 M 36 86 L 36 72" stroke="#FF3B30" strokeWidth="3" fill="none" />
 
-                      <rect x="0" y="-20" width="130" height="18" fill="#FF3B30" rx="1" />
-                      <text x="6" y="-8" fill="white" fontSize="8" fontWeight="bold" fontFamily="monospace" letterSpacing="0.2">CRÍTICO: OBJETO NO IDENTIFICADO</text>
+                      <rect x="-55" y="-18" width="140" height="14" fill="#FF3B30" rx="1" />
+                      <text x="15" y="-8" textAnchor="middle" fill="white" fontSize="7.5" fontWeight="bold" fontFamily="monospace" letterSpacing="0.2">CRÍTICO: OBJETO NO IDENTIFICADO</text>
                       
                       {/* Aim reticle overlay */}
-                      <circle cx="65" cy="80" r="14" fill="none" stroke="#FF3B30" strokeWidth="1" strokeDasharray="3 2" />
-                      <line x1="65" y1="55" x2="65" y2="105" stroke="#FF3B30" strokeWidth="0.8" opacity="0.7" />
-                      <line x1="40" y1="80" x2="90" y2="80" stroke="#FF3B30" strokeWidth="0.8" opacity="0.7" />
+                      <circle cx="15" cy="40" r="10" fill="none" stroke="#FF3B30" strokeWidth="1" strokeDasharray="3 2" />
+                      <line x1="15" y1="15" x2="15" y2="65" stroke="#FF3B30" strokeWidth="0.8" opacity="0.7" />
+                      <line x1="0" y1="40" x2="30" y2="40" stroke="#FF3B30" strokeWidth="0.8" opacity="0.7" />
 
                       {/* Text info label */}
-                      <g fontSize="8" fontFamily="monospace" fill="#FF3B30" fontWeight="bold" className="translate-y-[225px]">
-                        <text x="0" y="0">TIPO: MERODEADOR</text>
-                        <text x="0" y="9">TIEMPO PERMANENCIA: 14s</text>
-                        <text x="0" y="18" fill="#FF3B30" className="animate-pulse">DISUASIÓN AUDIBLE ACTIVADA</text>
+                      <g fontSize="8" fontFamily="monospace" fill="#FF3B30" fontWeight="bold" transform="translate(0, 87)">
+                        <text x="15" y="0" textAnchor="middle">TIPO: MERODEADOR</text>
+                        <text x="15" y="9" textAnchor="middle">TIEMPO PERMANENCIA: 14s</text>
+                        <text x="15" y="18" textAnchor="middle" fill="#FF3B30" className="animate-pulse">DISUASIÓN AUDIBLE ACTIVADA</text>
                       </g>
                     </g>
 
-                    {/* Threat Target 2 (Segundo intruso / Punto perimetral trasero) */}
-                    <g className="translate-x-[420px] translate-y-[110px]">
-                      <rect x="0" y="0" width="100" height="170" fill="rgba(255, 59, 48, 0.05)" stroke="#FF3B30" strokeWidth="1.5" />
+                    {/* Threat Target 2 (Segundo intruso - Aligned with man walking in foreground right) */}
+                    <g transform="translate(435, 245)">
+                      <rect x="0" y="0" width="30" height="100" fill="rgba(255, 59, 48, 0.05)" stroke="#FF3B30" strokeWidth="1.5" />
                       
-                      <rect x="0" y="-18" width="100" height="15" fill="#FF3B30" rx="1" />
-                      <text x="5" y="-8" fill="white" fontSize="7.5" fontWeight="bold" fontFamily="monospace">PRESENCIA ANÓMALA 02</text>
+                      <rect x="-40" y="-15" width="110" height="12" fill="#FF3B30" rx="1" />
+                      <text x="15" y="-6" textAnchor="middle" fill="white" fontSize="7" fontWeight="bold" fontFamily="monospace">PRESENCIA ANÓMALA 02</text>
                       
-                      <g fontSize="8" fontFamily="monospace" fill="#FF3B30" fontWeight="bold" className="translate-y-[185px]">
-                        <text x="0" y="0">SEGUIMIENTO ACTIVO</text>
-                        <text x="0" y="9">COBERTURA VIRTUAL: 100%</text>
+                      <g fontSize="8" fontFamily="monospace" fill="#FF3B30" fontWeight="bold" transform="translate(0, 107)">
+                        <text x="15" y="0" textAnchor="middle">SEGUIMIENTO ACTIVO</text>
+                        <text x="15" y="9" textAnchor="middle">COBERTURA VIRTUAL: 100%</text>
                       </g>
                     </g>
 
                     {/* Warning overlay top center */}
-                    <g className="translate-x-[320px] translate-y-[70px]">
+                    <g transform="translate(320, 70)">
                       <rect x="-130" y="-15" width="260" height="24" fill="rgba(0,0,0,0.85)" stroke="#FF3B30" strokeWidth="1" />
                       <text x="0" y="1" textAnchor="middle" fill="#FF3B30" fontSize="9.5" fontWeight="bold" fontFamily="monospace" className="animate-pulse">
                         ALTAVOZ DISUASIVO SHOMER ACTIVO
