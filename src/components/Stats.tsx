@@ -40,7 +40,7 @@ export function Stats() {
   return (
     <div id="stats" className="border-y border-brand-border bg-brand-surface">
       <div className="grid grid-cols-2 md:grid-cols-4 max-w-[1200px] mx-auto">
-        <FadeUp delay={0.1} className="p-8 md:p-9 border-r border-b md:border-b-0 border-brand-border text-center">
+        <FadeUp delay={0.1} className="p-5 sm:p-8 md:p-9 border-r border-b md:border-b-0 border-brand-border text-center">
           <span className="font-display text-5xl text-brand-blue leading-none block">
             <AnimatedNumber value={20} />
           </span>
@@ -49,7 +49,7 @@ export function Stats() {
           </div>
         </FadeUp>
         
-        <FadeUp delay={0.2} className="p-8 md:p-9 border-b md:border-b-0 md:border-r border-brand-border text-center">
+        <FadeUp delay={0.2} className="p-5 sm:p-8 md:p-9 border-b md:border-b-0 md:border-r border-brand-border text-center">
           <span className="font-display text-5xl text-brand-blue leading-none block">
             <AnimatedNumber value={15000} />
           </span>
@@ -58,7 +58,7 @@ export function Stats() {
           </div>
         </FadeUp>
 
-        <FadeUp delay={0.3} className="p-8 md:p-9 border-r border-brand-border text-center">
+        <FadeUp delay={0.3} className="p-5 sm:p-8 md:p-9 border-r border-brand-border text-center">
           <span className="font-display text-4xl text-brand-blue leading-none block pt-1">
             24/7
           </span>
@@ -67,7 +67,7 @@ export function Stats() {
           </div>
         </FadeUp>
 
-        <FadeUp delay={0.4} className="p-8 md:p-9 text-center">
+        <FadeUp delay={0.4} className="p-5 sm:p-8 md:p-9 text-center">
           <span className="font-display text-4xl text-brand-blue leading-none block pt-1">
             0%
           </span>

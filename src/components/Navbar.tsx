@@ -18,6 +18,17 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
   const links = [
     { href: "/#vision", label: "Línea Vision" },
     { href: "/#totem", label: "Tótem" },
@@ -63,8 +74,9 @@ export function Navbar() {
 
         {/* Mobile Hamburger */}
         <button
-          className="md:hidden p-2 text-brand-white"
+          className="md:hidden p-2 text-brand-white cursor-pointer"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
         >
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -74,29 +86,44 @@ export function Navbar() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 top-[68px] bg-black/95 z-40 flex flex-col p-10 gap-6"
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className={`fixed inset-x-0 bottom-0 z-40 bg-black/98 flex flex-col p-10 gap-6 transition-all duration-300 ${
+              scrolled ? "top-14" : "top-[68px]"
+            }`}
           >
-            {links.map((link) => (
-              <Link
+            {links.map((link, idx) => (
+              <motion.div
                 key={link.href}
-                href={link.href}
-                target={link.external ? "_blank" : undefined}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-2xl font-medium py-3 border-b border-brand-border text-brand-white"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: idx * 0.05 }}
               >
-                {link.label}
-              </Link>
+                <Link
+                  href={link.href}
+                  target={link.external ? "_blank" : undefined}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-2xl font-medium py-3 border-b border-brand-border text-brand-white block hover:text-brand-blue transition-colors"
+                >
+                  {link.label}
+                </Link>
+              </motion.div>
             ))}
-            <Link
-              href="/#contacto"
-              onClick={() => setMobileMenuOpen(false)}
-              className="mt-4 bg-brand-blue text-brand-black p-4 text-center rounded-sm font-bold text-lg uppercase"
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: links.length * 0.05 }}
             >
-              Cotizar ahora
-            </Link>
+              <Link
+                href="/#contacto"
+                onClick={() => setMobileMenuOpen(false)}
+                className="mt-4 bg-brand-blue text-brand-black p-4 text-center rounded-sm font-bold text-lg uppercase block hover:bg-white hover:text-brand-black transition-all"
+              >
+                Cotizar ahora
+              </Link>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

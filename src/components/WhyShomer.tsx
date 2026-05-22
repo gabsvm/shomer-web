@@ -4,7 +4,7 @@ import { FadeUp } from "./FadeUp";
 
 export function WhyShomer() {
   return (
-    <section id="porque" className="py-24 px-6 md:px-10 bg-brand-surface">
+    <section id="porque" className="py-16 md:py-24 px-6 md:px-10 bg-brand-surface">
       <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
         <FadeUp>
           <div className="font-mono text-xs tracking-[0.18em] text-brand-blue uppercase mb-3">La diferencia</div>

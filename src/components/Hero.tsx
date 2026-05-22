@@ -7,7 +7,7 @@ import { FadeUp } from "./FadeUp";
 
 export function Hero() {
   return (
-    <section id="hero" className="relative h-screen min-h-[600px] flex items-center overflow-hidden">
+    <section id="hero" className="relative h-[100dvh] min-h-[600px] flex items-center overflow-hidden">
       {/* Background with scan animation */}
       <div className="absolute inset-0 bg-brand-black" />
       <div className="absolute inset-0 z-0 opacity-40">
@@ -16,9 +16,9 @@ export function Hero() {
       <div className="absolute inset-0 z-0 bg-[linear-gradient(135deg,rgba(0,0,0,0.95)_20%,rgba(0,191,255,0.05)_100%)]" />
       
       <motion.div
-        className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-brand-blue to-transparent opacity-60"
-        animate={{ top: ["0%", "100%", "0%"] }}
-        transition={{ duration: 4, ease: "linear", repeat: Infinity }}
+        className="absolute left-0 right-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-brand-blue to-transparent opacity-60"
+        animate={{ y: ["0dvh", "100dvh", "0dvh"] }}
+        transition={{ duration: 6, ease: "linear", repeat: Infinity }}
       />
 
       <div className="relative z-10 px-6 md:px-10 max-w-[900px] mt-16">
@@ -36,7 +36,7 @@ export function Hero() {
         </FadeUp>
 
         <FadeUp delay={0.2}>
-          <h1 className="font-display text-[clamp(3.5rem,9vw,7rem)] leading-[0.92] tracking-wide uppercase mb-6 text-brand-white">
+          <h1 className="font-display text-[clamp(2.5rem,8vw,6.5rem)] leading-[0.92] tracking-wide uppercase mb-6 text-brand-white">
             La seguridad<br />que <em className="text-brand-blue not-italic">no</em><br />descansa.
           </h1>
         </FadeUp>

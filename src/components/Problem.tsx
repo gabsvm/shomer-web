@@ -5,7 +5,7 @@ import { AlertTriangle, DollarSign, Unlock, CheckCircle2 } from "lucide-react";
 
 export function Problem() {
   return (
-    <section id="problema" className="py-24 px-6 md:px-10 bg-brand-near-black">
+    <section id="problema" className="py-16 md:py-24 px-6 md:px-10 bg-brand-near-black">
       <div className="max-w-[1200px] mx-auto">
         <FadeUp>
           <div className="font-mono text-xs tracking-[0.18em] text-brand-blue uppercase mb-3">

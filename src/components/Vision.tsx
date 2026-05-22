@@ -10,7 +10,7 @@ export function Vision() {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   return (
-    <section id="vision" className="py-24 px-6 md:px-10 bg-brand-black">
+    <section id="vision" className="py-16 md:py-24 px-6 md:px-10 bg-brand-black">
       <div className="max-w-[1200px] mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
         
@@ -130,11 +130,11 @@ export function Vision() {
             height={1536}
             className="w-full h-auto object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-          <div className="absolute bottom-6 left-8 right-8 flex items-end justify-between">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+          <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-8 md:right-8 flex items-end justify-between gap-4">
             <div>
-              <p className="font-mono text-xs tracking-[0.18em] text-brand-blue uppercase mb-1">Línea VISION PRO</p>
-              <p className="font-display text-2xl md:text-3xl uppercase text-white leading-none">Instalado. Operativo. Invisible.</p>
+              <p className="font-mono text-[10px] sm:text-xs tracking-[0.18em] text-brand-blue uppercase mb-1">Línea VISION PRO</p>
+              <p className="font-display text-lg sm:text-2xl md:text-3xl uppercase text-white leading-none">Instalado. Operativo. Invisible.</p>
             </div>
             <Link
               href="#precios"

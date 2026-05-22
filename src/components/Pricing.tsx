@@ -54,7 +54,7 @@ export function Pricing() {
   ];
 
   return (
-    <section id="precios" className="py-24 px-6 md:px-10 bg-brand-near-black">
+    <section id="precios" className="py-16 md:py-24 px-6 md:px-10 bg-brand-near-black">
       <div className="max-w-[1200px] mx-auto">
         <FadeUp>
           <div className="font-mono text-xs tracking-[0.18em] text-brand-blue uppercase mb-3">Línea VISION</div>
@@ -68,7 +68,7 @@ export function Pricing() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-14">
           {plans.map((plan, i) => (
-            <FadeUp key={plan.name} delay={i * 0.1}>
+            <FadeUp key={plan.name} delay={i * 0.1} className="h-full">
               <div 
                 className={`h-full border rounded p-8 md:p-10 relative bg-brand-surface transition-colors duration-300 flex flex-col
                   ${plan.featured 

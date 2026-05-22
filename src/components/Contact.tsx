@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { FadeUp } from "./FadeUp";
+import { ChevronDown } from "lucide-react";
 
 type Status = "idle" | "sending" | "ok" | "error";
 
@@ -36,7 +37,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contacto" className="py-24 px-6 md:px-10 bg-brand-surface">
+    <section id="contacto" className="py-16 md:py-24 px-6 md:px-10 bg-brand-surface">
       <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
         <FadeUp>
           <div className="font-mono text-xs tracking-[0.18em] text-brand-blue uppercase mb-3">Contacto</div>
@@ -106,13 +107,16 @@ export function Contact() {
 
               <div className="flex flex-col gap-2">
                 <label className="text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray">Tipo de espacio</label>
-                <select name="tipo_espacio" className="w-full bg-white/5 border border-brand-border rounded px-4 py-3 text-white outline-none focus:border-brand-blue transition-colors appearance-none">
-                  <option className="bg-brand-surface-2 text-white">Edificio / Consorcio</option>
-                  <option className="bg-brand-surface-2 text-white">Empresa</option>
-                  <option className="bg-brand-surface-2 text-white">Country / Barrio Cerrado</option>
-                  <option className="bg-brand-surface-2 text-white">Hotel</option>
-                  <option className="bg-brand-surface-2 text-white">Otro</option>
-                </select>
+                <div className="relative w-full">
+                  <select name="tipo_espacio" className="w-full bg-white/5 border border-brand-border rounded pl-4 pr-10 py-3 text-white outline-none focus:border-brand-blue transition-colors appearance-none cursor-pointer">
+                    <option className="bg-brand-surface-2 text-white">Edificio / Consorcio</option>
+                    <option className="bg-brand-surface-2 text-white">Empresa</option>
+                    <option className="bg-brand-surface-2 text-white">Country / Barrio Cerrado</option>
+                    <option className="bg-brand-surface-2 text-white">Hotel</option>
+                    <option className="bg-brand-surface-2 text-white">Otro</option>
+                  </select>
+                  <ChevronDown className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-gray" />
+                </div>
               </div>
 
               <div className="flex flex-col gap-2">

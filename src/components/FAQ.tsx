@@ -44,7 +44,7 @@ export function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="py-24 px-6 md:px-10 bg-brand-black">
+    <section id="faq" className="py-16 md:py-24 px-6 md:px-10 bg-brand-black">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

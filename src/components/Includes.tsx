@@ -14,7 +14,7 @@ export function Includes() {
   ];
 
   return (
-    <section id="incluye" className="py-24 px-6 md:px-10 bg-brand-black">
+    <section id="incluye" className="py-16 md:py-24 px-6 md:px-10 bg-brand-black">
       <div className="max-w-[1200px] mx-auto">
         <FadeUp>
           <div className="font-mono text-xs tracking-[0.18em] text-brand-blue uppercase mb-3">Modelo de servicio</div>
@@ -28,7 +28,7 @@ export function Includes() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-brand-border border border-brand-border rounded overflow-hidden">
           {items.map((item, i) => (
-            <FadeUp key={item.title} delay={(i % 3) * 0.1}>
+            <FadeUp key={item.title} delay={(i % 3) * 0.1} className="h-full">
               <div className="bg-brand-surface p-6 sm:p-10 h-full flex flex-col">
                 <div className="w-11 h-11 rounded-full bg-brand-blue-dim border border-brand-blue/30 flex items-center justify-center text-brand-blue mb-5">
                   {item.icon}

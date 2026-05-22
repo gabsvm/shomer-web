@@ -37,8 +37,8 @@ export default function Home() {
       <VideoSection />
       
       {/* Club Shomer section is simple enough to put here or we can extract it. I'll put it here. */}
-      <section className="py-24 px-6 md:px-10 bg-brand-black">
-        <div className="max-w-[900px] mx-auto border border-brand-blue rounded-lg p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-10 bg-[linear-gradient(135deg,var(--color-brand-surface),rgba(0,191,255,0.05))] relative overflow-hidden">
+      <section className="py-16 md:py-24 px-6 md:px-10 bg-brand-black">
+        <div className="max-w-[900px] mx-auto border border-brand-blue rounded-lg p-6 sm:p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-10 bg-[linear-gradient(135deg,var(--color-brand-surface),rgba(0,191,255,0.05))] relative overflow-hidden">
           <div className="absolute top-[-50%] right-[-10%] w-[300px] h-[300px] bg-[radial-gradient(circle,rgba(0,191,255,0.1),transparent_70%)] pointer-events-none" />
           <div>
             <div className="font-mono text-xs tracking-[0.18em] text-brand-blue uppercase mb-3">Próximamente</div>

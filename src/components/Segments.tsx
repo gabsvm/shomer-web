@@ -37,7 +37,7 @@ export function Segments() {
   ];
 
   return (
-    <section id="segmentos" className="py-24 px-6 md:px-10 bg-brand-black">
+    <section id="segmentos" className="py-16 md:py-24 px-6 md:px-10 bg-brand-black">
       <div className="max-w-[1200px] mx-auto">
         <FadeUp>
           <div className="font-mono text-xs tracking-[0.18em] text-brand-blue uppercase mb-3">Para cada espacio</div>
@@ -48,8 +48,8 @@ export function Segments() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {segments.map((segment, i) => (
-            <FadeUp key={segment.title} delay={i * 0.08}>
-              <Link href={segment.href} className="group relative flex flex-col justify-between rounded overflow-hidden min-h-[240px] bg-brand-surface border border-brand-border hover:border-brand-blue/40 transition-colors duration-300 p-8">
+            <FadeUp key={segment.title} delay={i * 0.08} className="h-full">
+              <Link href={segment.href} className="group relative flex flex-col justify-between rounded overflow-hidden min-h-[240px] h-full bg-brand-surface border border-brand-border hover:border-brand-blue/40 transition-colors duration-300 p-8">
                 <div className={`absolute inset-0 bg-gradient-to-br ${segment.gradient} pointer-events-none`} />
                 <div className="relative z-10">
                   <div className="text-[0.72rem] font-mono tracking-[0.15em] uppercase text-brand-blue mb-3">
