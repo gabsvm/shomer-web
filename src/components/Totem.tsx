@@ -16,13 +16,11 @@ export function Totem() {
           
           {viewMode === "in-situ" ? (
             <>
-              <video 
-                src="/Totem lobby.mp4" 
-                autoPlay 
-                loop 
-                muted 
-                playsInline 
-                className="absolute inset-0 w-full h-full object-cover object-center"
+              <Image 
+                src="/images/totem-section.png" 
+                alt="Tótem de Seguridad Virtual en situ" 
+                fill 
+                className="object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-b lg:bg-gradient-to-r from-transparent via-transparent to-brand-surface opacity-90 lg:opacity-100" />
             </>
