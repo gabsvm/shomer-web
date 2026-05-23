@@ -16,25 +16,26 @@ export function Totem() {
           
           {viewMode === "in-situ" ? (
             <>
-              <Image 
-                src="/images/totem-section.png" 
-                alt="Tótem de Seguridad Virtual en situ" 
-                fill 
-                className="object-cover object-center"
+              <video 
+                src="/Totem lobby.mp4" 
+                autoPlay 
+                loop 
+                muted 
+                playsInline 
+                className="absolute inset-0 w-full h-full object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-b lg:bg-gradient-to-r from-transparent via-transparent to-brand-surface opacity-90 lg:opacity-100" />
             </>
           ) : (
-            <div className="absolute inset-0 w-full h-full p-8 md:p-12 flex items-center justify-center bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03),transparent_70%)]">
-              <div className="relative w-full h-full max-w-[380px] max-h-[480px]">
-                <Image 
-                  src="/images/totem_catalogo.png" 
-                  alt="Tótem Shomer Vista de Catálogo" 
-                  fill 
-                  className="object-contain"
-                  priority
-                />
-              </div>
+            <div className="absolute inset-0 w-full h-full flex items-center justify-center bg-[#ffffff]">
+              <video 
+                src="/Totem panning horizontal fondo blanco.mp4" 
+                autoPlay 
+                loop 
+                muted 
+                playsInline 
+                className="w-full h-full object-contain"
+              />
             </div>
           )}
 

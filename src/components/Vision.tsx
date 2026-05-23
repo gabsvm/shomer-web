@@ -20,11 +20,13 @@ export function Vision() {
             <div className="aspect-[4/5] w-full rounded-lg overflow-hidden relative bg-[#0a0a0a] border border-white/5 shadow-2xl flex flex-col justify-between">
               
               {viewMode === "photo" ? (
-                <Image 
-                  src="/images/device.png" 
-                  alt="Línea VISION" 
-                  fill
-                  className="object-cover rounded-lg"
+                <video 
+                  src="/Shomer vision PRO close up.mp4" 
+                  autoPlay 
+                  loop 
+                  muted 
+                  playsInline 
+                  className="absolute inset-0 w-full h-full object-cover rounded-lg"
                 />
               ) : (
                 <iframe 
