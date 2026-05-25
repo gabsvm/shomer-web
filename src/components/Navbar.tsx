@@ -3,12 +3,17 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
+import { Locale } from "@/translations";
+import { useRouter } from "next/navigation";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,13 +35,23 @@ export function Navbar() {
   }, [mobileMenuOpen]);
 
   const links = [
-    { href: "/#vision", label: "Línea Vision" },
-    { href: "/#totem", label: "Tótem" },
-    { href: "/#segmentos", label: "Servicios" },
-    { href: "/#precios", label: "Precios" },
-    { href: "/blog", label: "Blog" },
-    { href: "/#testimonios", label: "Clientes" },
-    { href: "https://shomer-club-v2.vercel.app", label: "Club Shomer", external: true },
+    { href: "/#vision", label: t("navbar.vision") },
+    { href: "/#totem", label: t("navbar.totem") },
+    { href: "/#segmentos", label: t("navbar.services") },
+    { href: "/#precios", label: t("navbar.pricing") },
+    { href: "/blog", label: t("navbar.blog") },
+    { href: "/#testimonios", label: t("navbar.clients") },
+    { href: "https://shomer-club-v2.vercel.app", label: t("navbar.club"), external: true },
+  ];
+
+  const languages = [
+    { code: "es", label: "ES" },
+    { code: "en", label: "EN" },
+    { code: "he", label: "עב" }, // עברית
+    { code: "de", label: "DE" },
+    { code: "ru", label: "RU" },
+    { code: "pt", label: "PT" },
+    { code: "it", label: "IT" },
   ];
 
   return (
@@ -51,7 +66,7 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Links */}
-        <ul className="hidden md:flex gap-8 list-none">
+        <ul className="hidden xl:flex gap-8 list-none">
           {links.map((link) => (
             <li key={link.href}>
               <Link
@@ -65,22 +80,43 @@ export function Navbar() {
           ))}
         </ul>
 
-        {/* Desktop CTA */}
-        <Link
-          href="/#contacto"
-          className="hidden md:inline-block bg-brand-blue text-brand-black px-5 py-2.5 rounded-sm text-[0.82rem] font-bold tracking-[0.06em] uppercase hover:bg-white hover:text-brand-black transition-colors whitespace-nowrap"
-        >
-          Cotizar ahora
-        </Link>
+        {/* Right Actions Menu (Desktop CTA + Language Selector) */}
+        <div className="flex items-center gap-4">
+          {/* Language Selector Toggle */}
+          <div className="relative flex items-center gap-1.5 bg-brand-surface border border-brand-border rounded px-2 py-1">
+            <Globe className="w-3.5 h-3.5 text-brand-blue" />
+            <select
+              value={language}
+              onChange={(e) => {
+                setLanguage(e.target.value as Locale);
+                router.refresh();
+              }}
+              className="bg-transparent text-brand-white text-xs font-mono font-medium focus:outline-none cursor-pointer uppercase border-none pr-1"
+            >
+              {languages.map((lang) => (
+                <option key={lang.code} value={lang.code} className="bg-brand-black text-brand-white">
+                  {lang.label}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        {/* Mobile Hamburger */}
-        <button
-          className="md:hidden p-2 text-brand-white cursor-pointer"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+          <Link
+            href="/#contacto"
+            className="hidden md:inline-block bg-brand-blue text-brand-black px-5 py-2.5 rounded-sm text-[0.82rem] font-bold tracking-[0.06em] uppercase hover:bg-white hover:text-brand-black transition-colors whitespace-nowrap"
+          >
+            {t("common.cta")}
+          </Link>
+
+          {/* Mobile Hamburger */}
+          <button
+            className="xl:hidden p-2 text-brand-white cursor-pointer"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile Menu */}
@@ -122,7 +158,7 @@ export function Navbar() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="mt-4 bg-brand-blue text-brand-black p-4 text-center rounded-sm font-bold text-lg uppercase block hover:bg-white hover:text-brand-black transition-all"
               >
-                Cotizar ahora
+                {t("common.cta")}
               </Link>
             </motion.div>
           </motion.div>

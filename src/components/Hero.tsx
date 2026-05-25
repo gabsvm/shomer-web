@@ -6,6 +6,7 @@ import Image from "next/image";
 import { FadeUp } from "./FadeUp";
 import { useState, useEffect } from "react";
 import { Radio, Wifi, Activity, ShieldCheck, Cpu } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface TelemetryLog {
   time: string;
@@ -14,23 +15,27 @@ interface TelemetryLog {
 }
 
 export function Hero() {
-  const [logs, setLogs] = useState<TelemetryLog[]>([
-    { time: "13:34:01", event: "Enlace encriptado establecido con Central Shomer", type: "success" },
-    { time: "13:34:05", event: "Autodiagnóstico completo - Todos los nodos OK", type: "success" },
-    { time: "13:34:12", event: "LPR cochera activa - Escaneo listo", type: "info" }
-  ]);
+  const { t, language } = useLanguage();
+  const [logs, setLogs] = useState<TelemetryLog[]>([]);
 
-  const [activeFaceIndex, setActiveFaceIndex] = useState(0);
+  // Sync initial logs with selected language
+  useEffect(() => {
+    setLogs([
+      { time: "13:34:01", event: t("hero.logEnc"), type: "success" },
+      { time: "13:34:05", event: t("hero.logDiag"), type: "success" },
+      { time: "13:34:12", event: t("hero.logLprReady"), type: "info" }
+    ]);
+  }, [language, t]);
 
   // Live log ticker
   useEffect(() => {
     const events = [
-      { event: "Acceso Facial: Propietario verificado en puerta 1", type: "success" as const },
-      { event: "Control de rondas: Operador verificado en sector A", type: "success" as const },
-      { event: "Chequeo de redundancia: Ping óptimo (12ms)", type: "info" as const },
-      { event: "LPR Entrada: Patente detectada y autorizada", type: "success" as const },
-      { event: "Cámara HD perimetral: Sincronización WebRTC activa", type: "info" as const },
-      { event: "Modo inteligente activo: Detección perimetral encendida", type: "info" as const }
+      { event: t("hero.logFaceOk"), type: "success" as const },
+      { event: t("hero.logRoundsOk"), type: "success" as const },
+      { event: t("hero.logPingOk"), type: "info" as const },
+      { event: t("hero.logLprOk"), type: "success" as const },
+      { event: t("hero.logCctvOk"), type: "info" as const },
+      { event: t("hero.logModeOk"), type: "info" as const }
     ];
 
     const interval = setInterval(() => {
@@ -45,7 +50,7 @@ export function Hero() {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [language, t]);
 
   return (
     <section id="hero" className="relative min-h-[100dvh] flex items-center py-20 lg:py-0 overflow-hidden">
@@ -70,7 +75,7 @@ export function Hero() {
             <FadeUp>
               <div className="inline-flex items-center gap-2 border border-brand-border px-4 py-2 rounded-full text-xs font-mono tracking-widest text-brand-gray-light mb-6 backdrop-blur-md bg-white/5">
                 <span className="w-2 h-2 rounded-full bg-brand-green shadow-[0_0_8px_#00E676] animate-pulse" />
-                CENTRAL DE MONITOREO 24/7 ACTIVA
+                {t("hero.activeMonitoring")}
               </div>
             </FadeUp>
 
@@ -82,13 +87,14 @@ export function Hero() {
 
             <FadeUp delay={0.2}>
               <h1 className="font-display text-[clamp(2.5rem,7vw,5.5rem)] leading-[1.1] tracking-wide uppercase mb-6 text-brand-white">
-                La seguridad<br />que <em className="text-brand-blue not-italic">no</em><br />descansa.
+                {t("hero.heroTitle1")}<br />
+                <span className="text-brand-blue">{t("hero.heroTitle2")}</span>
               </h1>
             </FadeUp>
 
             <FadeUp delay={0.3}>
               <p className="text-base sm:text-lg text-brand-gray-light leading-relaxed max-w-[560px] mb-8 font-light">
-                Control de accesos inteligente, monitoreo en tiempo real por operadores y un ecosistema tecnológico que protege tu edificio sin depender de nadie.
+                {t("hero.heroDesc")}
               </p>
             </FadeUp>
 
@@ -98,13 +104,13 @@ export function Hero() {
                   href="#contacto"
                   className="bg-brand-blue text-brand-black px-8 py-3.5 rounded-sm font-bold text-sm tracking-wider uppercase hover:bg-white hover:-translate-y-px transition-all"
                 >
-                  Cotizá tu servicio
+                  {t("hero.heroQuote")}
                 </Link>
                 <Link
                   href="#vision"
                   className="border border-white/30 text-brand-white px-8 py-3.5 rounded-sm font-medium text-sm tracking-wider uppercase hover:border-brand-blue hover:text-brand-blue transition-all"
                 >
-                  Ver productos
+                  {t("hero.heroProducts")}
                 </Link>
               </div>
             </FadeUp>
@@ -160,10 +166,10 @@ export function Hero() {
                     {/* Blinking REC indicator */}
                     <g transform="translate(15, 18)">
                       <circle cx="0" cy="0" r="2.5" fill="#FF3B30" className="animate-pulse" />
-                      <text x="6" y="2.5" fill="rgba(255,255,255,0.85)" fontSize="6" fontWeight="bold" fontFamily="monospace" letterSpacing="0.5">REC</text>
+                      <text x="6" y="2.5" fill="rgba(255,255,255,0.85)" fontSize="6" fontWeight="bold" fontFamily="monospace" letterSpacing="0.5">{t("hero.rec")}</text>
                     </g>
 
-                    <text x="45" y="20.5" fill="rgba(255,255,255,0.85)" fontSize="6" fontFamily="monospace" letterSpacing="0.3">
+                    <text x="50" y="20.5" fill="rgba(255,255,255,0.85)" fontSize="6" fontFamily="monospace" letterSpacing="0.3">
                       CAM_01_HALL_SEC
                     </text>
 
@@ -191,33 +197,33 @@ export function Hero() {
                       </line>
 
                       {/* Bio Target Tag */}
-                      <rect x="0" y="-12" width="52" height="9" fill="#00E676" rx="0.5" />
-                      <text x="3" y="-5.5" fill="black" fontSize="4.5" fontWeight="bold" fontFamily="monospace">ROSTRO DETECTADO</text>
+                      <rect x="-10" y="-12" width="72" height="9" fill="#00E676" rx="0.5" />
+                      <text x="-7" y="-5.5" fill="black" fontSize="4.5" fontWeight="bold" fontFamily="monospace">{t("hero.faceDetected")}</text>
                       
                       {/* Sub-labels */}
                       <g fontSize="4.5" fontFamily="monospace" fill="#00E676" fontWeight="bold" transform="translate(0, 88)">
-                        <text x="0" y="0">ID: PROPIETARIO (4B)</text>
-                        <text x="0" y="5.5">BIOMETRÍA: OK [98.7%]</text>
+                        <text x="0" y="0">ID: USER (4B)</text>
+                        <text x="0" y="5.5">BIOMETRICS: OK [98.7%]</text>
                       </g>
                     </g>
 
                     {/* Secondary monitoring node */}
                     <g transform="translate(225, 65)">
                       <rect x="0" y="0" width="55" height="55" fill="none" stroke="#00BFFF" strokeWidth="0.8" strokeDasharray="3,2" opacity="0.6" />
-                      <text x="3" y="7" fill="#00BFFF" fontSize="4.5" fontFamily="monospace" fontWeight="bold" opacity="0.75">ZONA 02 (ACCESO)</text>
-                      <text x="3" y="13" fill="#00BFFF" fontSize="4" fontFamily="monospace" opacity="0.6">ESTADO: SEGURO</text>
+                      <text x="3" y="7" fill="#00BFFF" fontSize="4.5" fontFamily="monospace" fontWeight="bold" opacity="0.75">ZONE 02 (ACCESS)</text>
+                      <text x="3" y="13" fill="#00BFFF" fontSize="4" fontFamily="monospace" opacity="0.6">SECURE</text>
                     </g>
 
                     {/* Threat indicator (0% danger) */}
                     <g transform="translate(15, 155)" fontSize="5.5" fontFamily="monospace" fill="rgba(255,255,255,0.6)">
                       <text x="0" y="0">FPS: 30.00</text>
                       <text x="45" y="0">BITRATE: 4120 Kbps</text>
-                      <text x="105" y="0" fill="#00E676">ESCUDO IA: ACTIVO</text>
+                      <text x="105" y="0" fill="#00E676">AI SHIELD: ACTIVE</text>
                     </g>
                   </svg>
 
                   <div className="absolute bottom-2 left-3 right-3 flex justify-between items-center font-mono text-[8px] text-brand-gray z-20">
-                    <span>SECTOR: INGRESO PRINCIPAL</span>
+                    <span>{t("hero.sector")}</span>
                     <span className="text-brand-blue">CAM_01_LOBBY</span>
                   </div>
                 </div>
@@ -225,19 +231,19 @@ export function Hero() {
                 {/* Telemetry Stats Rows */}
                 <div className="grid grid-cols-3 gap-2 text-center font-mono">
                   <div className="border border-brand-border rounded bg-brand-surface/30 p-2 flex flex-col">
-                    <span className="text-[10px] text-brand-gray tracking-wider uppercase mb-0.5">LATENCIA</span>
+                    <span className="text-[10px] text-brand-gray tracking-wider uppercase mb-0.5">{t("hero.latency")}</span>
                     <span className="text-xs text-brand-green font-bold flex items-center justify-center gap-1">
                       <Wifi className="w-3 h-3" /> 12ms
                     </span>
                   </div>
                   <div className="border border-brand-border rounded bg-brand-surface/30 p-2 flex flex-col">
-                    <span className="text-[10px] text-brand-gray tracking-wider uppercase mb-0.5">CPU HUBS</span>
+                    <span className="text-[10px] text-brand-gray tracking-wider uppercase mb-0.5">{t("hero.cpu")}</span>
                     <span className="text-xs text-brand-blue font-bold flex items-center justify-center gap-1">
                       <Cpu className="w-3 h-3" /> 14.8%
                     </span>
                   </div>
                   <div className="border border-brand-border rounded bg-brand-surface/30 p-2 flex flex-col">
-                    <span className="text-[10px] text-brand-gray tracking-wider uppercase mb-0.5">ENLACES</span>
+                    <span className="text-[10px] text-brand-gray tracking-wider uppercase mb-0.5">{t("hero.links")}</span>
                     <span className="text-xs text-brand-white font-bold flex items-center justify-center gap-1">
                       <Activity className="w-3 h-3" /> 12/12
                     </span>
@@ -246,7 +252,7 @@ export function Hero() {
 
                 {/* Live Activity Logs Ticker */}
                 <div className="flex flex-col gap-2 font-mono border-t border-brand-border pt-3">
-                  <span className="text-[8px] text-brand-gray uppercase tracking-widest font-bold">BITÁCORA EN TIEMPO REAL</span>
+                  <span className="text-[8px] text-brand-gray uppercase tracking-widest font-bold">{t("hero.tickerTitle")}</span>
                   <div className="flex flex-col gap-1.5 h-[70px] overflow-hidden">
                     {logs.map((log, idx) => (
                       <motion.div 
@@ -269,7 +275,7 @@ export function Hero() {
                 {/* Subtext info */}
                 <div className="flex justify-between items-center text-[8px] text-brand-gray font-mono pt-1.5 border-t border-brand-border/40">
                   <span className="flex items-center gap-1">
-                    <ShieldCheck className="w-3 h-3 text-brand-green" /> PROTOCOLO DE CIFRADO ACTIVO
+                    <ShieldCheck className="w-3 h-3 text-brand-green" /> ENCRYPTED PROTOCOL ACTIVE
                   </span>
                   <span>v1.2.6</span>
                 </div>
@@ -298,4 +304,3 @@ export function Hero() {
     </section>
   );
 }
-

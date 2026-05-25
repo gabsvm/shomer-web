@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { FadeUp } from "./FadeUp";
 import { motion, useInView } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 function AnimatedNumber({ value }: { value: number }) {
   const [current, setCurrent] = useState(0);
@@ -27,8 +28,6 @@ function AnimatedNumber({ value }: { value: number }) {
     }
   }, [isInView, value]);
 
-  // suppressHydrationWarning: SSR renders `value` so crawlers see real numbers;
-  // client hydrates with 0 and animates up when scrolled into view.
   return (
     <span ref={ref} suppressHydrationWarning>
       {typeof window === "undefined" ? value : current}
@@ -37,6 +36,8 @@ function AnimatedNumber({ value }: { value: number }) {
 }
 
 export function Stats() {
+  const { t } = useLanguage();
+
   return (
     <div id="stats" className="border-y border-brand-border bg-brand-surface">
       <div className="grid grid-cols-2 md:grid-cols-4 max-w-[1200px] mx-auto">
@@ -45,7 +46,7 @@ export function Stats() {
             <AnimatedNumber value={20} />
           </span>
           <div className="text-xs text-brand-gray tracking-widest uppercase mt-2 font-mono">
-            Años de experiencia
+            {t("stats.yearsExp")}
           </div>
         </FadeUp>
         
@@ -54,7 +55,7 @@ export function Stats() {
             <AnimatedNumber value={15000} />
           </span>
           <div className="text-xs text-brand-gray tracking-widest uppercase mt-2 font-mono">
-            Usuarios protegidos
+            {t("stats.usersProt")}
           </div>
         </FadeUp>
 
@@ -63,7 +64,7 @@ export function Stats() {
             24/7
           </span>
           <div className="text-xs text-brand-gray tracking-widest uppercase mt-2 font-mono">
-            Monitoreo activo
+            {t("stats.activeMon")}
           </div>
         </FadeUp>
 
@@ -72,7 +73,7 @@ export function Stats() {
             0%
           </span>
           <div className="text-xs text-brand-gray tracking-widest uppercase mt-2 font-mono">
-            Costos ocultos
+            {t("stats.hiddenCosts")}
           </div>
         </FadeUp>
       </div>

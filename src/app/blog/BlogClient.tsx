@@ -6,26 +6,158 @@ import Image from "next/image";
 import { Search, Calendar, Clock, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Post } from "@/data/posts";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface BlogClientProps {
   posts: Post[];
 }
 
+const blogTranslations = {
+  es: {
+    tag: "Knowledge Hub",
+    title: "Blog & Tecnología de Seguridad",
+    desc: "Artículos de análisis, guías de prevención y las últimas novedades sobre control de acceso inteligente para el mercado argentino.",
+    searchPlaceholder: "Buscar artículos...",
+    categories: {
+      Todos: "Todos",
+      Seguridad: "Seguridad",
+      Consorcios: "Consorcios",
+      Tecnología: "Tecnología",
+      "Casos de Éxito": "Casos de Éxito"
+    },
+    noResults: "No se encontraron artículos",
+    noResultsDesc: "Probá buscando con otros términos o seleccionando otra categoría.",
+    clearFilters: "Limpiar filtros"
+  },
+  en: {
+    tag: "Knowledge Hub",
+    title: "Blog & Security Technology",
+    desc: "Analysis articles, prevention guides, and the latest news on smart access control.",
+    searchPlaceholder: "Search articles...",
+    categories: {
+      Todos: "All",
+      Seguridad: "Security",
+      Consorcios: "Condos",
+      Tecnología: "Technology",
+      "Casos de Éxito": "Success Stories"
+    },
+    noResults: "No articles found",
+    noResultsDesc: "Try searching with other terms or selecting another category.",
+    clearFilters: "Clear filters"
+  },
+  he: {
+    tag: "Knowledge Hub",
+    title: "בלוג וטכנולוגיית אבטחה",
+    desc: "מאמרי ניתוח, מדריכי מניעה והחדשות האחרונות בנושא בקרת כניסה חכמה.",
+    searchPlaceholder: "חפש מאמרים...",
+    categories: {
+      Todos: "הכל",
+      Seguridad: "אבטחה",
+      Consorcios: "בתים משותפים",
+      Tecnología: "טכנולוגיה",
+      "Casos de Éxito": "סיפורי הצלחה"
+    },
+    noResults: "לא נמצאו מאמרים",
+    noResultsDesc: "נסה לחפש מונחים אחרים או לבחור קטגוריה אחרת.",
+    clearFilters: "נקה מסננים"
+  },
+  de: {
+    tag: "Knowledge Hub",
+    title: "Blog & Sicherheitstechnologie",
+    desc: "Analyseartikel, Präventionsleitfäden und die neuesten Nachrichten zur intelligenten Zutrittskontrolle.",
+    searchPlaceholder: "Artikel suchen...",
+    categories: {
+      Todos: "Alle",
+      Seguridad: "Sicherheit",
+      Consorcios: "Gemeinschaften",
+      Tecnología: "Technologie",
+      "Casos de Éxito": "Erfolgsgeschichten"
+    },
+    noResults: "Keine Artikel gefunden",
+    noResultsDesc: "Versuchen Sie es mit anderen Begriffen oder wählen Sie eine andere Kategorie.",
+    clearFilters: "Filter löschen"
+  },
+  ru: {
+    tag: "Knowledge Hub",
+    title: "Блог и технологии безопасности",
+    desc: "Аналитические статьи, руководства по профилактике и последние новости в области умного контроля доступа.",
+    searchPlaceholder: "Поиск статей...",
+    categories: {
+      Todos: "Все",
+      Seguridad: "Безопасность",
+      Consorcios: "ТСЖ",
+      Tecnología: "Технологии",
+      "Casos de Éxito": "Кейсы"
+    },
+    noResults: "Статьи не найдены",
+    noResultsDesc: "Попробуйте использовать другие ключевые слова или выбрать другую категорию.",
+    clearFilters: "Сбросить фильтры"
+  },
+  pt: {
+    tag: "Knowledge Hub",
+    title: "Blog & Tecnologia de Segurança",
+    desc: "Artigos de análise, guias de prevenção e as últimas novidades sobre controle de acesso inteligente.",
+    searchPlaceholder: "Buscar artigos...",
+    categories: {
+      Todos: "Todos",
+      Seguridad: "Segurança",
+      Consorcios: "Condomínios",
+      Tecnología: "Tecnologia",
+      "Casos de Éxito": "Casos de Sucesso"
+    },
+    noResults: "Nenhum artigo encontrado",
+    noResultsDesc: "Tente pesquisar com outros termos ou selecionar outra categoria.",
+    clearFilters: "Limpar filtros"
+  },
+  it: {
+    tag: "Knowledge Hub",
+    title: "Blog & Tecnologia di Sicurezza",
+    desc: "Articoli di analisi, guide di prevenzione e le ultime novità sul controllo accessi intelligente.",
+    searchPlaceholder: "Cerca articoli...",
+    categories: {
+      Todos: "Tutti",
+      Seguridad: "Sicurezza",
+      Consorcios: "Condomini",
+      Tecnología: "Tecnologia",
+      "Casos de Éxito": "Storie di Successo"
+    },
+    noResults: "Nessun articolo trovato",
+    noResultsDesc: "Prova a cercare altri termini o a selezionare un'altra categoria.",
+    clearFilters: "Cancella filtri"
+  }
+};
+
 export function BlogClient({ posts }: BlogClientProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("Todos");
+  const { language } = useLanguage();
+  const tBlog = blogTranslations[language] || blogTranslations["es"];
 
   const categories = ["Todos", "Seguridad", "Consorcios", "Tecnología", "Casos de Éxito"];
 
+  // Localize posts content
+  const localizedPosts = posts.map((post) => {
+    const localized = post.translations[language] || post.translations["es"];
+    return {
+      ...post,
+      title: localized.title,
+      excerpt: localized.excerpt,
+      category: localized.category,
+      readTime: localized.readTime,
+      content: localized.content
+    };
+  });
+
   // Filter posts based on search query and selected category
-  const filteredPosts = posts.filter((post) => {
+  const filteredPosts = localizedPosts.filter((post) => {
     const matchesSearch =
       post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.content.toLowerCase().includes(searchQuery.toLowerCase());
 
+    const localizedSelectedCategory = tBlog.categories[selectedCategory as keyof typeof tBlog.categories] || selectedCategory;
     const matchesCategory =
-      selectedCategory === "Todos" || post.category === selectedCategory;
+      selectedCategory === "Todos" || post.category === localizedSelectedCategory;
 
     return matchesSearch && matchesCategory;
   });
@@ -40,13 +172,13 @@ export function BlogClient({ posts }: BlogClientProps) {
         {/* Header */}
         <div className="mb-14">
           <span className="font-mono text-xs tracking-[0.2em] text-brand-blue uppercase mb-3 block">
-            Knowledge Hub
+            {tBlog.tag}
           </span>
           <h1 className="font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-none uppercase mb-6">
-            Blog & <br /><em className="text-brand-blue not-italic">Tecnología</em> de Seguridad
+            {tBlog.title.split("&")[0]} & <br /><em className="text-brand-blue not-italic">{tBlog.title.split("&")[1] || ""}</em>
           </h1>
           <p className="text-base md:text-lg text-brand-gray-light leading-relaxed max-w-[600px] font-light">
-            Artículos de análisis, guías de prevención y las últimas novedades sobre control de acceso inteligente para el mercado argentino.
+            {tBlog.desc}
           </p>
         </div>
 
@@ -64,7 +196,7 @@ export function BlogClient({ posts }: BlogClientProps) {
                     : "border-brand-border bg-black/20 text-brand-gray hover:text-brand-gray-light hover:border-brand-gray"
                   }`}
               >
-                {cat}
+                {tBlog.categories[cat as keyof typeof tBlog.categories] || cat}
               </button>
             ))}
           </div>
@@ -73,7 +205,7 @@ export function BlogClient({ posts }: BlogClientProps) {
           <div className="relative w-full md:max-w-[320px] order-1 md:order-2">
             <input
               type="text"
-              placeholder="Buscar artículos..."
+              placeholder={tBlog.searchPlaceholder}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-white/5 border border-brand-border rounded px-4 py-2.5 pl-10 text-sm text-white outline-none focus:border-brand-blue transition-colors"
@@ -100,7 +232,7 @@ export function BlogClient({ posts }: BlogClientProps) {
                       src={post.image}
                       alt={post.title}
                       fill
-                      sizes="(max-w-768px) 100vw, (max-w-1200px) 50vw, 33vw"
+                      sizes="(max-width: 768px) 100vw, (max-w-1200px) 50vw, 33vw"
                       className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
                     />
                     <div className="absolute top-4 left-4 bg-brand-black/80 backdrop-blur-sm border border-brand-border/60 px-3 py-1 rounded-sm text-[0.65rem] font-mono font-bold tracking-wider text-brand-blue uppercase">
@@ -159,13 +291,13 @@ export function BlogClient({ posts }: BlogClientProps) {
           </div>
         ) : (
           <div className="text-center py-20 border border-brand-border/60 rounded bg-brand-surface/20">
-            <p className="text-lg text-brand-gray-light font-light mb-2">No se encontraron artículos</p>
-            <p className="text-xs text-brand-gray">Probá buscando con otros términos o seleccionando otra categoría.</p>
+            <p className="text-lg text-brand-gray-light font-light mb-2">{tBlog.noResults}</p>
+            <p className="text-xs text-brand-gray">{tBlog.noResultsDesc}</p>
             <button 
               onClick={() => { setSearchQuery(""); setSelectedCategory("Todos"); }}
               className="mt-6 font-mono text-xs tracking-wider uppercase text-brand-blue hover:text-brand-white underline cursor-pointer"
             >
-              Limpiar filtros
+              {tBlog.clearFilters}
             </button>
           </div>
         )}

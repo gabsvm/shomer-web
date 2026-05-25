@@ -1,6 +1,9 @@
-import type { Metadata, Viewport } from "next";
+import type { Viewport } from "next";
 import { Outfit, Inter, Space_Mono } from "next/font/google";
 import "./globals.css";
+import { cookies } from "next/headers";
+import { LanguageProvider } from "@/context/LanguageContext";
+import { Locale, translations } from "@/translations";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -25,28 +28,38 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-const SITE_URL = "https://shomer-web.vercel.app";
-const OG_IMAGE = `${SITE_URL}/images/vision-pro.png`;
+export async function generateMetadata() {
+  const cookieStore = await cookies();
+  const lang = (cookieStore.get("NEXT_LOCALE")?.value || "es") as Locale;
+  const t = translations[lang] || translations["es"];
+  const SITE_URL = "https://shomer-web.vercel.app";
+  const OG_IMAGE = `${SITE_URL}/images/vision-pro.png`;
+  
+  const title = `Shomer Security — ${t.hero.title1} ${t.hero.title2}`;
+  const description = t.hero.desc;
 
-export const metadata: Metadata = {
-  title: "Shomer Security — La evolución del portero eléctrico",
-  description:
-    "Control de accesos inteligente con Face ID, monitoreo 24/7 y un ecosistema que evoluciona con tu edificio.",
-  openGraph: {
-    title: "Shomer Security — Seguridad que no descansa",
-    description: "Control de accesos inteligente con Face ID, monitoreo 24/7 y un ecosistema que evoluciona con tu edificio.",
-    url: SITE_URL,
-    type: "website",
-    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Shomer Security — Control de accesos inteligente" }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Shomer Security — Seguridad que no descansa",
-    description: "Control de accesos inteligente con Face ID, monitoreo 24/7 y un ecosistema que evoluciona con tu edificio.",
-    images: [OG_IMAGE],
-  },
-  robots: "index, follow",
-};
+  return {
+    title,
+    description,
+    icons: {
+      icon: "/logo.png",
+    },
+    openGraph: {
+      title,
+      description,
+      url: SITE_URL,
+      type: "website",
+      images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Shomer Security" }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [OG_IMAGE],
+    },
+    robots: "index, follow",
+  };
+}
 
 const localBusinessSchema = {
   "@context": "https://schema.org",
@@ -77,17 +90,23 @@ const localBusinessSchema = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const lang = (cookieStore.get("NEXT_LOCALE")?.value || "es") as Locale;
+  const dir = lang === "he" ? "rtl" : "ltr";
+
   return (
-    <html lang="es" className="scroll-smooth">
+    <html lang={lang} dir={dir} className="scroll-smooth">
       <body
         className={`${outfit.variable} ${inter.variable} ${spaceMono.variable} antialiased bg-brand-black text-brand-white font-body`}
       >
-        {children}
+        <LanguageProvider initialLang={lang}>
+          {children}
+        </LanguageProvider>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
