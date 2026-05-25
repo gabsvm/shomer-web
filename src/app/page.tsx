@@ -12,11 +12,24 @@ import { Problem } from "@/components/Problem";
 import { Vision } from "@/components/Vision";
 import { Totem } from "@/components/Totem";
 import { Pricing } from "@/components/Pricing";
-import { CPQConfigurator } from "@/components/CPQConfigurator";
-import { PodcastSection } from "@/components/PodcastSection";
-import { InfrastructureMap } from "@/components/InfrastructureMap";
-import { MonitoringSandbox } from "@/components/MonitoringSandbox";
 import { Footer } from "@/components/Footer";
+import dynamic from "next/dynamic";
+
+const InfrastructureMap = dynamic(
+  () => import("@/components/InfrastructureMap").then((mod) => mod.InfrastructureMap)
+);
+
+const CPQConfigurator = dynamic(
+  () => import("@/components/CPQConfigurator").then((mod) => mod.CPQConfigurator)
+);
+
+const PodcastSection = dynamic(
+  () => import("@/components/PodcastSection").then((mod) => mod.PodcastSection)
+);
+
+const MonitoringSandbox = dynamic(
+  () => import("@/components/MonitoringSandbox").then((mod) => mod.MonitoringSandbox)
+);
 
 export default function Home() {
   return (

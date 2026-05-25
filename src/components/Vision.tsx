@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FadeUp } from "./FadeUp";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +8,24 @@ import Link from "next/link";
 export function Vision() {
   const [viewMode, setViewMode] = useState<"photo" | "3d">("photo");
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [inView, setInView] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" }
+    );
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section id="vision" className="py-16 md:py-24 px-6 md:px-10 bg-brand-black">
@@ -17,17 +35,21 @@ export function Vision() {
         <FadeUp>
           <div className="relative">
             <div className="absolute -inset-5 bg-[radial-gradient(ellipse_at_center,rgba(0,191,255,0.15),transparent_70%)] pointer-events-none" />
-            <div className="aspect-[4/5] w-full rounded-lg overflow-hidden relative bg-[#0a0a0a] border border-white/5 shadow-2xl flex flex-col justify-between">
+            <div ref={containerRef} className="aspect-[4/5] w-full rounded-lg overflow-hidden relative bg-[#0a0a0a] border border-white/5 shadow-2xl flex flex-col justify-between">
               
               {viewMode === "photo" ? (
-                <video 
-                  src="/Shomer vision PRO close up.mp4" 
-                  autoPlay 
-                  loop 
-                  muted 
-                  playsInline 
-                  className="absolute inset-0 w-full h-full object-cover rounded-lg"
-                />
+                inView ? (
+                  <video 
+                    src="/Shomer vision PRO close up.mp4" 
+                    autoPlay 
+                    loop 
+                    muted 
+                    playsInline 
+                    className="absolute inset-0 w-full h-full object-cover rounded-lg"
+                  />
+                ) : (
+                  <div className="absolute inset-0 bg-[#0a0a0a] animate-pulse rounded-lg" />
+                )
               ) : (
                 <iframe 
                   src="https://my.spline.design/untitled-bG8GVacgvfJrDgbJSSGzJ6Pu/"
@@ -103,7 +125,7 @@ export function Vision() {
                     {feature.icon}
                   </div>
                   <div>
-                    <h4 className="text-[0.95rem] font-semibold mb-1">{feature.title}</h4>
+                    <h3 className="text-[0.95rem] font-semibold mb-1">{feature.title}</h3>
                     <p className="text-[0.83rem] text-brand-gray leading-relaxed">{feature.text}</p>
                   </div>
                 </div>

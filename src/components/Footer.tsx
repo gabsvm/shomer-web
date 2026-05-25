@@ -19,7 +19,7 @@ export function Footer() {
           </div>
           
           <div>
-            <h4 className="text-[0.72rem] font-mono tracking-[0.15em] uppercase text-brand-gray mb-5">Productos</h4>
+            <h3 className="text-[0.72rem] font-mono tracking-[0.15em] uppercase text-brand-gray mb-5">Productos</h3>
             <ul className="flex flex-col gap-3">
               <li><Link href="/#vision" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Línea VISION</Link></li>
               <li><Link href="/#totem" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Tótem de Seguridad</Link></li>
@@ -30,7 +30,7 @@ export function Footer() {
           </div>
           
           <div>
-            <h4 className="text-[0.72rem] font-mono tracking-[0.15em] uppercase text-brand-gray mb-5">Servicios</h4>
+            <h3 className="text-[0.72rem] font-mono tracking-[0.15em] uppercase text-brand-gray mb-5">Servicios</h3>
             <ul className="flex flex-col gap-3">
               <li><Link href="/servicios/edificios-y-consorcios" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Edificios y Consorcios</Link></li>
               <li><Link href="/servicios/empresas" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Empresas</Link></li>
@@ -40,7 +40,7 @@ export function Footer() {
           </div>
           
           <div>
-            <h4 className="text-[0.72rem] font-mono tracking-[0.15em] uppercase text-brand-gray mb-5">Contacto</h4>
+            <h3 className="text-[0.72rem] font-mono tracking-[0.15em] uppercase text-brand-gray mb-5">Contacto</h3>
             <ul className="flex flex-col gap-3">
               <li><a href="tel:+541123648511" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">+54 11 2364-8511</a></li>
               <li><a href="tel:+541179994444" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">+54 11 7999-4444</a></li>

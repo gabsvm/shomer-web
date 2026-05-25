@@ -33,7 +33,7 @@ export function Includes() {
                 <div className="w-11 h-11 rounded-full bg-brand-blue-dim border border-brand-blue/30 flex items-center justify-center text-brand-blue mb-5">
                   {item.icon}
                 </div>
-                <h4 className="font-semibold text-[0.95rem] mb-3">{item.title}</h4>
+                <h3 className="font-semibold text-[0.95rem] mb-3">{item.title}</h3>
                 <p className="text-[0.83rem] text-brand-gray leading-relaxed">{item.text}</p>
               </div>
             </FadeUp>

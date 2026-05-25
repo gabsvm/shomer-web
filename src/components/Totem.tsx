@@ -70,22 +70,22 @@ export function Totem() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10">
               <div className="bg-black/50 border border-brand-border rounded p-5">
                 <Video className="w-6 h-6 mb-3 text-white" />
-                <h4 className="text-[0.88rem] font-semibold mb-1">Cámaras HD 24/7</h4>
+                <h3 className="text-[0.88rem] font-semibold mb-1">Cámaras HD 24/7</h3>
                 <p className="text-[0.78rem] text-brand-gray leading-relaxed">Monitoreo en tiempo real con visión nocturna. Respuesta inmediata.</p>
               </div>
               <div className="bg-black/50 border border-brand-border rounded p-5">
                 <ShieldAlert className="w-6 h-6 mb-3 text-white" />
-                <h4 className="text-[0.88rem] font-semibold mb-1">Huella de pánico</h4>
+                <h3 className="text-[0.88rem] font-semibold mb-1">Huella de pánico</h3>
                 <p className="text-[0.78rem] text-brand-gray leading-relaxed">Activa alerta silenciosa a la central ante situaciones de riesgo.</p>
               </div>
               <div className="bg-black/50 border border-brand-border rounded p-5">
                 <BellRing className="w-6 h-6 mb-3 text-white" />
-                <h4 className="text-[0.88rem] font-semibold mb-1">Alarma disuasoria</h4>
+                <h3 className="text-[0.88rem] font-semibold mb-1">Alarma disuasoria</h3>
                 <p className="text-[0.78rem] text-brand-gray leading-relaxed">El operador activa señal sonora + protocolo 911 en tiempo real.</p>
               </div>
               <div className="bg-black/50 border border-brand-border rounded p-5">
                 <ShieldCheck className="w-6 h-6 mb-3 text-white" />
-                <h4 className="text-[0.88rem] font-semibold mb-1">Conexión directa 911</h4>
+                <h3 className="text-[0.88rem] font-semibold mb-1">Conexión directa 911</h3>
                 <p className="text-[0.78rem] text-brand-gray leading-relaxed">Protocolos anti-siniestros con respuesta coordinada a las fuerzas.</p>
               </div>
             </div>
