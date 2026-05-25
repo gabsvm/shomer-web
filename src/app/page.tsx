@@ -14,6 +14,44 @@ import { Totem } from "@/components/Totem";
 import { Pricing } from "@/components/Pricing";
 import { Footer } from "@/components/Footer";
 import dynamic from "next/dynamic";
+import { LazySection } from "@/components/LazySection";
+
+// Fallbacks elegantes para carga diferida
+const MapFallback = () => (
+  <div className="w-full h-[600px] bg-brand-near-black flex items-center justify-center border-t border-brand-border">
+    <div className="flex flex-col items-center gap-3">
+      <div className="w-8 h-8 border-2 border-brand-blue/20 border-t-brand-blue rounded-full animate-spin" />
+      <span className="font-mono text-[10px] text-brand-gray tracking-[0.2em] uppercase">Iniciando Red Georredundante...</span>
+    </div>
+  </div>
+);
+
+const SandboxFallback = () => (
+  <div className="w-full h-[650px] bg-brand-black flex items-center justify-center border-t border-brand-border">
+    <div className="flex flex-col items-center gap-3">
+      <div className="w-8 h-8 border-2 border-brand-blue/20 border-t-brand-blue rounded-full animate-spin" />
+      <span className="font-mono text-[10px] text-brand-gray tracking-[0.2em] uppercase">Cargando Centro de Control CCTV...</span>
+    </div>
+  </div>
+);
+
+const ConfiguratorFallback = () => (
+  <div className="w-full h-[700px] bg-brand-near-black flex items-center justify-center border-t border-brand-border">
+    <div className="flex flex-col items-center gap-3">
+      <div className="w-8 h-8 border-2 border-brand-blue/20 border-t-brand-blue rounded-full animate-spin" />
+      <span className="font-mono text-[10px] text-brand-gray tracking-[0.2em] uppercase">Cargando Modelador de Presupuesto...</span>
+    </div>
+  </div>
+);
+
+const PodcastFallback = () => (
+  <div className="w-full h-[500px] bg-brand-black flex items-center justify-center border-t border-brand-border">
+    <div className="flex flex-col items-center gap-3">
+      <div className="w-8 h-8 border-2 border-brand-blue/20 border-t-brand-blue rounded-full animate-spin" />
+      <span className="font-mono text-[10px] text-brand-gray tracking-[0.2em] uppercase">Cargando Reproductor de Audio...</span>
+    </div>
+  </div>
+);
 
 const InfrastructureMap = dynamic(
   () => import("@/components/InfrastructureMap").then((mod) => mod.InfrastructureMap)
@@ -41,11 +79,19 @@ export default function Home() {
       <Vision />
       <Totem />
       <Segments />
-      <InfrastructureMap />
-      <MonitoringSandbox />
+      <LazySection minHeight="600px" fallback={<MapFallback />}>
+        <InfrastructureMap />
+      </LazySection>
+      <LazySection minHeight="650px" fallback={<SandboxFallback />}>
+        <MonitoringSandbox />
+      </LazySection>
       <Pricing />
-      <CPQConfigurator />
-      <PodcastSection />
+      <LazySection minHeight="700px" fallback={<ConfiguratorFallback />}>
+        <CPQConfigurator />
+      </LazySection>
+      <LazySection minHeight="500px" fallback={<PodcastFallback />}>
+        <PodcastSection />
+      </LazySection>
       <Includes />
       <WhyShomer />
       <SocialProof />
