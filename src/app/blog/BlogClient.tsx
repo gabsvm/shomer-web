@@ -206,6 +206,7 @@ export function BlogClient({ posts }: BlogClientProps) {
             <input
               type="text"
               placeholder={tBlog.searchPlaceholder}
+              aria-label={tBlog.searchPlaceholder}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-white/5 border border-brand-border rounded px-4 py-2.5 pl-10 text-sm text-white outline-none focus:border-brand-blue transition-colors"

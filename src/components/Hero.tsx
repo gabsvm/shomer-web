@@ -57,7 +57,7 @@ export function Hero() {
       {/* Background with scan animation */}
       <div className="absolute inset-0 bg-brand-black" />
       <div className="absolute inset-0 z-0 opacity-25 lg:opacity-40">
-        <Image src="/images/landing.jpeg" alt="Shomer Security" fill className="object-cover" priority />
+        <Image src="/images/landing.jpeg" alt="Shomer Security" fill sizes="100vw" className="object-cover" priority />
       </div>
       <div className="absolute inset-0 z-0 bg-[linear-gradient(135deg,rgba(0,0,0,0.97)_30%,rgba(0,191,255,0.06)_100%)]" />
       
@@ -72,49 +72,40 @@ export function Hero() {
           
           {/* Left Column: Text & CTA */}
           <div className="lg:col-span-7 flex flex-col justify-center">
-            <FadeUp>
-              <div className="inline-flex items-center gap-2 border border-brand-border px-4 py-2 rounded-full text-xs font-mono tracking-widest text-brand-gray-light mb-6 backdrop-blur-md bg-white/5">
-                <span className="w-2 h-2 rounded-full bg-brand-green shadow-[0_0_8px_#00E676] animate-pulse" />
-                {t("hero.activeMonitoring")}
-              </div>
-            </FadeUp>
+            <div className="animate-fade-in-up opacity-0 inline-flex items-center gap-2 border border-brand-border px-4 py-2 rounded-full text-xs font-mono tracking-widest text-brand-gray-light mb-6 backdrop-blur-md bg-white/5">
+              <span className="w-2 h-2 rounded-full bg-brand-green shadow-[0_0_8px_#00E676] animate-pulse" />
+              {t("hero.activeMonitoring")}
+            </div>
 
-            <FadeUp delay={0.1}>
-              <div className="font-mono text-sm tracking-[0.2em] text-brand-blue uppercase mb-4">
-                Shomer Security
-              </div>
-            </FadeUp>
+            <div className="animate-fade-in-up opacity-0 font-mono text-sm tracking-[0.2em] text-brand-blue uppercase mb-4" style={{ animationDelay: "100ms" }}>
+              Shomer Security
+            </div>
 
-            <FadeUp delay={0.2}>
-              <h1 className="font-display text-[clamp(2.5rem,7vw,5.5rem)] leading-[1.1] tracking-wide uppercase mb-6 text-brand-white">
-                {t("hero.heroTitle1")}<br />
-                <span className="text-brand-blue">{t("hero.heroTitle2")}</span>
-              </h1>
-            </FadeUp>
+            <h1 className="animate-fade-in-up opacity-0 font-display text-[clamp(2.5rem,7vw,5.5rem)] leading-[1.1] tracking-wide uppercase mb-6 text-brand-white" style={{ animationDelay: "200ms" }}>
+              {t("hero.heroTitle1")}<br />
+              <span className="text-brand-blue">{t("hero.heroTitle2")}</span>
+            </h1>
 
-            <FadeUp delay={0.3}>
-              <p className="text-base sm:text-lg text-brand-gray-light leading-relaxed max-w-[560px] mb-8 font-light">
-                {t("hero.heroDesc")}
-              </p>
-            </FadeUp>
+            <p className="animate-fade-in-up opacity-0 text-base sm:text-lg text-brand-gray-light leading-relaxed max-w-[560px] mb-8 font-light" style={{ animationDelay: "300ms" }}>
+              {t("hero.heroDesc")}
+            </p>
 
-            <FadeUp delay={0.4}>
-              <div className="flex flex-wrap gap-4 items-center">
-                <Link
-                  href="#contacto"
-                  className="bg-brand-blue text-brand-black px-8 py-3.5 rounded-sm font-bold text-sm tracking-wider uppercase hover:bg-white hover:-translate-y-px transition-all"
-                >
-                  {t("hero.heroQuote")}
-                </Link>
-                <Link
-                  href="#vision"
-                  className="border border-white/30 text-brand-white px-8 py-3.5 rounded-sm font-medium text-sm tracking-wider uppercase hover:border-brand-blue hover:text-brand-blue transition-all"
-                >
-                  {t("hero.heroProducts")}
-                </Link>
-              </div>
-            </FadeUp>
+            <div className="animate-fade-in-up opacity-0 flex flex-wrap gap-4 items-center" style={{ animationDelay: "400ms" }}>
+              <Link
+                href="#contacto"
+                className="bg-brand-blue text-brand-black px-8 py-3.5 rounded-sm font-bold text-sm tracking-wider uppercase hover:bg-white hover:-translate-y-px transition-all"
+              >
+                {t("hero.heroQuote")}
+              </Link>
+              <Link
+                href="#vision"
+                className="border border-white/30 text-brand-white px-8 py-3.5 rounded-sm font-medium text-sm tracking-wider uppercase hover:border-brand-blue hover:text-brand-blue transition-all"
+              >
+                {t("hero.heroProducts")}
+              </Link>
+            </div>
           </div>
+
 
           {/* Right Column: Telemetry Holographic HUD */}
           <div className="lg:col-span-5 hidden lg:flex justify-end relative">

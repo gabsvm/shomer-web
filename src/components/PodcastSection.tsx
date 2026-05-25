@@ -330,6 +330,7 @@ export function PodcastSection() {
                       <input
                         ref={progressBarRef}
                         type="range"
+                        aria-label="Progreso de reproducción"
                         min={0}
                         max={duration || 100}
                         value={currentTime}
@@ -347,6 +348,7 @@ export function PodcastSection() {
                       {/* Left: Speed */}
                       <button
                         onClick={handleSpeedCycle}
+                        aria-label="Velocidad de reproducción"
                         className="px-2.5 py-1 border border-brand-border hover:border-brand-blue hover:text-brand-blue rounded text-[10px] font-mono text-brand-gray transition-colors cursor-pointer w-14 text-center shrink-0"
                         title="Velocidad de reproducción"
                       >
@@ -358,6 +360,7 @@ export function PodcastSection() {
                         {/* Skip back 15s */}
                         <button 
                           onClick={skipBackward} 
+                          aria-label="Retroceder 15 segundos"
                           className="text-brand-gray hover:text-brand-blue transition-colors cursor-pointer"
                           title="Retroceder 15s"
                         >
@@ -367,6 +370,7 @@ export function PodcastSection() {
                         {/* Play/Pause */}
                         <button
                           onClick={togglePlay}
+                          aria-label={isPlaying ? "Pausar" : "Reproducir"}
                           className="w-12 h-12 rounded-full bg-brand-blue text-brand-black flex items-center justify-center hover:scale-105 hover:bg-white shadow-[0_0_15px_rgba(0,191,255,0.3)] transition-all cursor-pointer shrink-0"
                           title={isPlaying ? "Pausar" : "Reproducir"}
                         >
@@ -376,6 +380,7 @@ export function PodcastSection() {
                         {/* Skip forward 15s */}
                         <button 
                           onClick={skipForward} 
+                          aria-label="Adelantar 15 segundos"
                           className="text-brand-gray hover:text-brand-blue transition-colors cursor-pointer"
                           title="Adelantar 15s"
                         >
@@ -387,12 +392,14 @@ export function PodcastSection() {
                       <div className="flex items-center gap-2 max-w-[80px] sm:max-w-[100px] shrink-0">
                         <button
                           onClick={toggleMute}
+                          aria-label={isMuted ? "Activar sonido" : "Silenciar"}
                           className="text-brand-gray hover:text-brand-blue transition-colors cursor-pointer"
                         >
                           {isMuted || volume === 0 ? <VolumeX size={16} /> : <Volume2 size={16} />}
                         </button>
                         <input
                           type="range"
+                          aria-label="Volumen"
                           min={0}
                           max={1}
                           step={0.1}

@@ -20,6 +20,7 @@ export function Totem() {
                 src="/images/totem-section.png" 
                 alt="Tótem de Seguridad Virtual en situ" 
                 fill 
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-b lg:bg-gradient-to-r from-transparent via-transparent to-brand-surface opacity-90 lg:opacity-100" />

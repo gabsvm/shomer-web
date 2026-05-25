@@ -111,24 +111,25 @@ export function Contact() {
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-2">
-                  <label className="text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray">Nombre *</label>
-                  <input name="nombre" type="text" required placeholder="Tu nombre" className="w-full bg-white/5 border border-brand-border rounded px-4 py-3 text-white outline-none focus:border-brand-blue transition-colors" />
+                  <label htmlFor="nombre" className="text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray">Nombre *</label>
+                  <input id="nombre" name="nombre" type="text" required placeholder="Tu nombre" className="w-full bg-white/5 border border-brand-border rounded px-4 py-3 text-white outline-none focus:border-brand-blue transition-colors" />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className="text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray">Teléfono *</label>
-                  <input name="telefono" type="tel" required placeholder="+54 11 ..." className="w-full bg-white/5 border border-brand-border rounded px-4 py-3 text-white outline-none focus:border-brand-blue transition-colors" />
+                  <label htmlFor="telefono" className="text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray">Teléfono *</label>
+                  <input id="telefono" name="telefono" type="tel" required placeholder="+54 11 ..." className="w-full bg-white/5 border border-brand-border rounded px-4 py-3 text-white outline-none focus:border-brand-blue transition-colors" />
                 </div>
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray">Email *</label>
-                <input name="email" type="email" required placeholder="tu@email.com" className="w-full bg-white/5 border border-brand-border rounded px-4 py-3 text-white outline-none focus:border-brand-blue transition-colors" />
+                <label htmlFor="email" className="text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray">Email *</label>
+                <input id="email" name="email" type="email" required placeholder="tu@email.com" className="w-full bg-white/5 border border-brand-border rounded px-4 py-3 text-white outline-none focus:border-brand-blue transition-colors" />
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray">Tipo de espacio</label>
+                <label htmlFor="tipo_espacio" className="text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray">Tipo de espacio</label>
                 <div className="relative w-full">
                   <select 
+                    id="tipo_espacio"
                     name="tipo_espacio" 
                     value={tipoEspacio}
                     onChange={(e) => setTipoEspacio(e.target.value)}
@@ -145,8 +146,9 @@ export function Contact() {
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray">Consulta</label>
+                <label htmlFor="consulta" className="text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray">Consulta</label>
                 <textarea 
+                  id="consulta"
                   name="consulta" 
                   value={consulta}
                   onChange={(e) => setConsulta(e.target.value)}

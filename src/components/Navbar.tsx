@@ -91,6 +91,7 @@ export function Navbar() {
                 setLanguage(e.target.value as Locale);
                 router.refresh();
               }}
+              aria-label="Seleccionar idioma"
               className="bg-transparent text-brand-white text-xs font-mono font-medium focus:outline-none cursor-pointer uppercase border-none pr-1"
             >
               {languages.map((lang) => (

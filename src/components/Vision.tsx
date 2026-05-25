@@ -130,6 +130,7 @@ export function Vision() {
             alt="Shomer Vision Pro instalado en edificio"
             width={2750}
             height={1536}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1200px"
             className="w-full h-auto object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />

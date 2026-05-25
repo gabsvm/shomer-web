@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { FadeUp } from "./FadeUp";
 import { Shield, Radio, Bell, Users, Eye, Zap, RefreshCw, Activity, Volume2 } from "lucide-react";
+import Image from "next/image";
+
 
 interface LogEvent {
   id: string;
@@ -177,9 +179,11 @@ export function MonitoringSandbox() {
             <div className="relative aspect-video rounded overflow-hidden border border-brand-border bg-[#050505] flex items-center justify-center select-none shadow-[inset_0_4px_20px_rgba(0,0,0,0.8)]">
               
               {/* Realistic Background Image with CCTV Filter */}
-              <img
+              <Image
                 src={activeCam === 1 ? "/images/cctv_hall_sec.png" : "/images/cctv_lpr_sec.png"}
                 alt="CCTV Background Feed"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 700px, 700px"
                 className="absolute inset-0 w-full h-full object-cover transition-all duration-700 pointer-events-none"
                 style={{
                   filter: alarmActive

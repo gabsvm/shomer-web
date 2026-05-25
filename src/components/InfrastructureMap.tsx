@@ -198,7 +198,11 @@ export function InfrastructureMap() {
         iconAnchor: [16, 16],
       });
 
-      L.marker([node.coords.lat, node.coords.lng], { icon: customIcon })
+      L.marker([node.coords.lat, node.coords.lng], { 
+        icon: customIcon,
+        title: node.name,
+        alt: node.name
+      })
         .addTo(map)
         .on("click", () => {
           setSelectedNodeId(node.id);
