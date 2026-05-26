@@ -91,4 +91,14 @@
   animation: slide-in-log 0.3s ease-out forwards;
 }
 
+@keyframes laser-flow-cctv {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(160px); }
+}
+
+.animate-scan-line-cctv {
+  animation: laser-flow-cctv 4s linear infinite;
+}
+
+
 

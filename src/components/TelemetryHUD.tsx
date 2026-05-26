@@ -75,7 +75,8 @@ export function TelemetryHUD() {
             src="/images/cctv_hall_sec.png"
             alt="Active CCTV Monitoring"
             fill
-            sizes="390px"
+            sizes="(max-width: 1024px) 1px, 390px"
+            priority
             className="object-cover pointer-events-none"
             style={{
               filter: "brightness(0.6) contrast(1.25) saturate(0.2) sepia(0.15) hue-rotate(85deg)"
@@ -86,9 +87,7 @@ export function TelemetryHUD() {
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:12px_12px] pointer-events-none" />
           
           {/* Cyber Scanner line */}
-          <div className="absolute left-0 right-0 h-[1.5px] bg-brand-blue/40 shadow-[0_0_8px_#00BFFF] pointer-events-none z-10 animate-scan-line-cctv" style={{
-            animation: "laser-flow-cctv 4s linear infinite"
-          }} />
+          <div className="absolute left-0 right-0 top-0 h-[1.5px] bg-brand-blue/40 shadow-[0_0_8px_#00BFFF] pointer-events-none z-10 animate-scan-line-cctv" />
 
           {/* Screen Vignette */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,rgba(0,0,0,0.6)_100%)] pointer-events-none z-10" />
@@ -211,12 +210,6 @@ export function TelemetryHUD() {
         </div>
       </div>
 
-      <style jsx global>{`
-        @keyframes laser-flow-cctv {
-          0% { top: 0%; }
-          100% { top: 100%; }
-        }
-      `}</style>
     </div>
   );
 }
