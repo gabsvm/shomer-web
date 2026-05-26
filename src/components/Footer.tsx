@@ -59,6 +59,11 @@ export function Footer() {
         <div className="mt-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex flex-col sm:flex-row items-center gap-3">
             <p className="text-[0.75rem] text-brand-gray font-mono">© {new Date().getFullYear()} Shomer Security SRL — Todos los derechos reservados</p>
+            <span className="hidden sm:inline text-brand-gray/30 text-[0.75rem] font-mono">·</span>
+            <Link href="/quienes-somos" className="text-[0.75rem] text-brand-gray font-mono hover:text-brand-blue transition-colors">
+              Quiénes somos
+            </Link>
+            <span className="hidden sm:inline text-brand-gray/30 text-[0.75rem] font-mono">·</span>
             <Link href="/privacidad" className="text-[0.75rem] text-brand-gray font-mono hover:text-brand-blue transition-colors">
               Política de privacidad
             </Link>

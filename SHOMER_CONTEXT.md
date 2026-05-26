@@ -157,6 +157,7 @@ Embed YouTube: https://www.youtube.com/embed/VsBzvaK4f54
 ### ❌ Pendiente — ALTA PRIORIDAD
 
 **SEO / Técnico:**
+- [ ] Bug de Traducciones en Landing Page — corregir secciones que no se están traduciendo dinámicamente al cambiar de idioma (en el Blog se traduce al 100% de forma correcta)
 - [ ] Schema markup JSON-LD (`LocalBusiness`, `Service`, `FAQPage`, `Review`) — crítico para rich snippets
 - [ ] `og:url` debe apuntar al dominio real (shomer.com.ar) cuando se migre
 - [ ] Contadores de stats (20, 15000) muestran 0 en SSR — usar `useEffect` o inicializar con valor real y animar encima
@@ -172,7 +173,7 @@ Embed YouTube: https://www.youtube.com/embed/VsBzvaK4f54
 - [ ] Habilitación / número de registro ante Ministerio de Seguridad — visible en footer
 
 **Páginas faltantes:**
-- [ ] Página "Quiénes somos" — cara de la empresa, historia, equipo
+- [x] Página "Quiénes somos" — misión, visión e ingeniería estilo Tesla/SpaceX sin rostros
 - [ ] Páginas de servicio individuales (Edificios / Empresas / Countries / Hoteles) con URL propia para SEO
 - [ ] Blog — mínimo 2 artículos/mes para posicionamiento orgánico
 

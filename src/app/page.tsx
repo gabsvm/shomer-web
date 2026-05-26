@@ -1,6 +1,7 @@
 import { Segments } from "@/components/Segments";
 import { Includes } from "@/components/Includes";
 import { WhyShomer } from "@/components/WhyShomer";
+import { AboutSection } from "@/components/AboutSection";
 import { SocialProof } from "@/components/SocialProof";
 import { VideoSection } from "@/components/VideoSection";
 import { FAQ } from "@/components/FAQ";
@@ -94,6 +95,7 @@ export default function Home() {
       </LazySection>
       <Includes />
       <WhyShomer />
+      <AboutSection />
       <SocialProof />
       <VideoSection />
       

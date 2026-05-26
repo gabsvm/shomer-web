@@ -34,10 +34,21 @@ export function Navbar() {
     };
   }, [mobileMenuOpen]);
 
+  const aboutLabels: Record<string, string> = {
+    es: "Nosotros",
+    en: "About Us",
+    he: "מי אנחנו",
+    de: "Über uns",
+    ru: "О нас",
+    pt: "Sobre nós",
+    it: "Chi siamo"
+  };
+
   const links = [
     { href: "/#vision", label: t("navbar.vision") },
     { href: "/#totem", label: t("navbar.totem") },
     { href: "/#segmentos", label: t("navbar.services") },
+    { href: "/quienes-somos", label: aboutLabels[language] || aboutLabels.es },
     { href: "/#precios", label: t("navbar.pricing") },
     { href: "/blog", label: t("navbar.blog") },
     { href: "/#testimonios", label: t("navbar.clients") },
