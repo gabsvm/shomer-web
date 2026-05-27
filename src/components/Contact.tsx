@@ -306,7 +306,6 @@ export function Contact() {
     formattedData.append("replyto", email);
 
     // Map inputs to the exact labels from the official email format
-    formattedData.append("Logo Shomer", "https://shomer-web.vercel.app/images/SHOMER.png");
     formattedData.append("Fecha de la consulta", dateStr);
     formattedData.append("Nombre a dirigirse para la consulta", nombre);
     formattedData.append("Numero a llamar", telefono);
