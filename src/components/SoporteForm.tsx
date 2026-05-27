@@ -98,6 +98,161 @@ const translationsLocal: Record<string, {
     successBtn: "Generate another ticket",
     errorMsg: "There was an error submitting the ticket. Contact us directly at ",
     errorEmailLink: "soporte@shomer.com.ar"
+  },
+  he: {
+    title: "תמיכה באינטרקום ומפעילים",
+    subtitle: "פתח כרטיס תמיכה טכנית ומוקד הבקרה שלנו ייצור עמך קשר בהקדם.",
+    infoTitle: "מרכז תמיכה טכנית",
+    infoDesc1: "אם אתה מפעיל בניין, שוער או משתמש באפליקציית Shomer וחווה בעיות בקורא הביומטרי, בשיחות וידאו או בגישה באמצעות קוד QR, אנא מלא טופס זה.",
+    infoDesc2: "לאחר שליחת הכרטיס, צוות התמיכה הטכנית שלנו יפעיל סריקת אבחון מרחוק על נקודת הקצה של הבניין שלך.",
+    infoTime: "פעילות טכנית ומבצעית",
+    infoTimeSub: "פעיל 24/7 · פניות לא דחופות בין 9:00 ל-18:00.",
+    nameLabel: "שם מלא *",
+    namePlaceholder: "שם פרטי ומשפחה",
+    emailLabel: "אימייל ליצירת קשר *",
+    emailPlaceholder: "example@email.com",
+    buildingLabel: "בניין / קבוצת נכסים *",
+    buildingPlaceholder: "שם הבניין וכתובת",
+    deviceLabel: "מכשיר נייד *",
+    devicePlaceholder: "בחר את מערכת ההפעלה שלך",
+    deviceIos: "Apple iPhone (iOS)",
+    deviceAndroid: "Android (Samsung, Xiaomi, Motorola, etc.)",
+    deviceOther: "אחר / דפדפן אינטרנט במחשב",
+    versionLabel: "גרסת אפליקציה / דפדפן",
+    versionPlaceholder: "לדוגמה: App v1.4.2 או Google Chrome",
+    descLabel: "תיאור הבעיה *",
+    descPlaceholder: "פרט את הבעיה (לדוגמה: לא מתקבלות שיחות, שגיאה בקורא הפנים וכו')",
+    submitBtn: "פתח כרטיס תמיכה",
+    submittingText: "פותח כרטיס...",
+    successTitle: "הכרטיס נפתח בהצלחה!",
+    successDesc: "פנייתך התקבלה. נציג תמיכה טכנית ייצור עמך קשר במייל שסופק או בטלפון.",
+    successBtn: "פתח כרטיס נוסף",
+    errorMsg: "אירעה שגיאה בשליחת הכרטיס. פנה אלינו ישירות בכתובת ",
+    errorEmailLink: "soporte@shomer.com.ar"
+  },
+  de: {
+    title: "Intercom- & Bediener-Support",
+    subtitle: "Erstellen Sie ein Support-Ticket und unsere Leitstelle wird sich in Kürze mit Ihnen in Verbindung setzen.",
+    infoTitle: "Technisches Support-Center",
+    infoDesc1: "Wenn Sie als Pförtner, Hausmeister oder Nutzer der Shomer-App Probleme mit dem biometrischen Leser, Videoanrufen oder dem QR-Zugang haben, füllen Sie bitte dieses Formular aus.",
+    infoDesc2: "Nach Absenden des Tickets startet unser technisches Support-Team eine Remote-Diagnose auf dem Knotenpunkt Ihres Gebäudes.",
+    infoTime: "Technischer & operativer Betrieb",
+    infoTimeSub: "24/7 in Betrieb · Nicht dringende Anfragen von 9:00 bis 18:00 Uhr.",
+    nameLabel: "Vollständiger Name *"
+    ,namePlaceholder: "Ihr Vor- und Nachname",
+    emailLabel: "Kontakt-E-Mail *",
+    emailPlaceholder: "beispiel@email.de",
+    buildingLabel: "Gebäude / Konsortium *",
+    buildingPlaceholder: "Name des Gebäudes und Adresse",
+    deviceLabel: "Mobilgerät *",
+    devicePlaceholder: "Wählen Sie Ihr Betriebssystem aus",
+    deviceIos: "Apple iPhone (iOS)",
+    deviceAndroid: "Android (Samsung, Xiaomi, Motorola, etc.)",
+    deviceOther: "Anderes / PC-Webbrowser",
+    versionLabel: "App-Version / Browser",
+    versionPlaceholder: "Z. B. App v1.4.2 oder Google Chrome",
+    descLabel: "Beschreibung des Problems *",
+    descPlaceholder: "Beschreiben Sie das Problem (z. B. keine Anrufe erhalten, Fehler beim Gesichtsscanner usw.)",
+    submitBtn: "Support-Ticket erstellen",
+    submittingText: "Ticket wird erstellt...",
+    successTitle: "Ticket erfolgreich erstellt!",
+    successDesc: "Wir haben Ihre Meldung erhalten. Ein technischer Mitarbeiter wird sich unter der angegebenen E-Mail-Adresse oder telefonisch mit Ihnen in Verbindung setzen.",
+    successBtn: "Weiteres Ticket erstellen",
+    errorMsg: "Fehler beim Senden des Tickets. Schreiben Sie uns direkt unter ",
+    errorEmailLink: "soporte@shomer.com.ar"
+  },
+  ru: {
+    title: "Поддержка домофонов и операторов",
+    subtitle: "Создайте тикет службы поддержки, и наш центр мониторинга свяжется с вами в ближайшее время.",
+    infoTitle: "Центр технической поддержки",
+    infoDesc1: "Если вы консьерж, оператор здания или пользователь приложения Shomer и у вас возникли проблемы с биометрическим считывателем, видеозвонками или доступом по QR-коду, пожалуйста, заполните эту форму.",
+    infoDesc2: "После отправки тикета наша служба технической поддержки запустит удаленную самодиагностику узла вашего здания.",
+    infoTime: "Техническая и оперативная служба",
+    infoTimeSub: "Работает 24/7 · Несрочные запросы с 9:00 до 18:00.",
+    nameLabel: "Полное имя *",
+    namePlaceholder: "Ваши имя и фамилия",
+    emailLabel: "Контактный E-mail *",
+    emailPlaceholder: "example@email.ru",
+    buildingLabel: "Здание / Консорциум *",
+    buildingPlaceholder: "Название здания и адрес",
+    deviceLabel: "Мобильное устройство *",
+    devicePlaceholder: "Выберите вашу операционную систему",
+    deviceIos: "Apple iPhone (iOS)",
+    deviceAndroid: "Android (Samsung, Xiaomi, Motorola и др.)",
+    deviceOther: "Другое / Браузер на ПК",
+    versionLabel: "Версия приложения / Браузер",
+    versionPlaceholder: "Например: App v1.4.2 или Google Chrome",
+    descLabel: "Описание проблемы *",
+    descPlaceholder: "Подробно опишите проблему (например: не приходят вызовы, сбой сканера лица и т.д.)",
+    submitBtn: "Создать тикет поддержки",
+    submittingText: "Создание тикета...",
+    successTitle: "Тикет успешно создан!",
+    successDesc: "Мы получили ваше обращение. Технический специалист свяжется с вами по указанному адресу электронной почты или по телефону.",
+    successBtn: "Создать еще один тикет",
+    errorMsg: "Ошибка при отправке тикета. Напишите нам напрямую на ",
+    errorEmailLink: "soporte@shomer.com.ar"
+  },
+  pt: {
+    title: "Suporte para Porteiros e Operadores",
+    subtitle: "Abra um tíquete de suporte e nossa central de monitoramento entrará em contato em breve.",
+    infoTitle: "Central de Suporte Técnico",
+    infoDesc1: "Se você é porteiro, zelador ou usuário do aplicativo Shomer e está enfrentando problemas com o leitor biométrico, videochamadas ou acesso QR, por favor preencha este formulário.",
+    infoDesc2: "Assim que o tíquete for enviado, nossa equipe de suporte técnico iniciará um diagnóstico remoto no nó do seu condomínio.",
+    infoTime: "Operação Técnica e Disuasiva",
+    infoTimeSub: "Operando 24h · Consultas não urgentes das 9h às 18h.",
+    nameLabel: "Nome Completo *",
+    namePlaceholder: "Seu nome e sobrenome",
+    emailLabel: "E-mail de Contato *",
+    emailPlaceholder: "exemplo@email.com",
+    buildingLabel: "Edifício / Condomínio *",
+    buildingPlaceholder: "Nome do edifício e endereço",
+    deviceLabel: "Dispositivo Móvel *",
+    devicePlaceholder: "Selecione o seu sistema operacional",
+    deviceIos: "Apple iPhone (iOS)",
+    deviceAndroid: "Android (Samsung, Xiaomi, Motorola, etc.)",
+    deviceOther: "Outro / Navegador Web de PC",
+    versionLabel: "Versão do App / Navegador",
+    versionPlaceholder: "Ex: App v1.4.2 ou Google Chrome",
+    descLabel: "Descrição do Problema *",
+    descPlaceholder: "Detalhe o problema (ex: não recebo a chamada, falha no leitor facial, etc.)",
+    submitBtn: "Gerar Tíquete de Suporte",
+    submittingText: "Gerando Tíquete...",
+    successTitle: "Tíquete Criado com Sucesso!",
+    successDesc: "Recebemos o seu relatório. Um operador técnico entrará em contato através do e-mail fornecido ou por telefone.",
+    successBtn: "Gerar outro tíquete",
+    errorMsg: "Houve um erro ao enviar o tíquete. Escreva diretamente para ",
+    errorEmailLink: "soporte@shomer.com.ar"
+  },
+  it: {
+    title: "Supporto Citofono & Operatori",
+    subtitle: "Invia un ticket di supporto e la nostra centrale operativa ti contatterà a breve.",
+    infoTitle: "Centro di Supporto Tecnico",
+    infoDesc1: "Se sei un portiere, un custode o un utente dell'app Shomer e riscontri problemi con il lettore biometrico, le videochiamate o l'accesso QR, compila questo modulo.",
+    infoDesc2: "Una volta inviato il ticket, il nostro team di supporto tecnico avvierà una diagnostica remota sul nodo del tuo condominio.",
+    infoTime: "Operazioni Tecniche e Dissuasive",
+    infoTimeSub: "Attivo 24/7 · Richieste non urgenti dalle 9:00 alle 18:00.",
+    nameLabel: "Nome Completo *",
+    namePlaceholder: "Il tuo nome e cognome",
+    emailLabel: "E-mail di Contatto *",
+    emailPlaceholder: "esempio@email.it",
+    buildingLabel: "Edificio / Condominio *",
+    buildingPlaceholder: "Nome dell'edificio e indirizzo",
+    deviceLabel: "Dispositivo Mobile *",
+    devicePlaceholder: "Seleziona il tuo sistema operativo",
+    deviceIos: "Apple iPhone (iOS)",
+    deviceAndroid: "Android (Samsung, Xiaomi, Motorola, ecc.)",
+    deviceOther: "Altro / PC Web Browser",
+    versionLabel: "Versione App / Browser",
+    versionPlaceholder: "Es: App v1.4.2 o Google Chrome",
+    descLabel: "Descrizione del Problema *",
+    descPlaceholder: "Dettaglia il problema (es: non ricevo la chiamata, errore nel lettore facciale, ecc.)",
+    submitBtn: "Invia Ticket di Supporto",
+    submittingText: "Invio Ticket in corso...",
+    successTitle: "Ticket Creato con Successo!",
+    successDesc: "Abbiamo ricevuto la tua segnalazione. Un operatore tecnico ti contatterà all'indirizzo e-mail fornito o telefonicamente.",
+    successBtn: "Invia un altro ticket",
+    errorMsg: "Si è verificato un errore durante l'invio del ticket. Scrivici direttamente a ",
+    errorEmailLink: "soporte@shomer.com.ar"
   }
 };
 
@@ -106,9 +261,7 @@ export function SoporteForm() {
   const [dispositivo, setDispositivo] = useState("");
   const { language } = useLanguage();
   
-  // Choose Spanish or English fallback
-  const langKey = language === "en" ? "en" : "es";
-  const t = translationsLocal[langKey];
+  const t = translationsLocal[language] || translationsLocal.es;
   const isRtl = language === "he";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -128,15 +281,14 @@ export function SoporteForm() {
     const now = new Date();
     const dateStr = now.toLocaleDateString("es-AR") + " " + now.toLocaleTimeString("es-AR", { hour: '2-digit', minute: '2-digit' }) + " hs";
 
-    // Formatted data for Web3Forms email body
     const web3Data = new FormData();
     web3Data.append("access_key", process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "");
-    web3Data.append("subject", `SOPORTE PORTEROS: ${nombre} - ${consorcio}`);
+    web3Data.append("subject", `SOPORTE PORTEROS (${language.toUpperCase()}): ${nombre} - ${consorcio}`);
     web3Data.append("from_name", "Shomer Soporte App Store");
     web3Data.append("replyto", email);
 
-    // Form details
     web3Data.append("Fecha del Ticket", dateStr);
+    web3Data.append("Idioma del Usuario", language.toUpperCase());
     web3Data.append("Nombre del Afectado", nombre);
     web3Data.append("Consorcio / Edificio", consorcio);
     web3Data.append("Mail de contacto", email);
@@ -174,28 +326,28 @@ export function SoporteForm() {
           </h2>
           <div className="flex flex-col gap-4 text-[0.88rem] text-brand-gray-light leading-relaxed">
             <p>{t.infoDesc1}</p>
-            <p className="border-l-2 border-brand-blue/30 pl-4 py-1 bg-brand-blue-dim/10">
+            <p className={`border-brand-blue/30 py-1 bg-brand-blue-dim/10 ${isRtl ? "border-r-2 pr-4 text-right" : "border-l-2 pl-4 text-left"}`}>
               {t.infoDesc2}
             </p>
           </div>
         </div>
 
-        <div className="py-6 border-b border-brand-border flex items-start gap-4">
+        <div className={`py-6 border-b border-brand-border flex items-start gap-4 ${isRtl ? "flex-row-reverse" : ""}`}>
           <div className="w-10 h-10 rounded-full bg-brand-blue-dim border border-brand-blue/20 flex items-center justify-center shrink-0">
             📞
           </div>
-          <div>
+          <div className={isRtl ? "text-right" : "text-left"}>
             <div className="text-[0.72rem] font-mono tracking-widest text-brand-gray uppercase mb-1">{t.infoTime}</div>
-            <div className="text-[0.95rem] font-medium text-brand-white">+54 11 2364-8511</div>
+            <div className="text-[0.95rem] font-medium text-brand-white" dir="ltr">+54 11 2364-8511</div>
             <div className="text-[0.78rem] text-brand-gray mt-0.5">{t.infoTimeSub}</div>
           </div>
         </div>
 
-        <div className="py-6 flex items-start gap-4">
+        <div className={`py-6 flex items-start gap-4 ${isRtl ? "flex-row-reverse" : ""}`}>
           <div className="w-10 h-10 rounded-full bg-brand-blue-dim border border-brand-blue/20 flex items-center justify-center shrink-0">
             ✉️
           </div>
-          <div>
+          <div className={isRtl ? "text-right" : "text-left"}>
             <div className="text-[0.72rem] font-mono tracking-widest text-brand-gray uppercase mb-1">Email Técnico</div>
             <div className="text-[0.95rem] font-medium text-brand-white hover:text-brand-blue transition-colors">
               <a href="mailto:soporte@shomer.com.ar">soporte@shomer.com.ar</a>
@@ -229,7 +381,7 @@ export function SoporteForm() {
             <form onSubmit={handleSubmit} className="flex flex-col gap-6">
               {/* Name field */}
               <div className="flex flex-col gap-2">
-                <label htmlFor="nombre" className="text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray flex items-center gap-1.5">
+                <label htmlFor="nombre" className={`text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray flex items-center gap-1.5 ${isRtl ? "flex-row-reverse" : ""}`}>
                   <User className="w-3.5 h-3.5" />
                   {t.nameLabel}
                 </label>
@@ -239,13 +391,13 @@ export function SoporteForm() {
                   type="text"
                   required
                   placeholder={t.namePlaceholder}
-                  className="w-full bg-brand-black border border-brand-border rounded px-4 py-3 text-[1rem] text-brand-white outline-none focus:border-brand-blue transition-colors placeholder:text-brand-gray/50 min-h-[48px]"
+                  className={`w-full bg-brand-black border border-brand-border rounded px-4 py-3 text-[1rem] text-brand-white outline-none focus:border-brand-blue transition-colors placeholder:text-brand-gray/50 min-h-[48px] ${isRtl ? "text-right" : "text-left"}`}
                 />
               </div>
 
               {/* Email field */}
               <div className="flex flex-col gap-2">
-                <label htmlFor="email" className="text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray flex items-center gap-1.5">
+                <label htmlFor="email" className={`text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray flex items-center gap-1.5 ${isRtl ? "flex-row-reverse" : ""}`}>
                   <Mail className="w-3.5 h-3.5" />
                   {t.emailLabel}
                 </label>
@@ -255,13 +407,13 @@ export function SoporteForm() {
                   type="email"
                   required
                   placeholder={t.emailPlaceholder}
-                  className="w-full bg-brand-black border border-brand-border rounded px-4 py-3 text-[1rem] text-brand-white outline-none focus:border-brand-blue transition-colors placeholder:text-brand-gray/50 min-h-[48px]"
+                  className={`w-full bg-brand-black border border-brand-border rounded px-4 py-3 text-[1rem] text-brand-white outline-none focus:border-brand-blue transition-colors placeholder:text-brand-gray/50 min-h-[48px] ${isRtl ? "text-right" : "text-left"}`}
                 />
               </div>
 
               {/* Building field */}
               <div className="flex flex-col gap-2">
-                <label htmlFor="consorcio" className="text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray flex items-center gap-1.5">
+                <label htmlFor="consorcio" className={`text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray flex items-center gap-1.5 ${isRtl ? "flex-row-reverse" : ""}`}>
                   <Building className="w-3.5 h-3.5" />
                   {t.buildingLabel}
                 </label>
@@ -271,7 +423,7 @@ export function SoporteForm() {
                   type="text"
                   required
                   placeholder={t.buildingPlaceholder}
-                  className="w-full bg-brand-black border border-brand-border rounded px-4 py-3 text-[1rem] text-brand-white outline-none focus:border-brand-blue transition-colors placeholder:text-brand-gray/50 min-h-[48px]"
+                  className={`w-full bg-brand-black border border-brand-border rounded px-4 py-3 text-[1rem] text-brand-white outline-none focus:border-brand-blue transition-colors placeholder:text-brand-gray/50 min-h-[48px] ${isRtl ? "text-right" : "text-left"}`}
                 />
               </div>
 
@@ -279,7 +431,7 @@ export function SoporteForm() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Device Selector */}
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="dispositivo" className="text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray flex items-center gap-1.5">
+                  <label htmlFor="dispositivo" className={`text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray flex items-center gap-1.5 ${isRtl ? "flex-row-reverse" : ""}`}>
                     <Smartphone className="w-3.5 h-3.5" />
                     {t.deviceLabel}
                   </label>
@@ -290,20 +442,20 @@ export function SoporteForm() {
                       value={dispositivo}
                       required
                       onChange={(e) => setDispositivo(e.target.value)}
-                      className="w-full bg-brand-black border border-brand-border rounded pl-4 pr-10 py-3 text-[1rem] text-brand-white outline-none focus:border-brand-blue transition-colors appearance-none cursor-pointer min-h-[48px]"
+                      className={`w-full bg-brand-black border border-brand-border rounded pl-4 pr-10 py-3 text-[1rem] text-brand-white outline-none focus:border-brand-blue transition-colors appearance-none cursor-pointer min-h-[48px] ${isRtl ? "text-right" : "text-left"}`}
                     >
                       <option value="" disabled className="text-brand-gray/50">{t.devicePlaceholder}</option>
                       <option className="bg-brand-surface-2 text-white" value="Apple iPhone (iOS)">{t.deviceIos}</option>
                       <option className="bg-brand-surface-2 text-white" value="Android">{t.deviceAndroid}</option>
                       <option className="bg-brand-surface-2 text-white" value="Otro">{t.deviceOther}</option>
                     </select>
-                    <ChevronDown className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-gray" />
+                    <ChevronDown className={`pointer-events-none absolute top-1/2 -translate-y-1/2 w-4 h-4 text-brand-gray ${isRtl ? "left-4" : "right-4"}`} />
                   </div>
                 </div>
 
                 {/* Version field */}
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="version" className="text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray flex items-center gap-1.5">
+                  <label htmlFor="version" className={`text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray flex items-center gap-1.5 ${isRtl ? "flex-row-reverse" : ""}`}>
                     <Cpu className="w-3.5 h-3.5" />
                     {t.versionLabel}
                   </label>
@@ -312,14 +464,14 @@ export function SoporteForm() {
                     name="version"
                     type="text"
                     placeholder={t.versionPlaceholder}
-                    className="w-full bg-brand-black border border-brand-border rounded px-4 py-3 text-[1rem] text-brand-white outline-none focus:border-brand-blue transition-colors placeholder:text-brand-gray/50 min-h-[48px]"
+                    className={`w-full bg-brand-black border border-brand-border rounded px-4 py-3 text-[1rem] text-brand-white outline-none focus:border-brand-blue transition-colors placeholder:text-brand-gray/50 min-h-[48px] ${isRtl ? "text-right" : "text-left"}`}
                   />
                 </div>
               </div>
 
               {/* Description field */}
               <div className="flex flex-col gap-2">
-                <label htmlFor="descripcion" className="text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray flex items-center gap-1.5">
+                <label htmlFor="descripcion" className={`text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray flex items-center gap-1.5 ${isRtl ? "flex-row-reverse" : ""}`}>
                   <FileText className="w-3.5 h-3.5" />
                   {t.descLabel}
                 </label>
@@ -329,7 +481,7 @@ export function SoporteForm() {
                   required
                   placeholder={t.descPlaceholder}
                   rows={4}
-                  className="w-full bg-brand-black border border-brand-border rounded px-4 py-3 text-[1rem] text-brand-white outline-none focus:border-brand-blue transition-colors placeholder:text-brand-gray/50 min-h-[100px] resize-y"
+                  className={`w-full bg-brand-black border border-brand-border rounded px-4 py-3 text-[1rem] text-brand-white outline-none focus:border-brand-blue transition-colors placeholder:text-brand-gray/50 min-h-[100px] resize-y ${isRtl ? "text-right" : "text-left"}`}
                 />
               </div>
 
