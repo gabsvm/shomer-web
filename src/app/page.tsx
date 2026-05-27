@@ -16,6 +16,8 @@ import { Pricing } from "@/components/Pricing";
 import { Footer } from "@/components/Footer";
 import dynamic from "next/dynamic";
 import { LazySection } from "@/components/LazySection";
+import { cookies } from "next/headers";
+import { Locale, translations } from "@/translations";
 
 // Fallbacks elegantes para carga diferida
 const MapFallback = () => (
@@ -70,7 +72,12 @@ const MonitoringSandbox = dynamic(
   () => import("@/components/MonitoringSandbox").then((mod) => mod.MonitoringSandbox)
 );
 
-export default function Home() {
+export default async function Home() {
+  const cookieStore = await cookies();
+  const lang = (cookieStore.get("NEXT_LOCALE")?.value || "es") as Locale;
+  const t = translations[lang] || translations.es;
+  const isRtl = lang === "he";
+
   return (
     <main>
       <Navbar />
@@ -100,18 +107,18 @@ export default function Home() {
       <VideoSection />
       
       {/* Club Shomer section is simple enough to put here or we can extract it. I'll put it here. */}
-      <section className="py-16 md:py-24 px-6 md:px-10 bg-brand-black">
+      <section className="py-16 md:py-24 px-6 md:px-10 bg-brand-black" dir={isRtl ? "rtl" : "ltr"}>
         <div className="max-w-[900px] mx-auto border border-brand-blue rounded-lg p-6 sm:p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-10 bg-[linear-gradient(135deg,var(--color-brand-surface),rgba(0,191,255,0.05))] relative overflow-hidden">
           <div className="absolute top-[-50%] right-[-10%] w-[300px] h-[300px] bg-[radial-gradient(circle,rgba(0,191,255,0.1),transparent_70%)] pointer-events-none" />
-          <div>
-            <div className="font-mono text-xs tracking-[0.18em] text-brand-blue uppercase mb-3">Próximamente</div>
-            <h3 className="font-display text-4xl uppercase mb-3 tracking-wide">Club Shomer</h3>
+          <div className={isRtl ? "text-right" : "text-left"}>
+            <div className="font-mono text-xs tracking-[0.18em] text-brand-blue uppercase mb-3">{t.club.tag}</div>
+            <h3 className="font-display text-4xl uppercase mb-3 tracking-wide">{t.club.title}</h3>
             <p className="text-sm text-brand-gray-light leading-relaxed max-w-[400px]">
-              Descuentos exclusivos, beneficios y bonificaciones para clientes y socios. Accedé antes que nadie a las novedades de Shomer Security.
+              {t.club.desc}
             </p>
           </div>
           <a href="https://shomer-club-v2.vercel.app" target="_blank" className="whitespace-nowrap border border-white/30 text-brand-white px-8 py-3.5 rounded-sm font-medium text-sm tracking-wider uppercase hover:border-brand-blue hover:text-brand-blue transition-all">
-            Conocer Club Shomer →
+            {t.club.btn}
           </a>
         </div>
       </section>

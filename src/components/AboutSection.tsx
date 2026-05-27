@@ -52,6 +52,54 @@ const sectionTranslations: Record<string, {
     pillar3Title: "אבולוציה ללא מפתחות",
     pillar3Desc: "אנו מעדכנים תוכנה באופן רציף ללא עלות נוספת לבניין. מערכת נקייה ממפתחות מגנטיים מיושנים ומאפליקציות פולשניות למבקרים.",
     cta: "למד על החזון וההנדסה שלנו ←"
+  },
+  de: {
+    tag: "Shomer-Philosophie",
+    title: "Demokratisierung von High-End-Sicherheit.",
+    desc: "Wir glauben, dass Seelenfrieden kein Privileg für wenige sein sollte, sondern ein Grundrecht. Wir entwerfen und implementieren das fortschrittlichste und zugänglichste physische Sicherheits-Ökosystem auf dem Markt, um Menschen dort zu schützen, wo sie leben und arbeiten.",
+    pillar1Title: "Technologie für alle",
+    pillar1Desc: "Wir bieten modernste Hardware und Software unter einem Mietvertrag (monatliche Gebühr) zu günstigen Preisen an, sodass jede Eigentümergemeinschaft, jedes Viertel oder jedes Unternehmen Zugang zu fortschrittlicher Biometrie erhält.",
+    pillar2Title: "Prävention in Echtzeit",
+    pillar2Desc: "Wir betreiben ein logisches Ökosystem in der Cloud mit KI-Analysen und Live-Operatoren in gepanzerten Überwachungszentren, die Bedrohungen abwehren, bevor sich die physische Tür öffnet.",
+    pillar3Title: "Schlüssellose Entwicklung",
+    pillar3Desc: "Wir aktualisieren die Software kontinuierlich und ohne zusätzliche Kosten für die Eigentümergemeinschaft. Ein System frei von veralteten Magnetschlüsseln und invasiven Besucher-Apps.",
+    cta: "Erfahren Sie mehr über unsere Vision und unser Engineering →"
+  },
+  ru: {
+    tag: "Философия Shomer",
+    title: "Демократизация высокотехнологичной безопасности.",
+    desc: "Мы верим, что душевное спокойствие должно быть не привилегией немногих, а фундаментальным правом. Мы проектируем и внедряем самую передовую и доступную технологическую экосистему физической безопасности на рынке, защищая людей там, где они живут и работают.",
+    pillar1Title: "Технологии для каждого",
+    pillar1Desc: "Мы предоставляем современное оборудование и программное обеспечение в пользование (ежемесячная подписка) по разумным тарифам, позволяя любому консорциуму, району или бизнесу получить доступ к передовой биометрии.",
+    pillar2Title: "Предотвращение в реальном времени",
+    pillar2Desc: "Мы управляем облачной логической экосистемой с ИИ-аналитикой и операторами в реальном времени в бронированных центрах мониторинга, которые сдерживают угрозы до открытия физической двери.",
+    pillar3Title: "Эволюция без ключей",
+    pillar3Desc: "Мы постоянно обновляем программное обеспечение без дополнительных затрат для консорциума. Система, свободная от устаревших магнитных ключей и инвазивных приложений для посетителей.",
+    cta: "Узнайте о нашем видении и инженерии →"
+  },
+  pt: {
+    tag: "Filosofia Shomer",
+    title: "Democratizando a segurança de alta gama.",
+    desc: "Acreditamos que a tranquilidade não deve ser um privilégio de poucos, mas um direito fundamental. Projetamos e implementamos o ecossistema de segurança física mais avançado e acessível do mercado, protegendo as pessoas onde vivem e trabalham.",
+    pillar1Title: "Tecnologia para todos",
+    pillar1Desc: "Fornecemos hardware e software de última geração em comodato (mensalidade) a taxas razoáveis, permitindo que qualquer condomínio, bairro ou empresa tenha acesso a biometria avançada.",
+    pillar2Title: "Prevenção em tempo real",
+    pillar2Desc: "Operamos um ecossistema lógico na nuvem com análise de IA e operadores em tempo real em centrais blindadas que impedem ameaças antes que a porta física se abra.",
+    pillar3Title: "Evolução sem chaves",
+    pillar3Desc: "Atualizamos continuamente o software sem custo adicional para o condomínio. Um sistema livre de chaves magnéticas obsoletas e de aplicações invasivas para visitantes.",
+    cta: "Conheça a nossa visão e engenharia →"
+  },
+  it: {
+    tag: "Filosofia Shomer",
+    title: "Democratizzare la sicurezza di fascia alta.",
+    desc: "Crediamo che la tranquillità non debba essere un privilegio di pochi, ma un diritto fondamentale. Progettiamo e implementiamo l'ecosistema tecnologico di sicurezza fisica più avanzato e accessibile sul mercato, proteggendo le persone dove vivono e lavorano.",
+    pillar1Title: "Tecnologia per tutti",
+    pillar1Desc: "Forniamo hardware e software di ultima generazione in comodato (canone mensile) a tariffe ragionevoli, consentendo a qualsiasi condominio, quartiere o azienda di accedere a sistemi biometrici avanzati.",
+    pillar2Title: "Prevenzione in tempo reale",
+    pillar2Desc: "Gestiamo un ecosistema logico in cloud con analisi IA e operatori in tempo reale in centri di monitoraggio blindati che scoraggiano le minacce prima che la porta fisica si apra.",
+    pillar3Title: "Evoluzione senza chiavi",
+    pillar3Desc: "Aggiorniamo continuamente il software senza costi aggiuntivi per il condominio. Un sistema privo di chiavi magnetiche obsolete e di app invasive per i visitatori.",
+    cta: "Scopri la nostra visione e la nostra ingegneria →"
   }
 };
 

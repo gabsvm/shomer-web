@@ -2,68 +2,58 @@
 
 import { useState } from "react";
 import { FadeUp } from "./FadeUp";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/translations";
 
-const faqs = [
-  {
-    q: "¿Qué pasa si falla el sistema o se corta internet?",
-    a: "El sistema de acceso biométrico cuenta con batería de respaldo que mantiene la operación durante 6 horas ante un corte de luz o internet. Si el edificio requiere mayor autonomía, nuestros técnicos realizan visitas para reemplazar o ampliar las baterías según el caso. La central de monitoreo tiene protocolos de contingencia activos las 24 horas, los 365 días del año.",
-  },
-  {
-    q: "¿Quién gestiona las altas y bajas de residentes?",
-    a: "Shomer lo gestiona por completo. El administrador notifica el cambio — mudanza, nuevo residente, empleado nuevo — y nosotros actualizamos el sistema. Sin trabajo manual para el consorcio, sin sistemas que aprender a operar.",
-  },
-  {
-    q: "¿Cuánto tarda la instalación?",
-    a: "La instalación lleva entre 2 y 4 días hábiles en la mayoría de los casos. El tiempo exacto depende de la magnitud del objetivo y la complejidad que suponga según la estructura del edificio. Incluye configuración completa, pruebas de funcionamiento y capacitación al administrador. Sin costo adicional.",
-  },
-  {
-    q: "¿El visitante necesita descargar una app?",
-    a: "No. El visitante escanea el QR del equipo y accede directamente desde el navegador de su celular. Sin instalaciones, sin cuentas, sin fricción. Compatible con cualquier smartphone iOS o Android.",
-  },
-  {
-    q: "¿Qué pasa si necesito abrir la puerta en una emergencia un feriado o fin de semana?",
-    a: "La central de monitoreo opera 24/7 los 365 días del año. Las aperturas de emergencia — técnico de ascensor, reparación de bomba, bomberos — se gestionan remotamente con autorización del administrador o consejo de propietarios. Todo queda registrado.",
-  },
-  {
-    q: "¿Los datos de los residentes son seguros?",
-    a: "Toda la comunicación corre dentro del ecosistema Shomer, cifrada end-to-end. No se utilizan redes externas ni se expone ningún número personal. Los datos biométricos (Face ID) se procesan y almacenan bajo protocolos de seguridad estrictos en la base operativa Shomer.",
-  },
-];
-
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map(({ q, a }) => ({
-    "@type": "Question",
-    name: q,
-    acceptedAnswer: { "@type": "Answer", text: a },
-  })),
+const titleMap: Record<string, React.ReactNode> = {
+  es: <>Todo lo que<br /><em className="text-brand-blue not-italic">pregunta</em><br />el administrador.</>,
+  en: <>Everything<br />the administrator<br /><em className="text-brand-blue not-italic">asks</em>.</>,
+  he: <>כל מה<br />שהמנהל<br /><em className="text-brand-blue not-italic">שואל</em>.</>,
+  de: <>Alles, was der<br />Verwalter<br /><em className="text-brand-blue not-italic">fragt</em>.</>,
+  ru: <>Всё, что<br />спрашивает<br /><em className="text-brand-blue not-italic">администратор</em>.</>,
+  pt: <>Tudo o que<br />o administrador<br /><em className="text-brand-blue not-italic">pergunta</em>.</>,
+  it: <>Tutto quello che<br />l'amministratore<br /><em className="text-brand-blue not-italic">chiede</em>.</>
 };
 
 export function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
+  const { language } = useLanguage();
+  
+  const t = translations[language]?.faq || translations.es.faq;
+  const faqList = t.list || [];
+  const isRtl = language === "he";
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqList.map(({ q, a }) => ({
+      "@type": "Question",
+      name: q,
+      acceptedAnswer: { "@type": "Answer", text: a },
+    })),
+  };
 
   return (
-    <section id="faq" className="py-16 md:py-24 px-6 md:px-10 bg-brand-black">
+    <section id="faq" className="py-16 md:py-24 px-6 md:px-10 bg-brand-black" dir={isRtl ? "rtl" : "ltr"}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <div className="max-w-[860px] mx-auto">
         <FadeUp>
-          <div className="font-mono text-xs tracking-[0.18em] text-brand-blue uppercase mb-3">Preguntas frecuentes</div>
+          <div className="font-mono text-xs tracking-[0.18em] text-brand-blue uppercase mb-3">{t.tag}</div>
           <h2 className="font-display text-[clamp(2.2rem,5vw,3.8rem)] leading-none uppercase mb-14">
-            Todo lo que<br /><em className="text-brand-blue not-italic">pregunta</em><br />el administrador.
+            {titleMap[language] || titleMap.es}
           </h2>
         </FadeUp>
 
         <div className="flex flex-col divide-y divide-brand-border border border-brand-border rounded overflow-hidden">
-          {faqs.map(({ q, a }, i) => (
+          {faqList.map(({ q, a }, i) => (
             <FadeUp key={i} delay={(i % 3) * 0.05}>
               <div className="bg-brand-surface">
                 <button
                   onClick={() => setOpen(open === i ? null : i)}
-                  className="w-full flex items-start justify-between gap-6 px-6 py-5 text-left hover:bg-brand-surface-2 transition-colors"
+                  className={`w-full flex items-start justify-between gap-6 px-6 py-5 hover:bg-brand-surface-2 transition-colors ${isRtl ? "text-right" : "text-left"}`}
                   aria-expanded={open === i}
                 >
                   <span className="font-medium text-[0.95rem] text-brand-white leading-snug">{q}</span>
@@ -89,3 +79,4 @@ export function FAQ() {
     </section>
   );
 }
+

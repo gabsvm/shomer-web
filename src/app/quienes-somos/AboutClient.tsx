@@ -35,6 +35,9 @@ interface TranslationSet {
   step4Desc: string;
   techTitle: string;
   techSubtitle: string;
+  techTag: string;
+  techBody: string;
+  techConsoleTitle: string;
   tech1Title: string;
   tech1Desc: string;
   tech2Title: string;
@@ -77,6 +80,9 @@ const localTranslations: Record<string, TranslationSet> = {
     step4Desc: "Desplegamos procesamiento de inteligencia artificial en el extremo de la red (Edge computing) para permitir que los nodos tomen decisiones de forma autónoma. Tu edificio se mantiene protegido incluso ante cortes prolongados de internet o electricidad, respaldado por UPS de alta capacidad y diagnóstico de salud preventivo automatizado.",
     techTitle: "Pilares Técnicos de Confianza",
     techSubtitle: "Por qué el ecosistema de Shomer es inviolable.",
+    techTag: "TECNOLOGÍA DE SISTEMAS",
+    techBody: "Diseñamos e implementamos nuestro propio ecosistema físico y lógico, asegurando estándares de rendimiento de nivel internacional que eliminan vulnerabilidades mecánicas y humanas.",
+    techConsoleTitle: "Operatividad en tiempo real (Nube)",
     tech1Title: "Cifrado AES-256 de Grado Militar",
     tech1Desc: "Toda la transmisión de datos, flujos de video y registros biométricos están encriptados end-to-end.",
     tech2Title: "Autonomía Energética y de Red",
@@ -117,6 +123,9 @@ const localTranslations: Record<string, TranslationSet> = {
     step4Desc: "We deploy artificial intelligence processing at the edge of the network (Edge computing) to allow nodes to make autonomous decisions. Your building remains protected even during prolonged network or power outages, backed by high-capacity UPS and automated preventive health diagnostics.",
     techTitle: "Technical Pillars of Trust",
     techSubtitle: "Why the Shomer ecosystem is inviolable.",
+    techTag: "SYSTEMS TECHNOLOGY",
+    techBody: "We design and implement our own physical and logical ecosystem, ensuring international performance standards that eliminate mechanical and human vulnerabilities.",
+    techConsoleTitle: "Real-time operations (Cloud)",
     tech1Title: "Military-Grade AES-256 Encryption",
     tech1Desc: "All data transmission, video streams, and biometric logs are encrypted end-to-end.",
     tech2Title: "Power and Network Autonomy",
@@ -157,6 +166,9 @@ const localTranslations: Record<string, TranslationSet> = {
     step4Desc: "אנו פורסים עיבוד בינה מלאכותית בקצה הרשת (Edge computing) כדי לאפשר לצמתים לקבל החלטות באופן אוטונומי. הבניין שלך נשאר מוגן גם במהלך הפסקות רשת או חשמל ממושכות, מגובה במערכות UPS בעלות קיבולת גבוהה ואבחון בריאות מונע אוטומטי.",
     techTitle: "עמודי תווך טכניים לאמון",
     techSubtitle: "מדוע המערכת של שומר היא בלתי חדירה.",
+    techTag: "טכנולוגיית מערכות",
+    techBody: "אנו מעצבים ומיישמים את המערכת הפיזית והלוגית שלנו, ומבטיחים סטנדרטים בינלאומיים של ביצועים המונעים נקודות תורפה מכניות ואנושיות.",
+    techConsoleTitle: "פעילות בזמן אמת (ענן)",
     tech1Title: "הצפנה ברמה צבאית AES-256",
     tech1Desc: "כל העברת הנתונים, זרמי הווידאו והרישומים הביומטריים מוצפנים מקצה לקצה.",
     tech2Title: "אוטונומיה של אנרגיה ורשת",
@@ -168,6 +180,178 @@ const localTranslations: Record<string, TranslationSet> = {
     ctaTitle: "עתיד האבטחה כבר כאן",
     ctaDesc: "עצב את התצורה האידיאלית עבור הבניין, המשרד או הנכס שלך וקבל הצעת מחיר מוערכת באופן מיידי.",
     ctaBtn: "עצב את המערכת שלי ←"
+  },
+  de: {
+    heroTag: "Philosophie & Ingenieurwesen",
+    heroTitle: "Demokratisierung von High-End-Sicherheit.",
+    heroDesc: "Wir glauben, dass Seelenfrieden kein Privileg für wenige sein sollte, sondern ein Grundrecht. Wir entwerfen und implementieren das fortschrittlichste, robusteste und zugänglichste physische Sicherheits-Ökosystem.",
+    manifestoTitle: "Das Shomer-Manifest",
+    manifestoSubtitle: "Ingenieurprinzipien angewandt auf den Schutz von Menschen und Gemeinschaften.",
+    pillar1Title: "Spitzentechnologie für alle",
+    pillar1Desc: "Traditionelle Sicherheit reserviert ihre besten Technologien für Staatsoberhäupter oder multinationale Konzerne. Wir ändern die Spielregeln: Wir stellen modernste Hardware und Software unter einem Mietvertrag (monatliche Gebühr) zu günstigen Preisen zur Verfügung, sodass jede Eigentümergemeinschaft, jedes Viertel oder jedes Unternehmen Zugang zu Biometrie und aktiver KI erhält.",
+    pillar2Title: "Präventiver, nicht reaktiver Schutz",
+    pillar2Desc: "Die meisten lokalen Systeme beschränken sich darauf, eine Straftat aufzuzeichnen oder erst dann zu reagieren, wenn das Eindringen bereits stattgefunden hat. Shomer ist ein logisches Ökosystem in der Cloud, das Bedrohungen in Echtzeit verarbeitet. Wir agieren an der Peripherie durch KI-Analysen und Live-Abschreckung durch Operatoren und stoppen das Risiko, bevor sich die physische Tür öffnet.",
+    pillar3Title: "Kontinuierliche Entwicklung & Null Reibung",
+    pillar3Desc: "Herkömmliche Gegensprechanlagen und Magnetschlüssel sind veraltet und teuer in der Aktualisierung. Shomer ist eine lebendige digitale Plattform. Unsere Software aktualisiert sich automatisch aus der Cloud und fügt kontinuierlich neue Schutzmaßnahmen hinzu. All dies, ohne dass physische Schlüssel benötigt werden oder Besucher mobile Apps herunterladen müssen.",
+    roadmapTitle: "Der Fahrplan der Innovation",
+    roadmapSubtitle: "Unser Weg zum Aufbau der physischen Sicherheitsinfrastruktur von morgen.",
+    step1Year: "PHASE 01",
+    step1Title: "Analoge Verwundbarkeit",
+    step1Desc: "Eigentümergemeinschaften und Unternehmen hingen von Magnetschlüsseln ab, die bei jedem Schlüsseldienst leicht kopierbar waren, und von Gegensprechanlagen ohne echte Rückverfolgbarkeit. Sicherheit war physisch, reaktiv und anfällig für menschliche Fehler oder direkte Nötigung.",
+    step2Year: "PHASE 02",
+    step2Title: "Aktives Abschreckungsnetzwerk",
+    step2Desc: "Wir haben unsere virtuelle Sicherheits-Stele eingeführt, die HD-Bildschirme mit Live-Operatoren aus gepanzerten Zentralen integriert, immun gegen Nötigung und georedundant direkt mit den Polizeiprotokollen 911 verbunden.",
+    step3Year: "PHASE 03",
+    step3Title: "Sicherheit ohne Schlüssel oder Apps",
+    step3Desc: "Wir haben den Zugang mit der Shomer-Vision-Linie revolutioniert: ultraschnelle Gesichtserkennung (200 ms) und dynamische QR-Codes mit Hardware-GPS-Geofencing machen invasive Apps überflüssig und lösen den Datenschutz mit temporären Einweg-Tokens (JWT).",
+    step4Year: "PHASE 04",
+    step4Title: "Das autonome Ökosystem",
+    step4Desc: "Wir setzen KI-Verarbeitung am Rande des Netzwerks (Edge-Computing) ein, um Knoten die Möglichkeit zu geben, autonome Entscheidungen zu treffen. Ihr Gebäude bleibt auch bei längeren Netzwerk- oder Stromausfällen geschützt, unterstützt durch hochkapazitive USV-Anlagen und automatisierte präventive Zustandsdiagnosen.",
+    techTitle: "Technische Säulen des Vertrauens",
+    techSubtitle: "Warum das Shomer-Ökosystem unverletzlich ist.",
+    techTag: "SYSTEMTECHNOLOGIE",
+    techBody: "Wir entwerfen und implementieren unser eigenes physisches und logisches Ökosystem und gewährleisten internationale Leistungsstandards, die mechanische und menschliche Schwachstellen eliminieren.",
+    techConsoleTitle: "Echtzeitbetrieb (Cloud)",
+    tech1Title: "Militärische AES-256-Verschlüsselung",
+    tech1Desc: "Alle Datenübertragungen, Videoströme und biometrischen Protokolle sind Ende-zu-Ende verschlüsselt.",
+    tech2Title: "Energie- und Netzwerkautonomie",
+    tech2Desc: "Jedes Gerät verfügt über redundanten lokalen Speicher und USV-Backup für bis zu 6 Stunden Betrieb.",
+    tech3Title: "Präventive Hardwarediagnose",
+    tech3Desc: "Unsere Cloud überwacht den Zustand jedes Knotens. Wenn ein Sensor ausfällt, senden wir sofort einen Techniker.",
+    tech4Title: "Unverletzliche Geolokalisierung",
+    tech4Desc: "Temporäre Web-Öffnungen erfordern eine GPS-Bestätigung innerhalb von 40 Metern um das Grundstück.",
+    ctaTitle: "Die Zukunft der Sicherheit ist bereits da",
+    ctaDesc: "Entwerfen Sie die ideale Konfiguration für Ihr Gebäude, Büro oder Grundstück und erhalten Sie sofort ein geschätztes Angebot.",
+    ctaBtn: "Mein Ökosystem konfigurieren →"
+  },
+  ru: {
+    heroTag: "Философия и Инженерия",
+    heroTitle: "Демократизация высокотехнологичной безопасности.",
+    heroDesc: "Мы верим, что душевное спокойствие должно быть не привилегией немногих, а фундаментальным правом. Мы проектируем и внедряем самую передовую, надежную и доступную технологическую экосистему физической безопасности.",
+    manifestoTitle: "Манифест Shomer",
+    manifestoSubtitle: "Инженерные принципы, применяемые для защиты людей и сообществ.",
+    pillar1Title: "Передовые технологии для каждого",
+    pillar1Desc: "Традиционная безопасность резервирует свои лучшие технологии для глав государств или транснациональных корпораций. Мы меняем правила игры: мы предоставляем современное оборудование и программное обеспечение в пользование (ежемесячная подписка) по разумным ценам, позволяя любому консорциуму, району или бизнесу получить доступ к биометрии и активному ИИ.",
+    pillar2Title: "Превентивная, а не реактивная защита",
+    pillar2Desc: "Большинство локальных систем ограничиваются записью преступления или реагированием уже после вторжения. Shomer — это облачная логическая экосистема, которая обрабатывает угрозы в режиме реального времени. Мы действуем по периметру с помощью аналитики ИИ и живого сдерживания операторами, предотвращая риск до того, как откроется физическая дверь.",
+    pillar3Title: "Непрерывная эволюция и отсутствие трения",
+    pillar3Desc: "Традиционные домофоны и магнитные ключи устарели, а их обновление стоит дорого. Shomer — это живая цифровая платформа. Наше ПО автоматически обновляется из облака, постоянно добавляя новые меры защиты. И все это без необходимости в физических ключах или загрузки мобильных приложений для посетителей.",
+    roadmapTitle: "Путь инноваций",
+    roadmapSubtitle: "Наш путь создания инфраструктуры физической безопасности завтрашнего дня.",
+    step1Year: "ФАЗА 01",
+    step1Title: "Аналоговая уязвимость",
+    step1Desc: "Консорциумы и компании зависели от магнитных ключей, которые легко скопировать в любой мастерской, и домофонных систем без реальной отслеживаемости. Безопасность была физической, реактивной и подверженной человеческим ошибкам или прямому давлению.",
+    step2Year: "ФАЗА 02",
+    step2Title: "Сеть активного сдерживания",
+    step2Desc: "Мы запустили наш виртуальный тотем безопасности, объединяющий HD-экраны с операторами в реальном времени из бронированных центров мониторинга, защищенных от давления и подключенных напрямую к протоколам полиции 911.",
+    step3Year: "ФАЗА 03",
+    step3Title: "Безопасность без ключей и приложений",
+    step3Desc: "Мы совершили революцию в сфере доступа с линейкой Shomer Vision: сверхбыстрое распознавание лиц (200 мс) и динамические QR-коды с аппаратным GPS-геофенсингом, исключающие инвазивные приложения и решающие вопросы конфиденциальности с помощью временных одноразовых токенов (JWT).",
+    step4Year: "ФАЗА 04",
+    step4Title: "Автономная экосистема",
+    step4Desc: "Мы развертываем обработку ИИ на границе сети (Edge computing), чтобы узлы могли принимать решения автономно. Ваше здание остается под защитой даже во время длительных перебоев с интернетом или электричеством благодаря ИБП высокой емкости и автоматической профилактической диагностике.",
+    techTitle: "Технические основы доверия",
+    techSubtitle: "Почему экосистема Shomer неприкосновенна.",
+    techTag: "ТЕХНОЛОГИЯ СИСТЕМ",
+    techBody: "Мы проектируем и внедряем собственную физическую и логическую экосистему, обеспечивая международные стандарты производительности, исключающие механические и человеческие уязвимости.",
+    techConsoleTitle: "Работа в реальном времени (Облако)",
+    tech1Title: "Шифрование AES-256 военного класса",
+    tech1Desc: "Все передачи данных, видеопотоки и биометрические журналы зашифрованы сквозным шифрованием.",
+    tech2Title: "Энергетическая и сетевая автономия",
+    tech2Desc: "Каждое устройство имеет резервное локальное хранилище и ИБП емкостью до 6 часов работы.",
+    tech3Title: "Профилактическая диагностика оборудования",
+    tech3Desc: "Наше облако отслеживает состояние каждого узла. В случае сбоя датчика мы немедленно отправляем техника.",
+    tech4Title: "Неприкосновенная геолокация",
+    tech4Desc: "Временное веб-открытие требует подтверждения GPS в пределах 40 метров от объекта.",
+    ctaTitle: "Будущее безопасности уже здесь",
+    ctaDesc: "Спроектируйте идеальную конфигурацию для вашего здания, офиса или участка и мгновенно получите предварительный расчет.",
+    ctaBtn: "Настроить мою экосистему →"
+  },
+  pt: {
+    heroTag: "Filosofia e Engenharia",
+    heroTitle: "Democratizando a segurança de alta gama.",
+    heroDesc: "Acreditamos que a tranquilidade não deve ser um privilégio de poucos, mas um direito fundamental. Projetamos e implementamos o ecossistema tecnológico de segurança física mais avançado, robusto e acessível.",
+    manifestoTitle: "O Manifesto Shomer",
+    manifestoSubtitle: "Princípios de engenharia aplicados à proteção de pessoas e comunidades.",
+    pillar1Title: "Tecnologia de ponta para todos",
+    pillar1Desc: "A segurança tradicional reserva as suas melhores tecnologias para chefes de estado ou corporações multinacionais. Nós mudamos as regras do jogo: fornecemos hardware e software de última geração em comodato (mensalidade) a preços razoáveis, permitindo que qualquer condomínio, bairro ou empresa aceda à biometria e à IA ativa.",
+    pillar2Title: "Proteção preventiva, não reativa",
+    pillar2Desc: "A maioria dos sistemas locais limita-se a gravar um crime ou a reagir quando a intrusão já ocorreu. Shomer é um ecossistema lógico baseado na nuvem que processa ameaças em tempo real. Atuamos no perímetro através de análise de IA e dissuasão ao vivo por operadores, detendo o risco antes que a porta física se abra.",
+    pillar3Title: "Evolução contínua e fricção zero",
+    pillar3Desc: "Os porteiros eletrónicos e chaves magnéticas tradicionais são obsoletos e caros de atualizar. Shomer é uma plataforma digital viva. Nosso software atualiza-se automaticamente a partir da nuvem, adicionando novas medidas de proteção de forma contínua. Tudo isso eliminando a necessidade de chaves físicas ou de descarregar aplicações móveis para visitantes.",
+    roadmapTitle: "A rota da inovação",
+    roadmapSubtitle: "Nossa trajetória construindo a infraestrutura de segurança física do amanhã.",
+    step1Year: "FASE 01",
+    step1Title: "Vulnerabilidade Analógica",
+    step1Desc: "Condomínios e empresas dependiam de chaves magnéticas facilmente duplicáveis e de sistemas de portaria sem rastreabilidade real. A segurança era física, reativa e propensa a falhas humanas ou coação direta.",
+    step2Year: "FASE 02",
+    step2Title: "Rede de Dissuasão Ativa",
+    step2Desc: "Lançamos o nosso Totem de Segurança Virtual, integrando ecrãs HD com operadores ao vivo a partir de centrais blindadas, imunes a coação e conectados de forma georredundante diretamente com os protocolos policiais 911.",
+    step3Year: "FASE 03",
+    step3Title: "Segurança sem chaves nem apps",
+    step3Desc: "Revolucionamos o acesso com a Linha Shomer Vision: reconhecimento facial de ultra-alta velocidade (200ms) e QRs dinâmicos com geocerca GPS por hardware, eliminando aplicações invasivas e resolvendo a privacidade com tokens temporários de uso único (JWT).",
+    step4Year: "FASE 04",
+    step4Title: "O Ecossistema Autónomo",
+    step4Desc: "Desprega processamento de inteligência artificial na borda da rede (Edge computing) para permitir que os nós tomem decisões de forma autónoma. O seu edifício mantém-se protegido mesmo perante cortes prolongados de internet ou eletricidade, apoiado por UPS de alta capacidade e diagnóstico de integridade preventivo automatizado.",
+    techTitle: "Pilares Técnicos de Confianza",
+    techSubtitle: "Por que o ecossistema Shomer é inviolável.",
+    techTag: "TECNOLOGIA DE SISTEMAS",
+    techBody: "Projetamos e implementamos o nosso próprio ecossistema físico e lógico, assegurando padrões de desempenho de nível internacional que eliminam vulnerabilidades mecânicas e humanas.",
+    techConsoleTitle: "Operatividade em tempo real (Nuvem)",
+    tech1Title: "Criptografia AES-256 de grau militar",
+    tech1Desc: "Toda la transmisión de dados, fluxos de vídeo e registos biométricos são encriptados de ponta a ponta.",
+    tech2Title: "Autonomia de energia e rede",
+    tech2Desc: "Cada dispositivo conta com armazenamento local redundante e UPS de até 6 horas de duração.",
+    tech3Title: "Diagnóstico preventivo de hardware",
+    tech3Desc: "Nossa nuvem monitoriza a integridade de cada nó. Se um sensor falhar, enviamos um técnico imediatamente.",
+    tech4Title: "Geolocalização inviolável",
+    tech4Desc: "As aberturas web temporárias requerem confirmação de GPS dentro de 40 metros da propriedade.",
+    ctaTitle: "O futuro da segurança já está aqui",
+    ctaDesc: "Projete a configuração ideal para o seu edifício, escritório ou terreno e obtenha uma cotação estimada instantaneamente.",
+    ctaBtn: "Configurar o meu ecossistema →"
+  },
+  it: {
+    heroTag: "Filosofia e Ingegneria",
+    heroTitle: "Democratizzare la sicurezza di fascia alta.",
+    heroDesc: "Crediamo che la tranquillità non debba essere un privilegio di pochi, ma un diritto fondamentale. Progettiamo e implementiamo l'ecosistema tecnologico di sicurezza fisica più avanzato, robusto e accessibile.",
+    manifestoTitle: "Il Manifesto Shomer",
+    manifestoSubtitle: "Principi di ingegneria applicati alla protezione di persone e comunità.",
+    pillar1Title: "Tecnologia all'avanguardia per tutti",
+    pillar1Desc: "La sicurezza tradizionale riserva le sue migliori tecnologie a capi di stato o multinazionali. Noi cambiamo le regole del gioco: forniamo hardware e software di ultima generazione in comodato (canone mensile) a prezzi ragionevoli, consentendo a qualsiasi condominio, quartiere o azienda di accedere alla biometria e all'IA attiva.",
+    pillar2Title: "Protezione preventiva, non reattiva",
+    pillar2Desc: "La maggior parte dei sistemi locali si limita a registrare un reato o a reagire una volta avvenuta l'intrusione. Shomer è un citofono virtuale basato sul cloud che elabora le minacce in tempo reale. Agiamo sul perimetro tramite analisi IA e dissuasione dal vivo da parte degli operatori, bloccando il rischio prima che la porta fisica si apra.",
+    pillar3Title: "Evoluzione continua e zero attriti",
+    pillar3Desc: "I citofoni e le chiavi magnetiche tradizionali sono obsoleti e costosi da aggiornare. Shomer è una piattaforma digitale viva. Il nostro software si aggiorna automaticamente dal cloud, aggiungendo continuamente nuove protezione. Tutto questo eliminando la necessità di chiavi fisiche o di scaricare app mobili per i visitatori.",
+    roadmapTitle: "La tabella di marcia dell'innovazione",
+    roadmapSubtitle: "Il nostro viaggio nella costruzione dell'infrastruttura di sicurezza fisica del domani.",
+    step1Year: "FASE 01",
+    step1Title: "Vulnerabilità analogica",
+    step1Desc: "I condomini e le aziende dipendevano da chiavi magnetiche facilmente duplicabili e da sistemi di portineria senza una reale tracciabilità. La sicurezza era fisica, reattiva e soggetta a errori umani o coercizione diretta.",
+    step2Year: "FASE 02",
+    step2Title: "Rete di dissuasione attiva",
+    step2Desc: "Abbiamo lanciato il nostro Totem di sicurezza virtuale, che integra schermi HD con operatori in diretta da centrali blindate, immuni a coercizioni e collegati in modo georidondante direttamente ai protocolli di polizia 911.",
+    step3Year: "FASE 03",
+    step3Title: "Sicurezza senza chiavi né app",
+    step3Desc: "Abbiamo rivoluzionato l'accesso con la linea Shomer Vision: riconoscimento facciale ad altissima velocità (200 ms) e QR dinamici con geofencing GPS hardware, eliminando app invasive e risolvendo la privacy con token temporanei monouso (JWT).",
+    step4Year: "FASE 04",
+    step4Title: "L'ecosistema autonomo",
+    step4Desc: "Distribuiamo l'elaborazione dell'intelligenza artificiale all'edge della rete (Edge computing) per consentire ai nodi di prendere decisioni in autonomia. Il tuo edificio rimane protetto anche in caso di prolungati blackout elettrici o di rete, grazie a UPS ad alta capacità e diagnostica preventiva dello stato automatizzata.",
+    techTitle: "Pilastri tecnici di fiducia",
+    techSubtitle: "Perché l'ecosistema Shomer è inviolabile.",
+    techTag: "TECNOLOGIA DEI SISTEMI",
+    techBody: "Progettiamo e implementiamo il nostro ecosistema fisico e logico, garantendo standard di prestazioni di livello internazionale che eliminano le vulnerabilità meccaniche e umane.",
+    techConsoleTitle: "Operatività in tempo reale (Cloud)",
+    tech1Title: "Crittografia AES-256 di livello militare",
+    tech1Desc: "Tutte le trasmissioni di dati, i flussi video e i registri biometrici sono crittografati end-to-end.",
+    tech2Title: "Autonomia energetica e di rete",
+    tech2Desc: "Ogni dispositivo è dotato di memoria locale ridondante e UPS con autonomia fino a 6 ore.",
+    tech3Title: "Diagnostica hardware preventiva",
+    tech3Desc: "Il nostro cloud monitora lo stato di salute di ciascun nodo. In caso di guasto a un sensore, inviamo immediatamente un tecnico.",
+    tech4Title: "Geolocalizzazione inviolabile",
+    tech4Desc: "Le aperture web temporanee richiedono la conferma GPS entro 40 metri dalla proprietà.",
+    ctaTitle: "Il futuro della sicurezza è già qui",
+    ctaDesc: "Progetta la configurazione ideale per il tuo edificio, ufficio o terreno e ottieni un preventivo stimato all'istante.",
+    ctaBtn: "Configura il mio ecosistema →"
   }
 };
 
@@ -324,13 +508,13 @@ export function AboutClient() {
             <FadeUp>
               <div className="font-mono text-xs tracking-[0.2em] text-brand-green uppercase mb-3 flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse shadow-[0_0_6px_#00E676]" />
-                TECNOLOGÍA DE SISTEMAS
+                {t.techTag}
               </div>
               <h2 className="font-display text-4xl md:text-5xl uppercase tracking-wider mb-6">
                 {t.techTitle}
               </h2>
               <p className="text-brand-gray-light text-[0.95rem] leading-relaxed mb-10 font-light max-w-[550px]">
-                {t.techSubtitle} Diseñamos e implementamos nuestro propio ecosistema físico y lógico, asegurando estándares de rendimiento de nivel internacional que eliminan vulnerabilidades mecánicas y humanas.
+                {t.techSubtitle} {t.techBody}
               </p>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -372,7 +556,7 @@ export function AboutClient() {
                 <div className="flex items-center justify-between border-b border-brand-border pb-3 mb-4">
                   <div className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-brand-red animate-pulse" />
-                    <span className="font-mono text-[9px] text-brand-gray tracking-wider uppercase">Operatividad en tiempo real (Nube)</span>
+                    <span className="font-mono text-[9px] text-brand-gray tracking-wider uppercase">{t.techConsoleTitle}</span>
                   </div>
                   <span className="font-mono text-[9px] text-brand-blue tracking-widest">SHOMER COMMAND</span>
                 </div>

@@ -3,10 +3,66 @@
 import { FadeUp } from "./FadeUp";
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/translations";
+
+const footerLabels: Record<string, {
+  products: string;
+  services: string;
+  contact: string;
+  aboutUs: string;
+}> = {
+  es: {
+    products: "Productos",
+    services: "Servicios",
+    contact: "Contacto",
+    aboutUs: "Quiénes somos"
+  },
+  en: {
+    products: "Products",
+    services: "Services",
+    contact: "Contact",
+    aboutUs: "About Us"
+  },
+  he: {
+    products: "מוצרים",
+    services: "שירותים",
+    contact: "צור קשר",
+    aboutUs: "מי אנחנו"
+  },
+  de: {
+    products: "Produkte",
+    services: "Dienstleistungen",
+    contact: "Kontakt",
+    aboutUs: "Über uns"
+  },
+  ru: {
+    products: "Продукты",
+    services: "Услуги",
+    contact: "Контакты",
+    aboutUs: "О нас"
+  },
+  pt: {
+    products: "Produtos",
+    services: "Serviços",
+    contact: "Contato",
+    aboutUs: "Sobre nós"
+  },
+  it: {
+    products: "Prodotti",
+    services: "Servizi",
+    contact: "Contatti",
+    aboutUs: "Chi siamo"
+  }
+};
 
 export function Footer() {
+  const { language, t } = useLanguage();
+  const isRtl = language === "he";
+  const s = footerLabels[language] || footerLabels.es;
+
   return (
-    <footer className="bg-brand-black border-t border-brand-border pt-16 pb-8 px-6 md:px-10">
+    <footer className="bg-brand-black border-t border-brand-border pt-16 pb-8 px-6 md:px-10" dir={isRtl ? "rtl" : "ltr"}>
       <div className="max-w-[1200px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-brand-border">
           <div className="lg:col-span-1">
@@ -14,36 +70,36 @@ export function Footer() {
               <Image src="/images/SHOMER.png" alt="Shomer Security" width={140} height={52} className="h-10 w-auto object-contain" />
             </div>
             <p className="text-[0.83rem] text-brand-gray leading-relaxed max-w-[280px]">
-              La evolución del portero eléctrico. Tecnología, control y seguridad real para consorcios, empresas y hoteles en Argentina.
+              {t("footer.desc")}
             </p>
           </div>
           
           <div>
-            <h3 className="text-[0.72rem] font-mono tracking-[0.15em] uppercase text-brand-gray mb-5">Productos</h3>
+            <h3 className="text-[0.72rem] font-mono tracking-[0.15em] uppercase text-brand-gray mb-5">{s.products}</h3>
             <ul className="flex flex-col gap-3">
-              <li><Link href="/#vision" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Línea VISION</Link></li>
-              <li><Link href="/#totem" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Tótem de Seguridad</Link></li>
-              <li><Link href="/#precios" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Planes y precios</Link></li>
-              <li><Link href="/blog" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Blog</Link></li>
-              <li><a href="https://shomer-club-v2.vercel.app" target="_blank" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Club Shomer</a></li>
+              <li><Link href="/#vision" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">{t("navbar.vision")}</Link></li>
+              <li><Link href="/#totem" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">{t("navbar.totem")}</Link></li>
+              <li><Link href="/#precios" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">{t("navbar.pricing")}</Link></li>
+              <li><Link href="/blog" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">{t("navbar.blog")}</Link></li>
+              <li><a href="https://shomer-club-v2.vercel.app" target="_blank" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">{t("navbar.club")}</a></li>
             </ul>
           </div>
           
           <div>
-            <h3 className="text-[0.72rem] font-mono tracking-[0.15em] uppercase text-brand-gray mb-5">Servicios</h3>
+            <h3 className="text-[0.72rem] font-mono tracking-[0.15em] uppercase text-brand-gray mb-5">{s.services}</h3>
             <ul className="flex flex-col gap-3">
-              <li><Link href="/servicios/edificios-y-consorcios" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Edificios y Consorcios</Link></li>
-              <li><Link href="/servicios/empresas" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Empresas</Link></li>
-              <li><Link href="/servicios/barrios-cerrados" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Barrios Cerrados</Link></li>
-              <li><Link href="/servicios/hoteles" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">Hoteles</Link></li>
+              <li><Link href="/servicios/edificios-y-consorcios" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">{t("servicesPage.residentialTitle")}</Link></li>
+              <li><Link href="/servicios/empresas" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">{t("servicesPage.corporateTitle")}</Link></li>
+              <li><Link href="/servicios/barrios-cerrados" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">{t("servicesPage.neighborhoodTitle")}</Link></li>
+              <li><Link href="/servicios/hoteles" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">{t("servicesPage.hotelTitle")}</Link></li>
             </ul>
           </div>
           
           <div>
-            <h3 className="text-[0.72rem] font-mono tracking-[0.15em] uppercase text-brand-gray mb-5">Contacto</h3>
+            <h3 className="text-[0.72rem] font-mono tracking-[0.15em] uppercase text-brand-gray mb-5">{s.contact}</h3>
             <ul className="flex flex-col gap-3">
-              <li><a href="tel:+541123648511" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">+54 11 2364-8511</a></li>
-              <li><a href="tel:+541179994444" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">+54 11 7999-4444</a></li>
+              <li><a href="tel:+541123648511" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors" dir="ltr">+54 11 2364-8511</a></li>
+              <li><a href="tel:+541179994444" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors" dir="ltr">+54 11 7999-4444</a></li>
               <li><a href="mailto:info@shomer.com.ar" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">info@shomer.com.ar</a></li>
               <li><a href="mailto:rrhh@shomer.com.ar" className="text-[0.85rem] text-brand-gray-light hover:text-brand-blue transition-colors">rrhh@shomer.com.ar</a></li>
             </ul>
@@ -58,14 +114,14 @@ export function Footer() {
 
         <div className="mt-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex flex-col sm:flex-row items-center gap-3">
-            <p className="text-[0.75rem] text-brand-gray font-mono">© {new Date().getFullYear()} Shomer Security SRL — Todos los derechos reservados</p>
+            <p className="text-[0.75rem] text-brand-gray font-mono">© {new Date().getFullYear()} Shomer Security SRL — {t("footer.rights")}</p>
             <span className="hidden sm:inline text-brand-gray/30 text-[0.75rem] font-mono">·</span>
             <Link href="/quienes-somos" className="text-[0.75rem] text-brand-gray font-mono hover:text-brand-blue transition-colors">
-              Quiénes somos
+              {s.aboutUs}
             </Link>
             <span className="hidden sm:inline text-brand-gray/30 text-[0.75rem] font-mono">·</span>
             <Link href="/privacidad" className="text-[0.75rem] text-brand-gray font-mono hover:text-brand-blue transition-colors">
-              Política de privacidad
+              {t("footer.privacy")}
             </Link>
           </div>
           <div className="flex gap-4">
@@ -81,4 +137,5 @@ export function Footer() {
     </footer>
   );
 }
+
 
