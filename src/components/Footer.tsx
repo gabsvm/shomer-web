@@ -123,6 +123,10 @@ export function Footer() {
             <Link href="/privacidad" className="text-[0.75rem] text-brand-gray font-mono hover:text-brand-blue transition-colors">
               {t("footer.privacy")}
             </Link>
+            <span className="hidden sm:inline text-brand-gray/30 text-[0.75rem] font-mono">·</span>
+            <Link href="/soporte" className="text-[0.75rem] text-brand-gray font-mono hover:text-brand-blue transition-colors">
+              {language === "en" ? "Support" : language === "he" ? "תמיכה" : language === "de" ? "Support" : language === "ru" ? "Поддержка" : language === "pt" ? "Suporte" : language === "it" ? "Supporto" : "Soporte"}
+            </Link>
           </div>
           <div className="flex gap-4">
             <a href="https://instagram.com/shomer_arg" target="_blank" aria-label="Instagram de Shomer Security" className="w-9 h-9 border border-brand-border rounded-full flex items-center justify-center text-brand-gray hover:border-brand-blue hover:text-brand-blue transition-all">

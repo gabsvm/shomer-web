@@ -147,17 +147,19 @@ export function CPQConfigurator() {
   ];
 
   const hardwareList: HardwareItem[] = [
-    { id: "totem", name: "Tótem Inteligente Shomer", desc: "Audio bidireccional y pantalla con operador en vivo 24/7.", price: 150000 },
-    { id: "facial", name: "Lector Facial Face ID con IA", desc: "Acceso biométrico rápido sin llaves físicas (200ms).", price: 90000 },
-    { id: "camaras", name: "Cámaras de Seguridad HD (x4)", desc: "Lentes de alta definición con visión nocturna y respaldo.", price: 120000 },
-    { id: "barrera", name: "Controlador de Portón / Barrera", desc: "Apertura electrónica remota y peer-to-peer autónoma.", price: 110000 },
+    { id: "totem", name: "Tótem Inteligente Shomer", desc: "Audio bidireccional y pantalla con operador en vivo 24/7.", price: 620000 },
+    { id: "facial", name: "Lector Facial Face ID con IA", desc: "Acceso biométrico rápido sin llaves físicas (200ms).", price: 310000 },
+    { id: "huella", name: "Lector de Huella Digital", desc: "Sistema de registro de acceso único e intransferible.", price: 180000 },
+    { id: "camaras", name: "Cámaras de Seguridad HD (x4)", desc: "Lentes de alta definición con visión nocturna y respaldo.", price: 476230 },
+    { id: "barrera", name: "Controlador de Portón / Barrera", desc: "Apertura electrónica remota y peer-to-peer autónoma.", price: 390000 },
   ];
 
   const softwareList: SoftwareItem[] = [
-    { id: "linea", name: "Cruce de Línea Inteligente (IA)", desc: "Detección de intrusos perimetral y alerta instantánea.", price: 35000 },
-    { id: "patentes", name: "Reconocimiento de Patentes (LPR)", desc: "Apertura autónoma por lectura de matrículas en el Edge.", price: 45000 },
-    { id: "horarios", name: "Control Horario y Fichaje (RRHH)", desc: "Reportes en la nube e historial de accesos por persona.", price: 25000 },
-    { id: "shabat", name: "Módulo Sistema Shabat", desc: "Protocolo adaptativo respetuoso para la Colectividad Judía.", price: 15000 },
+    { id: "linea", name: "Cruce de Línea Inteligente (IA)", desc: "Detección de intrusos perimetral y alerta instantánea.", price: 50000 },
+    { id: "patentes", name: "Reconocimiento de Patentes (LPR)", desc: "Apertura autónoma por lectura de matrículas en el Edge.", price: 97500 },
+    { id: "horarios", name: "Control Horario y Fichaje (RRHH)", desc: "Reportes en la nube e historial de accesos por persona.", price: 40000 },
+    { id: "shabat", name: "Módulo Sistema Shabat", desc: "Protocolo adaptativo respetuoso para la Colectividad Judía.", price: 86394 },
+    { id: "panico", name: "Huella de Pánico", desc: "Alerta silenciosa a la central de monitoreo con un dedo específico en caso de peligro.", price: 35000 },
   ];
 
   const getHardwareTranslation = (id: string) => {
@@ -166,6 +168,11 @@ export function CPQConfigurator() {
         return { name: t("cpq.hardware.totemName"), desc: t("cpq.hardware.totemDesc") };
       case "facial":
         return { name: t("cpq.hardware.facialName"), desc: t("cpq.hardware.facialDesc") };
+      case "huella":
+        return {
+          name: language === "es" ? "Lector de Huella Digital" : language === "en" ? "Fingerprint Reader" : language === "he" ? "קורא טביעת אצבע" : language === "de" ? "Fingerabdruckleser" : language === "ru" ? "Сканер отпечатков пальцев" : language === "pt" ? "Leitor de Impressão Digital" : "Lettore di Impronte Digitali",
+          desc: language === "es" ? "Sistema de registro de acceso único e intransferible." : language === "en" ? "Unique and non-transferable access registration system." : language === "he" ? "מערכת רישום גישה ייחודית ושאינה ניתנת להעברה." : language === "de" ? "Einzigartiges und nicht übertragbares Zutrittsregistrierungssystem." : language === "ru" ? "Уникальная и непередаваемая система регистрации доступа." : language === "pt" ? "Sistema de registro de acesso único e intransferível." : "Sistema di registrazione dell'accesso unico e intrasferibile."
+        };
       case "camaras":
         return { name: t("cpq.hardware.camarasName"), desc: t("cpq.hardware.camarasDesc") };
       case "barrera":
@@ -185,6 +192,11 @@ export function CPQConfigurator() {
         return { name: t("cpq.software.horariosName"), desc: t("cpq.software.horariosDesc") };
       case "shabat":
         return { name: t("cpq.software.shabatName"), desc: t("cpq.software.shabatDesc") };
+      case "panico":
+        return {
+          name: language === "es" ? "Huella de Pánico" : language === "en" ? "Panic Fingerprint" : language === "he" ? "טביעת אצבע של פאניקה" : language === "de" ? "Panik-Fingerabdruck" : language === "ru" ? "Отпечаток паники" : language === "pt" ? "Impressão Digital de Pânico" : "Impronta Digitale di Panico",
+          desc: language === "es" ? "Alerta silenciosa a la central de monitoreo con un dedo específico en caso de peligro." : language === "en" ? "Silent alert to the monitoring center using a specific finger in case of danger." : language === "he" ? "התראה שקטה למרכז הניטור באמצעות אצבע ספציפית במקרה של סכנה." : language === "de" ? "Stiller Alarm an die Leitstelle mit einem bestimmten Finger im Gefahrenfall." : language === "ru" ? "Тихая тревога в центр мониторинга определенным пальцем в случае опасности." : language === "pt" ? "Alerta silencioso à central de monitoramento com um dedo específico em caso de perigo." : "Allerta silenziosa alla centrale di monitoraggio con un dito specifico in caso di pericolo."
+        };
       default:
         return { name: "", desc: "" };
     }
@@ -210,8 +222,14 @@ export function CPQConfigurator() {
   const toggleHardware = (id: string) => {
     if (selectedHardware.includes(id)) {
       setSelectedHardware(selectedHardware.filter((item) => item !== id));
+      if (id === "huella") {
+        setSelectedSoftware(selectedSoftware.filter((item) => item !== "panico"));
+      }
     } else {
       setSelectedHardware([...selectedHardware, id]);
+      if (id === "huella") {
+        setSelectedSoftware(selectedSoftware.includes("panico") ? selectedSoftware : [...selectedSoftware, "panico"]);
+      }
     }
   };
 
@@ -222,6 +240,13 @@ export function CPQConfigurator() {
       setSelectedSoftware([...selectedSoftware, id]);
     }
   };
+
+  const visibleSoftwareList = softwareList.filter(item => {
+    if (item.id === "panico") {
+      return selectedHardware.includes("huella");
+    }
+    return true;
+  });
 
   // Pricing calculations
   const hardwareCost = selectedHardware.reduce((acc, itemId) => {
@@ -725,6 +750,46 @@ export function CPQConfigurator() {
                   </g>
                 )}
 
+                {/* Hardware: Fingerprint Reader Overlay */}
+                {selectedHardware.includes("huella") && (
+                  <g>
+                    {(() => {
+                      let hx = 132, hy = 222;
+                      if (env === "edificio") { hx = 132; hy = 222; }
+                      else if (env === "empresa") { hx = 175; hy = 216; }
+                      else if (env === "barrio") { hx = 175; hy = 188; }
+                      else if (env === "hotel") { hx = 136; hy = 153; }
+
+                      return (
+                        <g filter="url(#glow-blue)">
+                          {/* Small reader on wall */}
+                          <rect x={hx-1} y={hy-2} width="2" height="4" fill="#00BFFF" rx="0.3" />
+                          
+                          {/* Scanning laser beam / pulse */}
+                          <line x1={hx} y1={hy} x2={hx-10} y2={hy+10} stroke="#00BFFF" strokeWidth="0.8" opacity="0.8">
+                            <animate attributeName="opacity" values="0.2;0.8;0.2" dur="1.2s" repeatCount="indefinite" />
+                          </line>
+
+                          {/* Floating fingerprint hologram */}
+                          <g transform={`translate(${hx-16}, ${hy+5})`}>
+                            {/* Brackets [ ] */}
+                            <path d="M 0,2 L 0,0 L 2,0" fill="none" stroke="#00BFFF" strokeWidth="0.8" />
+                            <path d="M 8,0 L 10,0 L 10,2" fill="none" stroke="#00BFFF" strokeWidth="0.8" />
+                            <path d="M 0,8 L 0,10 L 2,10" fill="none" stroke="#00BFFF" strokeWidth="0.8" />
+                            <path d="M 8,10 L 10,10 L 10,8" fill="none" stroke="#00BFFF" strokeWidth="0.8" />
+                            
+                            {/* Fingerprint ridges representation */}
+                            <path d="M 2,5 C 2,3 8,3 8,5" fill="none" stroke="#00BFFF" strokeWidth="0.6" />
+                            <path d="M 3,6 C 3,4.5 7,4.5 7,6" fill="none" stroke="#00BFFF" strokeWidth="0.6" />
+                            <path d="M 4,7 C 4,6 6,6 6,7" fill="none" stroke="#00BFFF" strokeWidth="0.6" />
+                            <path d="M 5,8 C 5,7.5 5.5,7.5 5.5,8" fill="none" stroke="#00BFFF" strokeWidth="0.6" />
+                          </g>
+                        </g>
+                      );
+                    })()}
+                  </g>
+                )}
+
                 {/* Hardware: Camaras HD dome + sweeping cone */}
                 {selectedHardware.includes("camaras") && (
                   <g>
@@ -905,6 +970,21 @@ export function CPQConfigurator() {
                         <text x="6" y="20" fill="#d97706" fontSize="5.5" fontFamily="monospace">{extra.automaticAccess}</text>
                       </g>
                     );
+                    offsetY += 32;
+                  }
+
+                  if (selectedSoftware.includes("panico")) {
+                    hudElements.push(
+                      <g key="panico" transform={`translate(295, ${offsetY})`}>
+                        <rect x="0" y="0" width="95" height="28" rx="3" fill="rgba(239, 68, 68, 0.05)" stroke="#ef4444" strokeWidth="1" filter="url(#glow-red)" className="alert-light" />
+                        <text x="6" y="11" fill="#ef4444" fontSize="6.5" fontFamily="monospace" fontWeight="bold">
+                          {language === "es" ? "ALERTA PÁNICO" : language === "en" ? "PANIC ALERT" : language === "he" ? "אזעקת פאניקה" : "PANIK-ALARM"}
+                        </text>
+                        <text x="6" y="20" fill="#f87171" fontSize="5.5" fontFamily="monospace">
+                          {language === "es" ? "Silencioso Activo" : language === "en" ? "Silent Active" : language === "he" ? "פעיל שקט" : "Stumm Aktiv"}
+                        </text>
+                      </g>
+                    );
                   }
                   
                   return hudElements;
@@ -985,7 +1065,7 @@ export function CPQConfigurator() {
               <div>
                 <h3 className={`text-xs font-mono uppercase tracking-widest text-brand-gray mb-3 ${isRtl ? "text-right" : ""}`}>{extra.step3}</h3>
                 <div className="flex flex-col gap-2">
-                  {softwareList.map((item) => {
+                  {visibleSoftwareList.map((item) => {
                     const isSelected = selectedSoftware.includes(item.id);
                     const trans = getSoftwareTranslation(item.id);
                     return (
@@ -994,7 +1074,9 @@ export function CPQConfigurator() {
                         onClick={() => toggleSoftware(item.id)}
                         className={`flex items-center justify-between p-3.5 border rounded cursor-pointer transition-all duration-200 hover:bg-brand-surface/60
                           ${isSelected 
-                            ? "border-brand-green/40 bg-brand-surface/40" 
+                            ? item.id === "panico"
+                              ? "border-brand-blue bg-brand-blue/5 shadow-[0_0_15px_rgba(0,191,255,0.15)]"
+                              : "border-brand-green/40 bg-brand-surface/40" 
                             : "border-brand-border bg-transparent"
                           } ${isRtl ? "flex-row-reverse" : ""}`}
                       >
@@ -1002,6 +1084,11 @@ export function CPQConfigurator() {
                           <div className={`text-sm font-semibold text-brand-white flex items-center gap-2 ${isRtl ? "flex-row-reverse" : ""}`}>
                             {trans.name}
                             {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-brand-green shrink-0" />}
+                            {item.id === "panico" && (
+                              <span className="bg-brand-blue/20 text-brand-blue text-[0.65rem] font-mono font-bold px-2 py-0.5 rounded border border-brand-blue/30 uppercase animate-pulse">
+                                {language === "es" ? "Función Única" : language === "en" ? "Unique Feature" : language === "he" ? "תכונה ייחודית" : "Unique"}
+                              </span>
+                            )}
                           </div>
                           <p className="text-[0.78rem] text-brand-gray leading-normal mt-0.5">{trans.desc}</p>
                         </div>
@@ -1026,10 +1113,16 @@ export function CPQConfigurator() {
                 </div>
                 <div className={isRtl ? "sm:text-left" : "sm:text-right"}>
                   <div className="text-[0.68rem] font-mono tracking-widest text-brand-gray uppercase">{t("cpq.summary.monthlyTotal")}</div>
-                  <div className="text-3xl font-display text-brand-blue leading-none">
-                    ${totalAbonoARS.toLocaleString(language === "es" ? "es-AR" : "en-US")} <span className="text-xs font-mono text-brand-gray font-normal lowercase">{t("cpq.summary.arsSuffix")}</span>
+                  <div className={`text-3xl font-display text-brand-blue leading-none flex items-baseline gap-1.5 ${isRtl ? "flex-row-reverse justify-end" : "justify-start"}`}>
+                    <span className="text-sm font-sans text-brand-gray font-normal lowercase align-middle">
+                      {language === "es" ? "desde" : language === "en" ? "from" : language === "he" ? "החל מ-" : language === "de" ? "ab" : language === "ru" ? "от" : language === "pt" ? "a partir de" : "da"}
+                    </span>
+                    <span>${totalAbonoARS.toLocaleString(language === "es" ? "es-AR" : "en-US")}</span>
+                    <span className="text-xs font-mono text-brand-gray font-normal lowercase">{t("cpq.summary.arsSuffix")}</span>
                   </div>
-                  <div className="text-xs text-brand-gray font-mono mt-0.5">~ {totalAbonoUSD} {t("cpq.summary.usdSuffix")}</div>
+                  <div className="text-xs text-brand-gray font-mono mt-0.5">
+                    ~ {language === "es" ? "desde " : language === "en" ? "from " : language === "he" ? "החל מ-" : language === "de" ? "ab " : language === "ru" ? "от " : language === "pt" ? "a partir de " : "da "}{totalAbonoUSD} {t("cpq.summary.usdSuffix")}
+                  </div>
                 </div>
               </div>
 
