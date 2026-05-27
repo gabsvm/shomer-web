@@ -287,15 +287,32 @@ export function Contact() {
     setStatus("sending");
 
     const form = e.target as HTMLFormElement;
-    const data = new FormData(form);
-    data.append("access_key", process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "");
-    data.append("subject", `Nueva consulta (${language}) desde shomer-web.vercel.app`);
-    data.append("from_name", "Shomer Web");
+    const originalData = new FormData(form);
+    
+    const nombre = originalData.get("nombre") as string;
+    const telefono = originalData.get("telefono") as string;
+    const email = originalData.get("email") as string;
+    const tipoEspacio = originalData.get("tipo_espacio") as string;
+    const msg = originalData.get("consulta") as string;
+
+    // Create formatted data for Web3Forms email body
+    const formattedData = new FormData();
+    formattedData.append("access_key", process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "");
+    formattedData.append("subject", `Nueva consulta: ${nombre} (${tipoEspacio})`);
+    formattedData.append("from_name", "Shomer Contact");
+    formattedData.append("replyto", email);
+
+    // Map inputs to the exact labels from the official email format
+    formattedData.append("Nombre a dirigirse para la consulta", nombre);
+    formattedData.append("Número a llamar", telefono);
+    formattedData.append("Mail", email);
+    formattedData.append("Servicio para", tipoEspacio);
+    formattedData.append("Consulta", msg);
 
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: data,
+        body: formattedData,
       });
       const json = await res.json();
       if (json.success) {
