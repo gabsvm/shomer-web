@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X, Globe } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import { Locale } from "@/translations";
 import { useRouter } from "next/navigation";
@@ -73,7 +72,7 @@ export function Navbar() {
         }`}
       >
         <Link href="/" className="flex items-center">
-          <Image src="/images/SHOMER.png" alt="Shomer Security" width={120} height={44} className="h-8 w-auto object-contain" />
+          <Image src="/images/SHOMER.png" alt="Shomer Security" width={120} height={44} preload fetchPriority="high" loading="eager" sizes="120px" className="h-8 w-auto object-contain" />
         </Link>
 
         {/* Desktop Links */}
@@ -132,50 +131,42 @@ export function Navbar() {
       </nav>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className={`fixed inset-x-0 bottom-0 z-40 bg-black/98 flex flex-col p-10 gap-6 transition-all duration-300 ${
-              scrolled ? "top-14" : "top-[68px]"
-            }`}
-          >
-            {links.map((link, idx) => (
-              <motion.div
-                key={link.href}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: idx * 0.05 }}
-              >
-                <Link
-                  href={link.href}
-                  target={link.external ? "_blank" : undefined}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-2xl font-medium py-3 border-b border-brand-border text-brand-white block hover:text-brand-blue transition-colors"
-                >
-                  {link.label}
-                </Link>
-              </motion.div>
-            ))}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: links.length * 0.05 }}
+      {mobileMenuOpen && (
+        <div
+          className={`fixed inset-x-0 bottom-0 z-40 bg-black/98 flex flex-col p-10 gap-6 animate-fade-in-down ${
+            scrolled ? "top-14" : "top-[68px]"
+          }`}
+        >
+          {links.map((link, idx) => (
+            <div
+              key={link.href}
+              className="animate-fade-in-left opacity-0"
+              style={{ animationDelay: `${idx * 50}ms`, animationFillMode: "forwards" }}
             >
               <Link
-                href="/#contacto"
+                href={link.href}
+                target={link.external ? "_blank" : undefined}
                 onClick={() => setMobileMenuOpen(false)}
-                className="mt-4 bg-brand-blue text-brand-black p-4 text-center rounded-sm font-bold text-lg uppercase block hover:bg-white hover:text-brand-black transition-all"
+                className="text-2xl font-medium py-3 border-b border-brand-border text-brand-white block hover:text-brand-blue transition-colors"
               >
-                {t("common.cta")}
+                {link.label}
               </Link>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </div>
+          ))}
+          <div
+            className="animate-fade-in-up opacity-0"
+            style={{ animationDelay: `${links.length * 50}ms`, animationFillMode: "forwards" }}
+          >
+            <Link
+              href="/#contacto"
+              onClick={() => setMobileMenuOpen(false)}
+              className="mt-4 bg-brand-blue text-brand-black p-4 text-center rounded-sm font-bold text-lg uppercase block hover:bg-white hover:text-brand-black transition-all"
+            >
+              {t("common.cta")}
+            </Link>
+          </div>
+        </div>
+      )}
     </>
   );
 }
