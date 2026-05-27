@@ -3,10 +3,11 @@
 import Image from "next/image";
 import { FadeUp } from "./FadeUp";
 import { useLanguage } from "@/context/LanguageContext";
+import React from "react";
 
 const localTranslations: Record<string, {
   tag: string;
-  title: string;
+  title: React.ReactNode;
   mapsLink: string;
   logoTitle: string;
   reviews: Array<{
@@ -18,7 +19,7 @@ const localTranslations: Record<string, {
 }> = {
   es: {
     tag: "Clientes que confían",
-    title: "Lo que dicen quienes ya eligieron.",
+    title: <>Lo que dicen<br /><em className="text-brand-blue not-italic">quienes</em><br />ya eligieron.</>,
     mapsLink: "Ver todas las reseñas en Google Maps →",
     logoTitle: "Confían en Shomer",
     reviews: [
@@ -50,7 +51,7 @@ const localTranslations: Record<string, {
   },
   en: {
     tag: "Trusted by clients",
-    title: "What those who already chose say.",
+    title: <>What<br /><em className="text-brand-blue not-italic">those who</em><br />already chose say.</>,
     mapsLink: "View all reviews on Google Maps →",
     logoTitle: "They trust Shomer",
     reviews: [
@@ -82,7 +83,7 @@ const localTranslations: Record<string, {
   },
   he: {
     tag: "לקוחות סומכים",
-    title: "מה שאומרים אלה שכבר בחרו.",
+    title: <>מה שאומרים<br /><em className="text-brand-blue not-italic">אלה שכבר</em><br />בחרו.</>,
     mapsLink: "צפה בכל הביקורות בגוגל מפות ←",
     logoTitle: "סומכים על שומר",
     reviews: [
@@ -108,13 +109,13 @@ const localTranslations: Record<string, {
         name: "Magalyyy Antunez",
         rating: 5,
         time: "לפני שנה",
-        text: "שירות מצויн, אין מה להשוות לאבטחה שהייתה לנו קודם. ממליצה בחום.",
+        text: "שירות מצוין, אין מה להשוвать לאבטחה שהייתה לנו קודם. ממליצה בחום.",
       },
     ]
   },
   de: {
     tag: "Kunden, die vertrauen",
-    title: "Was diejenigen sagen, die bereits gewählt haben.",
+    title: <>Was diejenigen sagen,<br /><em className="text-brand-blue not-italic">die bereits</em><br />gewählt haben.</>,
     mapsLink: "Alle Bewertungen auf Google Maps anzeigen →",
     logoTitle: "Sie vertrauen Shomer",
     reviews: [
@@ -146,7 +147,7 @@ const localTranslations: Record<string, {
   },
   ru: {
     tag: "Клиенты, которые доверяют",
-    title: "Что говорят те, кто уже выбрал.",
+    title: <>Что говорят те,<br /><em className="text-brand-blue not-italic">кто уже</em><br />выбрал.</>,
     mapsLink: "Посмотреть все отзывы на Google Maps →",
     logoTitle: "Они доверяют Shomer",
     reviews: [
@@ -178,7 +179,7 @@ const localTranslations: Record<string, {
   },
   pt: {
     tag: "Clientes que confiam",
-    title: "O que dizem os que já escolheram.",
+    title: <>O que dizem<br /><em className="text-brand-blue not-italic">os que já</em><br />escolheram.</>,
     mapsLink: "Ver todas as avaliações no Google Maps →",
     logoTitle: "Confiam na Shomer",
     reviews: [
@@ -210,7 +211,7 @@ const localTranslations: Record<string, {
   },
   it: {
     tag: "Clienti che si fidano",
-    title: "Cosa dice chi ha già scelto.",
+    title: <>Cosa dice<br /><em className="text-brand-blue not-italic">chi ha già</em><br />sceelto.</>,
     mapsLink: "Vedi tutte le recensioni su Google Maps →",
     logoTitle: "Si fidano di Shomer",
     reviews: [
@@ -308,11 +309,7 @@ export function SocialProof() {
         <FadeUp>
           <div className="font-mono text-xs tracking-[0.18em] text-brand-blue uppercase mb-3">{t.tag}</div>
           <h2 className="font-display text-[clamp(2.2rem,5vw,3.8rem)] leading-none uppercase mb-14">
-            {isRtl ? (
-              <>מה שאומרים<br /><em className="text-brand-blue not-italic">אלה שכבר</em><br />בחרו.</>
-            ) : (
-              <>Lo que dicen<br /><em className="text-brand-blue not-italic">{language === "es" ? "quienes" : "those who"}</em><br />{language === "es" ? "ya eligieron." : "already chose."}</>
-            )}
+            {t.title}
           </h2>
         </FadeUp>
 
