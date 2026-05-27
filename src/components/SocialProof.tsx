@@ -211,7 +211,7 @@ const localTranslations: Record<string, {
   },
   it: {
     tag: "Clienti che si fidano",
-    title: <>Cosa dice<br /><em className="text-brand-blue not-italic">chi ha già</em><br />sceelto.</>,
+    title: <>Cosa dice<br /><em className="text-brand-blue not-italic">chi ha già</em><br />scelto.</>,
     mapsLink: "Vedi tutte le recensioni su Google Maps →",
     logoTitle: "Si fidano di Shomer",
     reviews: [
