@@ -315,10 +315,10 @@ export function SoporteForm() {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16 items-start">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-16 items-start">
       {/* Information Panel */}
       <div className="lg:col-span-5 flex flex-col gap-6">
-        <div className="p-6 md:p-8 bg-brand-surface border border-brand-border rounded-lg relative overflow-hidden">
+        <div className="p-5 sm:p-6 md:p-8 bg-brand-surface border border-brand-border rounded-lg relative overflow-hidden">
           <div className="absolute top-0 right-0 w-24 h-24 bg-brand-blue/5 rounded-full blur-2xl pointer-events-none" />
           <h2 className="font-display text-lg uppercase tracking-wider text-brand-white mb-4 flex items-center gap-2">
             <Cpu className="w-5 h-5 text-brand-blue" />
@@ -332,7 +332,7 @@ export function SoporteForm() {
           </div>
         </div>
 
-        <div className={`py-6 border-b border-brand-border flex items-start gap-4 ${isRtl ? "flex-row-reverse" : ""}`}>
+        <div className={`py-4 sm:py-6 border-b border-brand-border flex items-start gap-4 ${isRtl ? "flex-row-reverse" : ""}`}>
           <div className="w-10 h-10 rounded-full bg-brand-blue-dim border border-brand-blue/20 flex items-center justify-center shrink-0">
             📞
           </div>
@@ -343,7 +343,7 @@ export function SoporteForm() {
           </div>
         </div>
 
-        <div className={`py-6 flex items-start gap-4 ${isRtl ? "flex-row-reverse" : ""}`}>
+        <div className={`py-4 sm:py-6 flex items-start gap-4 ${isRtl ? "flex-row-reverse" : ""}`}>
           <div className="w-10 h-10 rounded-full bg-brand-blue-dim border border-brand-blue/20 flex items-center justify-center shrink-0">
             ✉️
           </div>
@@ -358,7 +358,7 @@ export function SoporteForm() {
 
       {/* Form Panel */}
       <div className="lg:col-span-7">
-        <div className="p-6 sm:p-8 bg-brand-near-black border border-brand-border rounded-lg relative shadow-[0_0_50px_rgba(0,191,255,0.02)]">
+        <div className="p-5 sm:p-6 md:p-8 bg-brand-near-black border border-brand-border rounded-lg relative shadow-[0_0_50px_rgba(0,191,255,0.02)]">
           {status === "ok" ? (
             <div className="flex flex-col items-center justify-center py-16 gap-6 text-center">
               <div className="w-16 h-16 rounded-full bg-brand-blue/15 border border-brand-blue/30 flex items-center justify-center animate-pulse">
@@ -428,7 +428,7 @@ export function SoporteForm() {
               </div>
 
               {/* Grid for Device and Version */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
                 {/* Device Selector */}
                 <div className="flex flex-col gap-2">
                   <label htmlFor="dispositivo" className={`text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray flex items-center gap-1.5 ${isRtl ? "flex-row-reverse" : ""}`}>

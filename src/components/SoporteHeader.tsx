@@ -33,7 +33,7 @@ export function SoporteHeader() {
   const isRtl = language === "he";
 
   return (
-    <header className="border-b border-brand-border px-6 md:px-10 py-5">
+    <header className="border-b border-brand-border px-4 sm:px-6 md:px-10 py-4 sm:py-5">
       <div className={`max-w-[1200px] mx-auto flex items-center justify-between ${isRtl ? "flex-row-reverse" : ""}`}>
         <Link href="/" className="inline-block hover:opacity-85 transition-opacity">
           <Image 
@@ -41,12 +41,12 @@ export function SoporteHeader() {
             alt="Shomer Security" 
             width={120} 
             height={44} 
-            className="h-9 w-auto object-contain" 
+            className="h-8 sm:h-9 w-auto object-contain" 
             priority
           />
         </Link>
         
-        <div className={`flex items-center gap-6 ${isRtl ? "flex-row-reverse" : ""}`}>
+        <div className={`flex items-center gap-3 sm:gap-6 ${isRtl ? "flex-row-reverse" : ""}`}>
           <Link 
             href="/" 
             className="text-xs font-mono tracking-widest uppercase text-brand-gray hover:text-brand-blue transition-colors"

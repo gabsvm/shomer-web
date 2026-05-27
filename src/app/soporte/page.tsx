@@ -85,13 +85,13 @@ export default async function SoportePage() {
         <SoporteHeader />
 
         {/* Main Content */}
-        <main className="max-w-[1200px] mx-auto px-6 py-16 md:py-24">
-          <div className={`max-w-[760px] mb-12 ${isRtl ? "text-right" : "text-left"}`}>
+        <main className="max-w-[1200px] mx-auto px-4 sm:px-6 py-10 sm:py-16 md:py-24">
+          <div className={`max-w-[760px] mb-8 sm:mb-12 ${isRtl ? "text-right" : "text-left"}`}>
             <div className="font-mono text-xs tracking-[0.18em] text-brand-blue uppercase mb-4">{t.support}</div>
-            <h1 className="font-display text-[clamp(2.2rem,5vw,3.8rem)] leading-none uppercase mb-6">
+            <h1 className="font-display text-[clamp(1.8rem,6vw,3.5rem)] leading-none uppercase mb-4 sm:mb-6">
               {t.title}
             </h1>
-            <p className="text-lg text-brand-gray-light font-light leading-relaxed">
+            <p className="text-base sm:text-lg text-brand-gray-light font-light leading-relaxed">
               {t.desc}
             </p>
           </div>
