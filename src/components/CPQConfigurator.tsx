@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { FadeUp } from "./FadeUp";
 import Link from "next/link";
 import { Building, Briefcase, Trees, Hotel, ShieldAlert, Cpu, Check, HelpCircle } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
+import { Locale } from "@/translations";
 
 type EnvironmentType = "edificio" | "empresa" | "barrio" | "hotel";
 
@@ -22,16 +24,126 @@ interface SoftwareItem {
   price: number; // monthly ARS
 }
 
+const localExtra: Record<Locale, {
+  initialInvestment: string;
+  subsidized: string;
+  devices: string;
+  intelligence: string;
+  comodatoScheme: string;
+  step1: string;
+  step2: string;
+  step3: string;
+  shabatMode: string;
+  automaticAccess: string;
+  logDeAccesos: string;
+}> = {
+  es: {
+    initialInvestment: "Inversión Inicial",
+    subsidized: "100% BONIFICADA",
+    devices: "Dispositivos",
+    intelligence: "Inteligencia",
+    comodatoScheme: "Esquema Comodato",
+    step1: "1. Seleccioná el Entorno",
+    step2: "2. Dispositivos de Hardware",
+    step3: "3. Suscripción y Módulos de IA",
+    shabatMode: "MODO SHABAT",
+    automaticAccess: "ACCESO AUTOMÁTICO",
+    logDeAccesos: "LOG DE ACCESOS",
+  },
+  en: {
+    initialInvestment: "Initial Investment",
+    subsidized: "100% SUBSIDIZED",
+    devices: "Devices",
+    intelligence: "Intelligence",
+    comodatoScheme: "Free Lease Scheme",
+    step1: "1. Select Environment",
+    step2: "2. Hardware Devices",
+    step3: "3. AI Subscription & Modules",
+    shabatMode: "SHABAT MODE",
+    automaticAccess: "AUTOMATIC ACCESS",
+    logDeAccesos: "ACCESS LOG",
+  },
+  he: {
+    initialInvestment: "השקעה ראשונית",
+    subsidized: "100% מסובסד",
+    devices: "מכשירים",
+    intelligence: "בינה מלאכותית",
+    comodatoScheme: "מסלול השאלה",
+    step1: "1. בחר סביבה",
+    step2: "2. מכשירי חומרה",
+    step3: "3. מנוי ומודולי בינה מלאכותית",
+    shabatMode: "מצב שבת",
+    automaticAccess: "גישה אוטומטית",
+    logDeAccesos: "יומן כניסות",
+  },
+  de: {
+    initialInvestment: "Erstinvestition",
+    subsidized: "100% GEFÖRDERT",
+    devices: "Geräte",
+    intelligence: "Intelligenz",
+    comodatoScheme: "Leihschema",
+    step1: "1. Umgebung Auswählen",
+    step2: "2. Hardware-Geräte",
+    step3: "3. KI-Abonnement & Module",
+    shabatMode: "SCHABBAT-MODUS",
+    automaticAccess: "AUTOMATISCHER ZUGANG",
+    logDeAccesos: "ZUGANGSPROTOKOLL",
+  },
+  ru: {
+    initialInvestment: "Начальные инвестиции",
+    subsidized: "100% СУБСИДИРУЕТСЯ",
+    devices: "Устройства",
+    intelligence: "Интеллект",
+    comodatoScheme: "Схема аренды",
+    step1: "1. Выберите окружение",
+    step2: "2. Аппаратные устройства",
+    step3: "3. Подписка и модули ИИ",
+    shabatMode: "РЕЖИМ ШАБАТ",
+    automaticAccess: "АВТОМАТИЧЕСКИЙ ДОСТУП",
+    logDeAccesos: "ЖУРНАЛ ДОСТУПА",
+  },
+  pt: {
+    initialInvestment: "Investimento Inicial",
+    subsidized: "100% SUBSIDIADA",
+    devices: "Dispositivos",
+    intelligence: "Inteligência",
+    comodatoScheme: "Esquema de Comodato",
+    step1: "1. Selecione o Ambiente",
+    step2: "2. Dispositivos de Hardware",
+    step3: "3. Assinatura e Módulos de IA",
+    shabatMode: "MODO SHABAT",
+    automaticAccess: "ACESSO AUTÔNOMO",
+    logDeAccesos: "REGISTRO DE ACESSO",
+  },
+  it: {
+    initialInvestment: "Investimento Iniziale",
+    subsidized: "100% COPERTO",
+    devices: "Dispositivi",
+    intelligence: "Intelligenza",
+    comodatoScheme: "Schema Comodato",
+    step1: "1. Seleziona l'Ambiente",
+    step2: "2. Dispositivi Hardware",
+    step3: "3. Abbonamento e Moduli IA",
+    shabatMode: "MODALITÀ SHABAT",
+    automaticAccess: "ACCESSO AUTOMATICO",
+    logDeAccesos: "REGISTRO ACCESSI",
+  }
+};
+
 export function CPQConfigurator() {
+  const { language, t } = useLanguage();
+  const isRtl = language === "he";
+  const extra = localExtra[language as Locale] || localExtra.es;
+
   const [env, setEnv] = useState<EnvironmentType>("edificio");
   const [selectedHardware, setSelectedHardware] = useState<string[]>(["totem", "facial"]);
   const [selectedSoftware, setSelectedSoftware] = useState<string[]>(["linea"]);
 
   const environments = [
-    { id: "edificio", name: "Edificio Residencial", icon: <Building className="w-5 h-5" />, bg: "rgba(0, 191, 255, 0.05)" },
-    { id: "empresa", name: "Oficina / Empresa", icon: <Briefcase className="w-5 h-5" />, bg: "rgba(0, 230, 118, 0.05)" },
-    { id: "barrio", name: "Country / Barrio Cerrado", icon: <Trees className="w-5 h-5" />, bg: "rgba(255, 59, 48, 0.05)" },
-    { id: "hotel", name: "Hotel / Airbnb", icon: <Hotel className="w-5 h-5" />, bg: "rgba(168, 85, 247, 0.05)" },
+    { id: "edificio", name: t("cpq.environments.edificio"), icon: <Building className="w-5 h-5" />, bg: "rgba(0, 191, 255, 0.05)" },
+    { id: "empresa", name: t("cpq.environments.empresa"), icon: <Briefcase className="w-5 h-5" />, bg: "rgba(0, 230, 118, 0.05)" },
+    { id: "barrio", name: t("cpq.environments.barrio"), icon: <Trees className="w-5 h-5" />, bg: "rgba(255, 59, 48, 0.05)" },
+    { id: "hotel", name: t("cpq.environments.hotel"), icon: <Hotel className="w-5 h-5" />, bg: "rgba(168, 85, 247, 0.05)" },
   ];
 
   const hardwareList: HardwareItem[] = [
@@ -47,6 +159,36 @@ export function CPQConfigurator() {
     { id: "horarios", name: "Control Horario y Fichaje (RRHH)", desc: "Reportes en la nube e historial de accesos por persona.", price: 25000 },
     { id: "shabat", name: "Módulo Sistema Shabat", desc: "Protocolo adaptativo respetuoso para la Colectividad Judía.", price: 15000 },
   ];
+
+  const getHardwareTranslation = (id: string) => {
+    switch (id) {
+      case "totem":
+        return { name: t("cpq.hardware.totemName"), desc: t("cpq.hardware.totemDesc") };
+      case "facial":
+        return { name: t("cpq.hardware.facialName"), desc: t("cpq.hardware.facialDesc") };
+      case "camaras":
+        return { name: t("cpq.hardware.camarasName"), desc: t("cpq.hardware.camarasDesc") };
+      case "barrera":
+        return { name: t("cpq.hardware.barreraName"), desc: t("cpq.hardware.barreraDesc") };
+      default:
+        return { name: "", desc: "" };
+    }
+  };
+
+  const getSoftwareTranslation = (id: string) => {
+    switch (id) {
+      case "linea":
+        return { name: t("cpq.software.lineaName"), desc: t("cpq.software.lineaDesc") };
+      case "patentes":
+        return { name: t("cpq.software.patentesName"), desc: t("cpq.software.patentesDesc") };
+      case "horarios":
+        return { name: t("cpq.software.horariosName"), desc: t("cpq.software.horariosDesc") };
+      case "shabat":
+        return { name: t("cpq.software.shabatName"), desc: t("cpq.software.shabatDesc") };
+      default:
+        return { name: "", desc: "" };
+    }
+  };
 
   // Auto-select features based on environment for starting point
   useEffect(() => {
@@ -96,15 +238,15 @@ export function CPQConfigurator() {
   const totalAbonoUSD = Math.round(totalAbonoARS / 1000); // 1 USD = 1000 ARS
 
   return (
-    <section id="configurador" className="py-24 px-6 md:px-10 bg-brand-black border-t border-brand-border">
+    <section id="configurador" className={`py-24 px-6 md:px-10 bg-brand-black border-t border-brand-border ${isRtl ? "text-right" : "text-left"}`}>
       <div className="max-w-[1200px] mx-auto">
         <FadeUp>
-          <div className="font-mono text-xs tracking-[0.18em] text-brand-blue uppercase mb-3">Configurador CPQ</div>
+          <div className="font-mono text-xs tracking-[0.18em] text-brand-blue uppercase mb-3">{t("cpq.tag")}</div>
           <h2 className="font-display text-[clamp(2.2rem,5vw,3.8rem)] leading-none uppercase mb-6">
-            Diseñá tu <em className="text-brand-blue not-italic">Ecosistema</em><br />de Seguridad.
+            {t("cpq.title")}
           </h2>
-          <p className="text-lg text-brand-gray-light leading-relaxed max-w-[620px] font-light mb-12">
-            Seleccioná tu entorno y personalizá los dispositivos y funcionalidades de IA. Obtené un abono mensual preliminar transparente al instante.
+          <p className={`text-lg text-brand-gray-light leading-relaxed max-w-[620px] font-light mb-12 ${isRtl ? "mr-0 ml-auto" : ""}`}>
+            {t("cpq.desc")}
           </p>
         </FadeUp>
 
@@ -115,10 +257,10 @@ export function CPQConfigurator() {
             <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:30px_30px] pointer-events-none" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,191,255,0.03),transparent_70%)] pointer-events-none" />
 
-            <div className="relative z-10 flex justify-between items-center mb-6">
-              <span className="font-mono text-[0.7rem] text-brand-gray tracking-widest uppercase">Vista Axonométrica</span>
+            <div className={`relative z-10 flex justify-between items-center mb-6 ${isRtl ? "flex-row-reverse" : ""}`}>
+              <span className="font-mono text-[0.7rem] text-brand-gray tracking-widest uppercase">{t("cpq.axonometric")}</span>
               <span className="flex items-center gap-1.5 font-mono text-[0.68rem] text-brand-green bg-brand-green/10 border border-brand-green/20 px-2 py-0.5 rounded">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse" /> IA ACTIVA
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse" /> {t("cpq.aiActive")}
               </span>
             </div>
 
@@ -746,7 +888,7 @@ export function CPQConfigurator() {
                     hudElements.push(
                       <g key="horarios" transform={`translate(295, ${offsetY})`}>
                         <rect x="0" y="0" width="95" height="42" rx="3" fill="rgba(9, 9, 11, 0.85)" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
-                        <text x="6" y="10" fill="#a1a1aa" fontSize="5.5" fontFamily="monospace" fontWeight="bold">LOG DE ACCESOS</text>
+                        <text x="6" y="10" fill="#a1a1aa" fontSize="5.5" fontFamily="monospace" fontWeight="bold">{extra.logDeAccesos}</text>
                         <text x="6" y="20" fill="#00E676" fontSize="5.5" fontFamily="monospace">08:02 JPerez [IN]</text>
                         <text x="6" y="28" fill="#00E676" fontSize="5.5" fontFamily="monospace">08:15 MDiaz  [IN]</text>
                         <text x="6" y="36" fill="#3b82f6" fontSize="5.5" fontFamily="monospace">08:44 RSmith [OUT]</text>
@@ -759,8 +901,8 @@ export function CPQConfigurator() {
                     hudElements.push(
                       <g key="shabat" transform={`translate(295, ${offsetY})`}>
                         <rect x="0" y="0" width="95" height="28" rx="3" fill="rgba(245, 158, 11, 0.05)" stroke="#fbbf24" strokeWidth="1" />
-                        <text x="6" y="11" fill="#fbbf24" fontSize="6.5" fontFamily="monospace" fontWeight="bold">MODO SHABAT</text>
-                        <text x="6" y="20" fill="#d97706" fontSize="5.5" fontFamily="monospace">ACCESO AUTOMÁTICO</text>
+                        <text x="6" y="11" fill="#fbbf24" fontSize="6.5" fontFamily="monospace" fontWeight="bold">{extra.shabatMode}</text>
+                        <text x="6" y="20" fill="#d97706" fontSize="5.5" fontFamily="monospace">{extra.automaticAccess}</text>
                       </g>
                     );
                   }
@@ -771,31 +913,31 @@ export function CPQConfigurator() {
             </div>
 
             {/* Bottom active feedback */}
-            <div className="relative z-10 mt-6 pt-4 border-t border-white/5 flex flex-wrap gap-x-4 gap-y-1 text-xs text-brand-gray font-mono">
-              <span>Dispositivos: {selectedHardware.length}</span>
+            <div className={`relative z-10 mt-6 pt-4 border-t border-white/5 flex flex-wrap gap-x-4 gap-y-1 text-xs text-brand-gray font-mono ${isRtl ? "flex-row-reverse" : ""}`}>
+              <span>{extra.devices}: {selectedHardware.length}</span>
               <span>·</span>
-              <span>Inteligencia: {selectedSoftware.length}</span>
+              <span>{extra.intelligence}: {selectedSoftware.length}</span>
               <span>·</span>
-              <span className="text-brand-blue uppercase">Esquema Comodato</span>
+              <span className="text-brand-blue uppercase">{extra.comodatoScheme}</span>
             </div>
           </div>
 
           {/* Right panel: Selector & Controls */}
-          <div className="lg:col-span-6 flex flex-col justify-between">
+          <div className={`lg:col-span-6 flex flex-col justify-between ${isRtl ? "text-right" : "text-left"}`}>
             <div className="flex flex-col gap-6">
               {/* Step 1: Environment Selection */}
               <div>
-                <h3 className="text-xs font-mono uppercase tracking-widest text-brand-gray mb-3">1. Seleccioná el Entorno</h3>
+                <h3 className={`text-xs font-mono uppercase tracking-widest text-brand-gray mb-3 ${isRtl ? "text-right" : ""}`}>{extra.step1}</h3>
                 <div className="grid grid-cols-2 gap-2">
                   {environments.map((item) => (
                     <button
                       key={item.id}
                       onClick={() => setEnv(item.id as EnvironmentType)}
-                      className={`flex items-center gap-3 p-3 text-left border rounded transition-all duration-200 text-sm font-medium
+                      className={`flex items-center gap-3 p-3 border rounded transition-all duration-200 text-sm font-medium
                         ${env === item.id 
                           ? "border-brand-blue bg-brand-surface text-brand-white" 
                           : "border-brand-border bg-black/20 text-brand-gray hover:border-brand-gray hover:text-brand-gray-light"
-                        }`}
+                        } ${isRtl ? "flex-row-reverse text-right" : "text-left"}`}
                     >
                       <span className={env === item.id ? "text-brand-blue" : "text-brand-gray"}>
                         {item.icon}
@@ -808,10 +950,11 @@ export function CPQConfigurator() {
 
               {/* Step 2: Hardware Selection */}
               <div>
-                <h3 className="text-xs font-mono uppercase tracking-widest text-brand-gray mb-3">2. Dispositivos de Hardware</h3>
+                <h3 className={`text-xs font-mono uppercase tracking-widest text-brand-gray mb-3 ${isRtl ? "text-right" : ""}`}>{extra.step2}</h3>
                 <div className="flex flex-col gap-2">
                   {hardwareList.map((item) => {
                     const isSelected = selectedHardware.includes(item.id);
+                    const trans = getHardwareTranslation(item.id);
                     return (
                       <div
                         key={item.id}
@@ -820,17 +963,17 @@ export function CPQConfigurator() {
                           ${isSelected 
                             ? "border-brand-blue bg-brand-surface/40" 
                             : "border-brand-border bg-transparent"
-                          }`}
+                          } ${isRtl ? "flex-row-reverse" : ""}`}
                       >
-                        <div className="flex-grow pr-4">
-                          <div className="text-sm font-semibold text-brand-white flex items-center gap-2">
-                            {item.name}
+                        <div className={`flex-grow ${isRtl ? "pl-4 text-right" : "pr-4 text-left"}`}>
+                          <div className={`text-sm font-semibold text-brand-white flex items-center gap-2 ${isRtl ? "flex-row-reverse" : ""}`}>
+                            {trans.name}
                             {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-brand-blue shrink-0" />}
                           </div>
-                          <p className="text-[0.78rem] text-brand-gray leading-normal mt-0.5">{item.desc}</p>
+                          <p className="text-[0.78rem] text-brand-gray leading-normal mt-0.5">{trans.desc}</p>
                         </div>
-                        <div className="text-right shrink-0">
-                          <div className="text-xs font-mono text-brand-gray-light">+${item.price.toLocaleString("es-AR")}/m</div>
+                        <div className={`${isRtl ? "text-left" : "text-right"} shrink-0`}>
+                          <div className="text-xs font-mono text-brand-gray-light">+{isRtl ? "" : "$"}{item.price.toLocaleString(language === "es" ? "es-AR" : "en-US")}{isRtl ? " $" : ""}/m</div>
                         </div>
                       </div>
                     );
@@ -840,10 +983,11 @@ export function CPQConfigurator() {
 
               {/* Step 3: Software Selection */}
               <div>
-                <h3 className="text-xs font-mono uppercase tracking-widest text-brand-gray mb-3">3. Suscripción y Módulos de IA</h3>
+                <h3 className={`text-xs font-mono uppercase tracking-widest text-brand-gray mb-3 ${isRtl ? "text-right" : ""}`}>{extra.step3}</h3>
                 <div className="flex flex-col gap-2">
                   {softwareList.map((item) => {
                     const isSelected = selectedSoftware.includes(item.id);
+                    const trans = getSoftwareTranslation(item.id);
                     return (
                       <div
                         key={item.id}
@@ -852,17 +996,17 @@ export function CPQConfigurator() {
                           ${isSelected 
                             ? "border-brand-green/40 bg-brand-surface/40" 
                             : "border-brand-border bg-transparent"
-                          }`}
+                          } ${isRtl ? "flex-row-reverse" : ""}`}
                       >
-                        <div className="flex-grow pr-4">
-                          <div className="text-sm font-semibold text-brand-white flex items-center gap-2">
-                            {item.name}
+                        <div className={`flex-grow ${isRtl ? "pl-4 text-right" : "pr-4 text-left"}`}>
+                          <div className={`text-sm font-semibold text-brand-white flex items-center gap-2 ${isRtl ? "flex-row-reverse" : ""}`}>
+                            {trans.name}
                             {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-brand-green shrink-0" />}
                           </div>
-                          <p className="text-[0.78rem] text-brand-gray leading-normal mt-0.5">{item.desc}</p>
+                          <p className="text-[0.78rem] text-brand-gray leading-normal mt-0.5">{trans.desc}</p>
                         </div>
-                        <div className="text-right shrink-0">
-                          <div className="text-xs font-mono text-brand-gray-light">+${item.price.toLocaleString("es-AR")}/m</div>
+                        <div className={`${isRtl ? "text-left" : "text-right"} shrink-0`}>
+                          <div className="text-xs font-mono text-brand-gray-light">+{isRtl ? "" : "$"}{item.price.toLocaleString(language === "es" ? "es-AR" : "en-US")}{isRtl ? " $" : ""}/m</div>
                         </div>
                       </div>
                     );
@@ -873,19 +1017,19 @@ export function CPQConfigurator() {
 
             {/* Calculations & Price Output */}
             <div className="mt-8 border border-brand-border rounded bg-brand-near-black p-6 flex flex-col justify-between gap-4">
-              <div className="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
-                <div>
-                  <div className="text-[0.68rem] font-mono tracking-widest text-brand-gray uppercase">Inversión Inicial</div>
+              <div className={`flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between ${isRtl ? "sm:flex-row-reverse" : ""}`}>
+                <div className={isRtl ? "text-right" : "text-left"}>
+                  <div className="text-[0.68rem] font-mono tracking-widest text-brand-gray uppercase">{extra.initialInvestment}</div>
                   <div className="text-xl font-display text-brand-white uppercase">
-                    $0 USD <span className="text-xs font-mono text-brand-green tracking-normal font-bold">100% BONIFICADA</span>
+                    $0 USD <span className="text-xs font-mono text-brand-green tracking-normal font-bold">{extra.subsidized}</span>
                   </div>
                 </div>
-                <div className="sm:text-right">
-                  <div className="text-[0.68rem] font-mono tracking-widest text-brand-gray uppercase">Abono Mensual Estimado</div>
+                <div className={isRtl ? "sm:text-left" : "sm:text-right"}>
+                  <div className="text-[0.68rem] font-mono tracking-widest text-brand-gray uppercase">{t("cpq.summary.monthlyTotal")}</div>
                   <div className="text-3xl font-display text-brand-blue leading-none">
-                    ${totalAbonoARS.toLocaleString("es-AR")} <span className="text-xs font-mono text-brand-gray font-normal lowercase">ars/mes</span>
+                    ${totalAbonoARS.toLocaleString(language === "es" ? "es-AR" : "en-US")} <span className="text-xs font-mono text-brand-gray font-normal lowercase">{t("cpq.summary.arsSuffix")}</span>
                   </div>
-                  <div className="text-xs text-brand-gray font-mono mt-0.5">~ {totalAbonoUSD} USD / mes + IVA</div>
+                  <div className="text-xs text-brand-gray font-mono mt-0.5">~ {totalAbonoUSD} {t("cpq.summary.usdSuffix")}</div>
                 </div>
               </div>
 
@@ -893,7 +1037,7 @@ export function CPQConfigurator() {
                 href="/#contacto"
                 className="w-full bg-brand-blue text-brand-black py-4 rounded-sm font-bold text-sm tracking-wider uppercase text-center hover:bg-brand-white transition-colors"
               >
-                Solicitar Cotización Formal
+                {t("cpq.summary.quoteBtn")}
               </Link>
             </div>
           </div>
