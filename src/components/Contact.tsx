@@ -295,6 +295,9 @@ export function Contact() {
     const tipoEspacio = originalData.get("tipo_espacio") as string;
     const msg = originalData.get("consulta") as string;
 
+    const now = new Date();
+    const dateStr = now.toLocaleDateString("es-AR") + " " + now.toLocaleTimeString("es-AR", { hour: '2-digit', minute: '2-digit' }) + " hs";
+
     // Create formatted data for Web3Forms email body
     const formattedData = new FormData();
     formattedData.append("access_key", process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "");
@@ -303,8 +306,10 @@ export function Contact() {
     formattedData.append("replyto", email);
 
     // Map inputs to the exact labels from the official email format
+    formattedData.append("Logo Shomer", "https://shomer-web.vercel.app/images/SHOMER.png");
+    formattedData.append("Fecha de la consulta", dateStr);
     formattedData.append("Nombre a dirigirse para la consulta", nombre);
-    formattedData.append("Número a llamar", telefono);
+    formattedData.append("Numero a llamar", telefono);
     formattedData.append("Mail", email);
     formattedData.append("Servicio para", tipoEspacio);
     formattedData.append("Consulta", msg);
