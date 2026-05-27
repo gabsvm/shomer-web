@@ -344,7 +344,7 @@ export function SocialProof() {
                   alt={c.name}
                   width={140}
                   height={60}
-                  className="h-10 w-auto object-contain opacity-50 group-hover:opacity-100 transition-all duration-300 brightness-0 invert filter hover:scale-105"
+                  className={`${c.name === "Urban Storage" ? "h-14 sm:h-16" : "h-10"} w-auto object-contain opacity-50 group-hover:opacity-100 transition-all duration-300 brightness-0 invert filter hover:scale-105`}
                 />
               </div>
             ))}
