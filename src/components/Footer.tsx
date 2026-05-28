@@ -56,6 +56,16 @@ const footerLabels: Record<string, {
   }
 };
 
+const appPrivacyLabels: Record<string, string> = {
+  es: "Privacidad App",
+  en: "App Privacy",
+  he: "פרטיות האפליקציה",
+  de: "App-Datenschutz",
+  ru: "Конфиденциальность приложения",
+  pt: "Privacidade do App",
+  it: "Privacy dell'App"
+};
+
 export function Footer() {
   const { language, t } = useLanguage();
   const isRtl = language === "he";
@@ -122,6 +132,10 @@ export function Footer() {
             <span className="hidden sm:inline text-brand-gray/30 text-[0.75rem] font-mono">·</span>
             <Link href="/privacidad" className="text-[0.75rem] text-brand-gray font-mono hover:text-brand-blue transition-colors">
               {t("footer.privacy")}
+            </Link>
+            <span className="hidden sm:inline text-brand-gray/30 text-[0.75rem] font-mono">·</span>
+            <Link href="/privacidad/shomer-vision" className="text-[0.75rem] text-brand-gray font-mono hover:text-brand-blue transition-colors">
+              {appPrivacyLabels[language] || appPrivacyLabels.es}
             </Link>
             <span className="hidden sm:inline text-brand-gray/30 text-[0.75rem] font-mono">·</span>
             <Link href="/soporte" className="text-[0.75rem] text-brand-gray font-mono hover:text-brand-blue transition-colors">
