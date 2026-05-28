@@ -138,6 +138,47 @@ export function CPQConfigurator() {
   const [env, setEnv] = useState<EnvironmentType>("edificio");
   const [selectedHardware, setSelectedHardware] = useState<string[]>(["totem", "facial"]);
   const [selectedSoftware, setSelectedSoftware] = useState<string[]>(["linea"]);
+  const [dolarRate, setDolarRate] = useState<number>(1000); // 1 USD = 1000 ARS (default fallback)
+
+  useEffect(() => {
+    const fetchDolarRate = async () => {
+      try {
+        const CACHE_KEY = "shomer_dolar_rate";
+        const TIME_KEY = "shomer_dolar_time";
+        
+        // 1. Load cached value immediately if it exists
+        const cachedRate = localStorage.getItem(CACHE_KEY);
+        const cachedTime = localStorage.getItem(TIME_KEY);
+        
+        if (cachedRate) {
+          setDolarRate(parseFloat(cachedRate));
+        }
+
+        const now = Date.now();
+        const oneDayMs = 24 * 60 * 60 * 1000;
+
+        // 2. If cache is valid (less than 24 hours old), skip API fetch
+        if (cachedRate && cachedTime && (now - parseInt(cachedTime, 10) < oneDayMs)) {
+          return;
+        }
+
+        // 3. Fetch from DolarAPI
+        const res = await fetch("https://dolarapi.com/v1/dolares/blue");
+        if (!res.ok) throw new Error("DolarAPI request failed");
+        const data = await res.json();
+        
+        if (data && data.venta && typeof data.venta === "number") {
+          setDolarRate(data.venta);
+          localStorage.setItem(CACHE_KEY, data.venta.toString());
+          localStorage.setItem(TIME_KEY, now.toString());
+        }
+      } catch (err) {
+        console.error("Error fetching dollar rate from DolarAPI:", err);
+      }
+    };
+
+    fetchDolarRate();
+  }, []);
 
   const environments = [
     { id: "edificio", name: t("cpq.environments.edificio"), icon: <Building className="w-5 h-5" />, bg: "rgba(0, 191, 255, 0.05)" },
@@ -260,7 +301,7 @@ export function CPQConfigurator() {
   }, 0);
 
   const totalAbonoARS = hardwareCost + softwareCost;
-  const totalAbonoUSD = Math.round(totalAbonoARS / 1000); // 1 USD = 1000 ARS
+  const totalAbonoUSD = Math.round(totalAbonoARS / dolarRate);
 
   return (
     <section id="configurador" className={`py-24 px-6 md:px-10 bg-brand-black border-t border-brand-border ${isRtl ? "text-right" : "text-left"}`}>
