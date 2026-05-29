@@ -65,11 +65,11 @@ const localTranslations: Record<string, {
     whatsappChats: [
       {
         id: "chat1",
-        clientName: "Miguel Soto (Alta de Tarjetas)",
-        avatar: "MS",
+        clientName: "Carlos Vignolo (Alta de Tarjetas)",
+        avatar: "CV",
         messages: [
           { sender: "client", text: "estos son los datos...", time: "09:07" },
-          { sender: "client", text: "las tarjetas para activar y serán destinar al 4B", time: "09:08" },
+          { sender: "client", text: "las tarjetas para activar y serán destinadas al 4B", time: "09:08" },
           { sender: "client", text: "Mil gracias!!!", time: "09:08" },
           { sender: "central", text: "dale perfecto, ahora las realizamos", time: "09:08" },
           { sender: "central", text: "Listo, ya estan dadas de alta!", time: "09:14" },
@@ -90,20 +90,20 @@ const localTranslations: Record<string, {
           { sender: "client", text: "Millones de gracias", time: "22:07" },
           { sender: "central", text: "A usted", time: "22:07" },
           { sender: "central", text: "Ya la puerta cierra correctamente", time: "22:08" },
-          { sender: "client", text: "Mejor aún entonces sos unos genios", time: "22:08" },
+          { sender: "client", text: "Mejor aún entonces son unos genios", time: "22:08" },
           { sender: "client", text: "De verdad gracias", time: "22:08" },
           { sender: "central", text: "De igual manera nosotros estamos atentos", time: "22:08" }
         ]
       },
       {
         id: "chat3",
-        clientName: "Miguel Soto (Control de Accesos)",
-        avatar: "MS",
+        clientName: "Jorge Gómez (Control de Accesos)",
+        avatar: "JG",
         messages: [
           { sender: "central", text: "seria el propietario de la tarjeta?", time: "16:31" },
-          { sender: "client", text: "sisi es es nombre", time: "16:32" },
+          { sender: "client", text: "sisi es ese nombre", time: "16:32" },
           { sender: "central", text: "ok ahora lo arreglamos", time: "16:33" },
-          { sender: "client", text: "yo la padio que la den de alta el otro dia...", time: "16:33" },
+          { sender: "client", text: "yo había pedido que la den de alta el otro dia...", time: "16:33" },
           { sender: "client", text: "Dale dale", time: "16:33" },
           { sender: "client", text: "gracias!!", time: "16:33" },
           { sender: "client", text: "avisame asi le aviso a la persona", time: "16:33" },
@@ -111,10 +111,10 @@ const localTranslations: Record<string, {
           { sender: "central", text: "ya fue solucionado.", time: "16:33" },
           { sender: "client", text: "gracias por la velocidad", time: "16:33" },
           { sender: "client", text: "excelente!!", time: "16:33" },
-          { sender: "central", text: "no de nada sr miguel.", time: "16:34" },
-          { sender: "central", text: "que tenga buena tardes sr miguel.", time: "16:34" },
+          { sender: "central", text: "no de nada sr jorge.", time: "16:34" },
+          { sender: "central", text: "que tenga buenas tardes sr jorge.", time: "16:34" },
           { sender: "central", text: "estamos a su disposición!!!", time: "16:35" },
-          { sender: "central", text: "Buenas tardes sr Migel, sabe que acaban de dejar la puerta abierta de Boyacá 652. La cerró recién la misma que la dejó abierta. La srta del 7B.", time: "20:13" }
+          { sender: "central", text: "Buenas tardes sr Jorge, sabe que acaban de dejar la puerta abierta de Boyacá 652. La cerró recién la misma que la dejó abierta. La srta del 7B.", time: "20:13" }
         ]
       },
       {
@@ -124,9 +124,9 @@ const localTranslations: Record<string, {
         messages: [
           { sender: "client", text: "Hola como andan chicos ? Todavía los extraño mucho 🥰", time: "18:56" },
           { sender: "central", text: "Gracias por comunicarte con Shomer Security Central Monitoreo. ¿Cómo podemos ayudarte?", time: "18:56" },
-          { sender: "central", text: "Buenas nohces Sr.. Que tal el edificio? Com va todo?", time: "18:57" },
+          { sender: "central", text: "Buenas noches Sr.. Que tal el edificio? Com va todo?", time: "18:57" },
           { sender: "client", text: "Todo bien gracias a dios pero la seguridad ay mucho q decir para mal", time: "18:58" },
-          { sender: "central", text: "Uh, buenos una lastima.. Ojala que podamos volver... Hablá con adminitracion asi volvemos.", time: "18:58" },
+          { sender: "central", text: "Uh, bueno una lastima.. Ojala que podamos volver... Hablá con administración asi volvemos.", time: "18:58" },
           { sender: "client", text: "Si si por favor  🙏", time: "18:59" },
           { sender: "central", text: "Saludos te mandamos aca todos.", time: "18:59" },
           { sender: "central", text: "te extrañamos!!", time: "18:59" },
@@ -141,12 +141,12 @@ const localTranslations: Record<string, {
         messages: [
           { sender: "client", text: "Como andan chicos los extraño mucho 🥰", time: "19:39" },
           { sender: "central", text: "Gracias por comunicarte con Shomer Security Central Monitoreo. ¿Cómo podemos ayudarte?", time: "19:39" },
-          { sender: "central", text: "Hola Sr.. Como le va.. Nosotros tmb. y muchoo", time: "19:39" },
+          { sender: "central", text: "Hola Sr.. Como le va.. Nosotros también y mucho", time: "19:39" },
           { sender: "client", text: "Si si estos son un desastre", time: "19:39" },
           { sender: "central", text: "Jajajajaja", time: "19:39" },
-          { sender: "client", text: "Me asen renegar mucho", time: "19:40" },
-          { sender: "central", text: "Pasciencia..", time: "19:40" },
-          { sender: "central", text: "Bueno entonces a lo mejor podemos volvewr...", time: "19:40" },
+          { sender: "client", text: "Me hacen renegar mucho", time: "19:40" },
+          { sender: "central", text: "Paciencia..", time: "19:40" },
+          { sender: "central", text: "Bueno entonces a lo mejor podemos volver...", time: "19:40" },
           { sender: "client", text: "Ojalá 🙏", time: "19:41" },
           { sender: "central", text: "Ojalá", time: "19:41" },
           { sender: "client", text: "Saludos para todos  😌", time: "19:42" },
@@ -191,8 +191,8 @@ const localTranslations: Record<string, {
     whatsappChats: [
       {
         id: "chat1",
-        clientName: "Miguel Soto (Card Activation)",
-        avatar: "MS",
+        clientName: "Carlos Vignolo (Card Activation)",
+        avatar: "CV",
         messages: [
           { sender: "client", text: "here are the details...", time: "09:07" },
           { sender: "client", text: "these are the cards to activate, they will be assigned to 4B", time: "09:08" },
@@ -223,8 +223,8 @@ const localTranslations: Record<string, {
       },
       {
         id: "chat3",
-        clientName: "Miguel Soto (Access Control)",
-        avatar: "MS",
+        clientName: "Jorge Gómez (Access Control)",
+        avatar: "JG",
         messages: [
           { sender: "central", text: "would that be the card owner?", time: "16:31" },
           { sender: "client", text: "yes, that is the name", time: "16:32" },
@@ -237,10 +237,10 @@ const localTranslations: Record<string, {
           { sender: "central", text: "it has been resolved.", time: "16:33" },
           { sender: "client", text: "thanks for the speed", time: "16:33" },
           { sender: "client", text: "excellent!!", time: "16:33" },
-          { sender: "central", text: "you are welcome, Mr. Miguel.", time: "16:34" },
-          { sender: "central", text: "have a good afternoon, Mr. Miguel.", time: "16:34" },
+          { sender: "central", text: "you are welcome, Mr. Jorge.", time: "16:34" },
+          { sender: "central", text: "have a good afternoon, Mr. Jorge.", time: "16:34" },
           { sender: "central", text: "we are at your service!!!", time: "16:35" },
-          { sender: "central", text: "Good afternoon Mr. Miguel, just to let you know they left the door open at Boyacá 652. The same person who left it open just closed it. The lady from 7B.", time: "20:13" }
+          { sender: "central", text: "Good afternoon Mr. Jorge, just to let you know they left the door open at Boyacá 652. The same person who left it open just closed it. The lady from 7B.", time: "20:13" }
         ]
       },
       {
