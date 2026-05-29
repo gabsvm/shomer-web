@@ -512,7 +512,7 @@ export function PodcastSection() {
                 <div className={`flex flex-col sm:flex-row gap-6 sm:gap-8 items-center w-full ${isRtl ? "sm:flex-row-reverse" : ""}`}>
                   
                   {/* Vinyl/Cover Art Mockup */}
-                  <div className="relative w-40 h-40 sm:w-44 sm:h-44 shrink-0 rounded-2xl overflow-hidden border border-brand-border bg-brand-surface-2 flex items-center justify-center shadow-2xl group transition-all duration-500 hover:border-brand-blue/30 select-none">
+                  <div className="relative w-40 h-40 sm:w-52 sm:h-52 shrink-0 rounded-2xl overflow-hidden border border-brand-border bg-brand-surface-2 flex items-center justify-center shadow-2xl group transition-all duration-500 hover:border-brand-blue/30 select-none">
                     {/* Futuristic HUD Viewfinder corners */}
                     <div className="absolute top-2.5 left-2.5 w-2 h-2 border-t border-l border-brand-blue/30 group-hover:border-brand-blue transition-colors duration-300 pointer-events-none" />
                     <div className="absolute top-2.5 right-2.5 w-2 h-2 border-t border-r border-brand-blue/30 group-hover:border-brand-blue transition-colors duration-300 pointer-events-none" />
@@ -527,7 +527,7 @@ export function PodcastSection() {
                     <motion.div
                       animate={isPlaying ? { rotate: 360 } : { rotate: 0 }}
                       transition={isPlaying ? { repeat: Infinity, duration: 12, ease: "linear" } : { duration: 0.5 }}
-                      className="absolute w-32 h-32 rounded-full border border-dashed border-brand-blue/15 flex items-center justify-center pointer-events-none"
+                      className="absolute w-32 h-32 sm:w-44 sm:h-44 rounded-full border border-dashed border-brand-blue/15 flex items-center justify-center pointer-events-none"
                     >
                       {/* Sonar sweep gradient beam */}
                       {isPlaying && (
@@ -535,8 +535,8 @@ export function PodcastSection() {
                       )}
                       
                       {/* Inner concentric ring grooves */}
-                      <div className="w-24 h-24 rounded-full border border-brand-blue/10 flex items-center justify-center">
-                        <div className="w-16 h-16 rounded-full border border-dashed border-brand-blue/15" />
+                      <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full border border-brand-blue/10 flex items-center justify-center">
+                        <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full border border-dashed border-brand-blue/15" />
                       </div>
                     </motion.div>
 
@@ -547,19 +547,19 @@ export function PodcastSection() {
                           initial={{ scale: 0.6, opacity: 0.6 }}
                           animate={{ scale: 1.25, opacity: 0 }}
                           transition={{ repeat: Infinity, duration: 2, ease: "easeOut" }}
-                          className="absolute w-24 h-24 rounded-full border border-brand-blue/25 pointer-events-none"
+                          className="absolute w-24 h-24 sm:w-36 sm:h-36 rounded-full border border-brand-blue/25 pointer-events-none"
                         />
                         <motion.div
                           initial={{ scale: 0.6, opacity: 0.6 }}
                           animate={{ scale: 1.25, opacity: 0 }}
                           transition={{ repeat: Infinity, duration: 2, ease: "easeOut", delay: 1 }}
-                          className="absolute w-24 h-24 rounded-full border border-brand-blue/25 pointer-events-none"
+                          className="absolute w-24 h-24 sm:w-36 sm:h-36 rounded-full border border-brand-blue/25 pointer-events-none"
                         />
                       </>
                     )}
 
                     {/* Glassmorphic static label (does not rotate) */}
-                    <div className="relative z-10 flex flex-col items-center justify-center text-center w-28 h-28 rounded-full bg-brand-black/50 border border-white/5 backdrop-blur-md shadow-2xl p-2 pointer-events-none transition-colors duration-500 group-hover:border-brand-blue/20">
+                    <div className="relative z-10 flex flex-col items-center justify-center text-center w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-brand-black/50 border border-white/5 backdrop-blur-md shadow-2xl p-2 pointer-events-none transition-colors duration-500 group-hover:border-brand-blue/20">
                       {/* Active Status LED dot */}
                       <div className="relative flex items-center justify-center mb-1">
                         <div className={`absolute w-3 h-3 rounded-full blur-[4px] transition-all duration-500 ${isPlaying ? "bg-brand-green/60 animate-pulse" : "bg-brand-blue/40"}`} />
@@ -567,13 +567,13 @@ export function PodcastSection() {
                       </div>
 
                       {/* Brand name */}
-                      <span className="font-display text-sm uppercase tracking-[0.22em] text-white">SHOMER</span>
+                      <span className="font-display text-sm sm:text-base uppercase tracking-[0.22em] text-white">SHOMER</span>
                       
                       {/* Cover label text */}
-                      <span className="text-[6.5px] font-mono tracking-[0.2em] text-brand-blue uppercase mt-0.5">{currentTrack.coverText}</span>
+                      <span className="text-[6.5px] sm:text-[8px] font-mono tracking-[0.2em] text-brand-blue uppercase mt-0.5">{currentTrack.coverText}</span>
                       
                       {/* Floating pill badge */}
-                      <div className="mt-2.5 px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/10 text-[5.5px] font-mono text-brand-gray-light uppercase tracking-widest max-w-[84px] truncate">
+                      <div className="mt-2.5 px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/10 text-[5.5px] sm:text-[7px] font-mono text-brand-gray-light uppercase tracking-widest max-w-[84px] sm:max-w-[110px] truncate">
                         {currentTrack.badge}
                       </div>
                     </div>
@@ -625,6 +625,7 @@ export function PodcastSection() {
                       onCanPlay={handleLoadedMetadata}
                       onEnded={handleAudioEnded}
                       preload="none"
+                      className="hidden"
                     />
 
                     {/* Scrubber / Progress Bar */}
