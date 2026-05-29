@@ -186,20 +186,19 @@ export function WhyShomer() {
           </div>
         </FadeUp>
 
-        <FadeUp direction={isRtl ? "left" : "right"} delay={0.2} duration={0.8} className="overflow-x-auto">
-          <p className="text-[0.72rem] font-mono text-brand-gray tracking-widest uppercase mb-3 sm:hidden">{t.tableSwipeText}</p>
-          <div className="min-w-[600px] border border-brand-border rounded overflow-hidden">
-            <div className={`grid grid-cols-3 bg-brand-surface-2 border-b border-brand-border text-[0.72rem] font-mono tracking-widest uppercase text-center ${isRtl ? "flex-row-reverse" : ""}`}>
-              <div className={`p-4 text-brand-gray ${isRtl ? "text-right" : "text-left"}`}>{t.headerSystem}</div>
-              <div className="p-4 text-brand-red">{t.headerTrad}</div>
-              <div className="p-4 text-brand-blue">{t.headerShomer}</div>
+        <FadeUp direction={isRtl ? "left" : "right"} delay={0.2} duration={0.8} className="w-full">
+          <div className="w-full border border-brand-border rounded overflow-hidden">
+            <div className={`grid grid-cols-[1.2fr_0.9fr_0.9fr] sm:grid-cols-[1.4fr_1fr_1fr] bg-brand-surface-2 border-b border-brand-border text-[0.72rem] font-mono tracking-widest uppercase text-center ${isRtl ? "flex-row-reverse" : ""}`}>
+              <div className={`px-2 py-4 sm:p-4 text-brand-gray ${isRtl ? "text-right" : "text-left"}`}>{t.headerSystem}</div>
+              <div className="px-2 py-4 sm:p-4 text-brand-red">{t.headerTrad}</div>
+              <div className="px-2 py-4 sm:p-4 text-brand-blue">{t.headerShomer}</div>
             </div>
             
             {t.rows.map((row, i) => (
-              <div key={i} className={`grid grid-cols-3 border-b border-brand-border last:border-b-0 text-center text-[0.83rem] text-brand-gray-light ${isRtl ? "flex-row-reverse" : ""}`}>
-                <div className={`p-4 ${isRtl ? "text-right" : "text-left"}`}>{row.label}</div>
-                <div className="p-4 text-brand-red">{row.trad}</div>
-                <div className="p-4 text-brand-green">{row.shomer}</div>
+              <div key={i} className={`grid grid-cols-[1.2fr_0.9fr_0.9fr] sm:grid-cols-[1.4fr_1fr_1fr] border-b border-brand-border last:border-b-0 text-center text-[0.83rem] text-brand-gray-light ${isRtl ? "flex-row-reverse" : ""}`}>
+                <div className={`px-2 py-4 sm:p-4 ${isRtl ? "text-right" : "text-left"}`}>{row.label}</div>
+                <div className="px-2 py-4 sm:p-4 text-brand-red">{row.trad}</div>
+                <div className="px-2 py-4 sm:p-4 text-brand-green">{row.shomer}</div>
               </div>
             ))}
           </div>

@@ -249,6 +249,7 @@ const clients = [
   { name: "Grupo Vientos",            src: "/images/clients/grupovientos.png" },
   { name: "Milenium Tower",           src: "/images/clients/milenium-tower.png" },
   { name: "Urban Storage",            src: "/images/clients/urban-storage.png" },
+  { name: "AVN",                      src: "/images/clients/AVN.png" },
 ];
 
 const MAPS_URL = "https://maps.app.goo.gl/6pcDXfy1M1NeR9eq8";
@@ -336,7 +337,7 @@ export function SocialProof() {
         {/* Client logos */}
         <FadeUp>
           <p className="text-[0.7rem] font-mono tracking-[0.18em] uppercase text-brand-gray text-center mb-8">{t.logoTitle}</p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-px bg-brand-border border border-brand-border rounded overflow-hidden">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-px bg-brand-border border border-brand-border rounded overflow-hidden">
             {clients.map((c) => (
               <div key={c.name} className="bg-brand-surface-2 flex items-center justify-center py-8 px-6 group transition-colors hover:bg-brand-surface">
                 <Image
