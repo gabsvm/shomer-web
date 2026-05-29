@@ -14,7 +14,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const key = process.env.WEB3FORMS_KEY;
+  const key = process.env.WEB3FORMS_KEY?.trim();
   if (!key) {
     return NextResponse.json({ success: false, message: "Server not configured" }, { status: 500 });
   }
@@ -59,12 +59,23 @@ export async function POST(req: Request) {
       method: "POST",
       body: payload,
     });
-    const data = await upstream.json();
-    return NextResponse.json(
-      { success: !!data.success },
-      { status: upstream.ok ? 200 : 502 },
-    );
-  } catch {
+    const text = await upstream.text();
+    let data: { success?: boolean; message?: string } = {};
+    try {
+      data = JSON.parse(text);
+    } catch {
+      // Non-JSON response from upstream
+    }
+    if (!upstream.ok || !data.success) {
+      console.error("[api/contact] Web3Forms error", upstream.status, text.slice(0, 500));
+      return NextResponse.json(
+        { success: false, message: data.message || "Upstream error" },
+        { status: 502 },
+      );
+    }
+    return NextResponse.json({ success: true }, { status: 200 });
+  } catch (err) {
+    console.error("[api/contact] fetch failed", err);
     return NextResponse.json({ success: false, message: "Upstream error" }, { status: 502 });
   }
 }
