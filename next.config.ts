@@ -29,6 +29,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  images: {
+    formats: ["image/avif", "image/webp"],
+  },
   experimental: {
     optimizePackageImports: ["framer-motion", "lucide-react"],
   },

@@ -573,7 +573,7 @@ export function PodcastSection() {
                       onDurationChange={handleLoadedMetadata}
                       onCanPlay={handleLoadedMetadata}
                       onEnded={handleAudioEnded}
-                      preload="auto"
+                      preload="none"
                     />
 
                     {/* Scrubber / Progress Bar */}

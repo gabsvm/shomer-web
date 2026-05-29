@@ -72,7 +72,7 @@ export function Navbar() {
         }`}
       >
         <Link href="/" className="flex items-center">
-          <Image src="/images/SHOMER.png" alt="Shomer Security" width={120} height={44} preload fetchPriority="high" loading="eager" sizes="120px" className="h-8 w-auto object-contain" />
+          <Image src="/images/SHOMER.png" alt="Shomer Security" width={120} height={44} priority sizes="120px" className="h-8 w-auto object-contain" />
         </Link>
 
         {/* Desktop Links */}

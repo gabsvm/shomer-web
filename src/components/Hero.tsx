@@ -30,7 +30,7 @@ export function Hero() {
       {/* Background with scan animation */}
       <div className="absolute inset-0 bg-brand-black" />
       <div className="absolute inset-0 z-0 opacity-25 lg:opacity-40">
-        <Image src="/images/landing.jpeg" alt="Shomer Security" fill sizes="100vw" className="object-cover" preload fetchPriority="high" loading="eager" />
+        <Image src="/images/landing.jpeg" alt="Shomer Security" fill sizes="100vw" className="object-cover" priority />
       </div>
       <div className="absolute inset-0 z-0 bg-[linear-gradient(135deg,rgba(0,0,0,0.97)_30%,rgba(0,191,255,0.06)_100%)]" />
       
