@@ -249,7 +249,7 @@ const clients = [
   { name: "Grupo Vientos",            src: "/images/clients/grupovientos.png" },
   { name: "Milenium Tower",           src: "/images/clients/milenium-tower.png" },
   { name: "Urban Storage",            src: "/images/clients/urban-storage.png" },
-  { name: "AVN",                      src: "/images/clients/AVN.png" },
+  { name: "AVN",                      src: "/images/clients/AVN.svg" },
 ];
 
 const MAPS_URL = "https://maps.app.goo.gl/6pcDXfy1M1NeR9eq8";
