@@ -526,7 +526,7 @@ export function VideoSection() {
                         max={100}
                         value={isMuted ? 0 : volume}
                         onChange={handleVolumeChange}
-                        className="w-0 group-hover/volume:w-16 focus/volume:w-16 h-1 rounded-lg appearance-none cursor-pointer accent-brand-blue bg-white/20 transition-all duration-300"
+                        className="w-0 opacity-0 group-hover/volume:w-16 group-hover/volume:opacity-100 focus:w-16 focus:opacity-100 h-1 rounded-lg appearance-none cursor-pointer accent-brand-blue bg-white/20 transition-all duration-300"
                         style={{
                           background: `linear-gradient(to right, #00BFFF 0%, #00BFFF ${isMuted ? 0 : volume}%, rgba(255, 255, 255, 0.2) ${isMuted ? 0 : volume}%, rgba(255, 255, 255, 0.2) 100%)`
                         }}
