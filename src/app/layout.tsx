@@ -32,9 +32,9 @@ export async function generateMetadata() {
   const cookieStore = await cookies();
   const lang = (cookieStore.get("NEXT_LOCALE")?.value || "es") as Locale;
   const t = translations[lang] || translations["es"];
-  const SITE_URL = "https://shomer-web.vercel.app";
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://shomer-web.vercel.app";
   const OG_IMAGE = `${SITE_URL}/images/vision-pro.png`;
-  
+
   const title = `Shomer Security — ${t.hero.title1} ${t.hero.title2}`;
   const description = t.hero.desc;
 
@@ -61,12 +61,14 @@ export async function generateMetadata() {
   };
 }
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://shomer-web.vercel.app";
+
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   name: "Shomer Security",
   description: "Control de accesos inteligente con Face ID, monitoreo 24/7 y un ecosistema que evoluciona con tu edificio.",
-  url: "https://shomer-web.vercel.app",
+  url: SITE_URL,
   telephone: ["+541123648511", "+541179994444"],
   email: "info@shomer.com.ar",
   address: {
@@ -90,6 +92,16 @@ const localBusinessSchema = {
   },
 };
 
+// Safe JSON-LD serializer: escapes characters that could break out of <script> or
+// the JSON string (U+2028/U+2029 are valid in JSON but break inline JS parsers).
+function safeJsonLd(obj: unknown): string {
+  return JSON.stringify(obj).replace(
+    new RegExp("[<>&\u2028\u2029]", "g"),
+    (c) =>
+      "\\u" + c.charCodeAt(0).toString(16).padStart(4, "0"),
+  );
+}
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -109,7 +121,7 @@ export default async function RootLayout({
         </LanguageProvider>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(localBusinessSchema) }}
         />
       </body>
     </html>

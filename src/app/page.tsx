@@ -117,7 +117,7 @@ export default async function Home() {
               {t.club.desc}
             </p>
           </div>
-          <a href="https://shomer-club-v2.vercel.app" target="_blank" className="whitespace-nowrap border border-white/30 text-brand-white px-8 py-3.5 rounded-sm font-medium text-sm tracking-wider uppercase hover:border-brand-blue hover:text-brand-blue transition-all">
+          <a href="https://shomer-club-v2.vercel.app" target="_blank" rel="noopener noreferrer" className="whitespace-nowrap border border-white/30 text-brand-white px-8 py-3.5 rounded-sm font-medium text-sm tracking-wider uppercase hover:border-brand-blue hover:text-brand-blue transition-all">
             {t.club.btn}
           </a>
         </div>
@@ -130,8 +130,8 @@ export default async function Home() {
       {/* Floating WhatsApp */}
       <a 
         href="https://wa.me/5491179994444?text=Hola%20Shomer%2C%20quiero%20informaci%C3%B3n%20sobre%20el%20servicio" 
-        target="_blank" 
-        rel="noreferrer"
+        target="_blank"
+        rel="noopener noreferrer"
         className="fixed bottom-7 right-7 z-50 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(37,211,102,0.4)] hover:scale-110 transition-transform duration-200"
         aria-label="WhatsApp"
       >

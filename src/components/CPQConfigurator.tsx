@@ -172,8 +172,8 @@ export function CPQConfigurator() {
           localStorage.setItem(CACHE_KEY, data.venta.toString());
           localStorage.setItem(TIME_KEY, now.toString());
         }
-      } catch (err) {
-        console.error("Error fetching dollar rate from DolarAPI:", err);
+      } catch {
+        // Silent fail: keep default/cached rate
       }
     };
 

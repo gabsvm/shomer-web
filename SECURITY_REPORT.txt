@@ -1,0 +1,314 @@
+================================================================================
+SHOMER WEB — INFORME DE SEGURIDAD POST-HARDENING
+Fecha: 2026-05-28
+Stack: Next.js 16.2.6 (App Router, Turbopack) + React 19 + Tailwind 4
+Hosting: Vercel
+================================================================================
+
+RESUMEN EJECUTIVO
+-----------------
+Se aplicaron 8 grupos de correcciones cubriendo todos los hallazgos altos,
+medios y bajos detectados en la auditoría inicial. La aplicación pasa
+`npm audit` con 0 vulnerabilidades y `next build` sin errores.
+
+Vulnerabilidades restantes conocidas: 0
+Acciones manuales pendientes del operador: 3 (ver al final).
+
+
+================================================================================
+PROTECCIONES ACTIVAS — CAPA APLICACIÓN (CÓDIGO)
+================================================================================
+
+1. CABECERAS HTTP DE SEGURIDAD  (next.config.ts)
+   Se inyectan en TODA respuesta vía `headers()`:
+
+   - Content-Security-Policy (CSP) estricta:
+       default-src 'self'
+       script-src   'self' 'unsafe-inline' YouTube  (sin 'unsafe-eval' en prod)
+       style-src    'self' 'unsafe-inline' fonts.googleapis.com
+       font-src     'self' data: fonts.gstatic.com
+       img-src      'self' data: blob: https:
+       media-src    'self' blob: https:
+       connect-src  'self' dolarapi.com api.web3forms.com youtube.com
+       frame-src    'self' youtube.com youtube-nocookie.com my.spline.design
+       frame-ancestors 'none'   ← anti-clickjacking
+       base-uri 'self'
+       form-action 'self' api.web3forms.com
+       object-src 'none'
+       upgrade-insecure-requests
+
+   - Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+     (HSTS 2 años, fuerza HTTPS, elegible para preload list)
+
+   - X-Frame-Options: DENY
+     (refuerzo legacy de frame-ancestors)
+
+   - X-Content-Type-Options: nosniff
+     (previene MIME sniffing — bloquea XSS por content-type confuso)
+
+   - Referrer-Policy: strict-origin-when-cross-origin
+     (no fuga path/query a terceros)
+
+   - Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(),
+     usb=(), magnetometer=(), gyroscope=(), accelerometer=()
+     (deshabilita APIs sensibles del browser)
+
+   - Cross-Origin-Opener-Policy: same-origin
+     (aísla la ventana, mitiga Spectre y tabnabbing residual)
+
+   - X-DNS-Prefetch-Control: on
+
+
+2. PROXY SERVER-SIDE PARA FORMULARIOS  (src/app/api/contact, src/app/api/soporte)
+   - La access_key de Web3Forms YA NO viaja al browser.
+   - Se eliminó NEXT_PUBLIC_WEB3FORMS_KEY de los componentes.
+   - Nueva env var privada: WEB3FORMS_KEY (server-only).
+   - Validación estricta server-side: largo máximo, regex de email/teléfono,
+     campos requeridos, idioma whitelist (src/lib/validateForm.ts).
+   - Honeypot oculto `<input name="website">` en ambos formularios:
+     bots que lo llenan reciben 200 OK pero NO se envía el correo.
+
+
+3. RATE LIMITING POR IP  (src/lib/rateLimit.ts)
+   - 3 requests / 60 s por IP, en memoria del proceso Vercel.
+   - Aplicado a /api/contact y /api/soporte.
+   - Devuelve 429 con cabecera Retry-After.
+   - IP detectada vía x-forwarded-for (cabecera que setea Vercel).
+   - Nota: bucket en memoria; para escala multi-región migrar a Upstash
+     Ratelimit (REST, edge-friendly).
+
+
+4. SANITIZACIÓN XSS EN BLOG  (src/app/blog/[slug]/page.tsx)
+   - parseMarkdownInline ahora escapa HTML (&<>"') ANTES de aplicar las
+     transformaciones de markdown.
+   - Cualquier <script>, <img onerror>, etc. en posts queda neutralizado.
+
+
+5. JSON-LD SEGURO  (src/app/layout.tsx, src/components/FAQ.tsx)
+   - safeJsonLd() escapa <, >, & y separadores Unicode U+2028 / U+2029
+     antes de inyectar el <script type="application/ld+json">.
+   - Previene break-out del bloque <script> y inyección XSS.
+
+
+6. ENLACES EXTERNOS PROTEGIDOS  (varios componentes)
+   - TODOS los `target="_blank"` tienen ahora `rel="noopener noreferrer"`.
+   - Previene tabnabbing (window.opener) y fuga de Referer.
+   - Archivos: Footer.tsx, Contact.tsx, SocialProof.tsx, Totem.tsx, page.tsx.
+
+
+7. IFRAMES DE TERCEROS AISLADOS  (src/components/Vision.tsx)
+   - Spline 3D viewer ahora con:
+       sandbox="allow-scripts allow-same-origin"
+       referrerPolicy="no-referrer"
+   - Limita el daño si Spline alguna vez sirve contenido comprometido.
+
+
+8. COOKIE NEXT_LOCALE ENDURECIDA  (src/context/LanguageContext.tsx)
+   - SameSite=Lax  (ya estaba)
+   - Secure dinámico: se añade en HTTPS (producción), se omite en localhost.
+   - max-age 1 año, path=/.
+
+
+9. DEPENDENCIAS SIN VULNERABILIDADES  (package.json)
+   - `overrides.postcss: ^8.5.10`  fuerza la versión parcheada
+     (CVE GHSA-qx2v-qp2m-jg93 — PostCSS XSS via </style>).
+   - npm audit: 0 vulnerabilidades.
+
+
+10. SECRETOS FUERA DEL REPO  (.gitignore)
+    - `.env*` excluido del control de versiones.
+    - `.vercel` excluido.
+    - Eliminados archivos sueltos "PageSpeed Insights.htm" del workspace.
+
+
+11. SITE_URL CONFIGURABLE
+    - layout.tsx, robots.ts y sitemap.ts usan NEXT_PUBLIC_SITE_URL con
+      fallback a shomer-web.vercel.app. Listo para el dominio custom.
+
+
+12. SILENCIADO DE ERRORES EN CLIENTE
+    - CPQConfigurator ya no hace console.error con el endpoint de DolarAPI.
+
+
+================================================================================
+PROTECCIONES AUTOMÁTICAS APORTADAS POR VERCEL
+================================================================================
+
+1. HTTPS / TLS
+   - Certificados gestionados automáticamente (Let's Encrypt) con renovación.
+   - HTTP redirigido a HTTPS por defecto.
+   - HTTP/2 y HTTP/3 (QUIC) habilitados.
+   - TLS 1.2 mínimo; TLS 1.3 preferente.
+
+2. DDoS y mitigación de tráfico
+   - Protección DDoS L3/L4 integrada en la edge network (Anycast).
+   - Rate limiting global ante picos anómalos del lado de Vercel.
+   - Aislamiento de runtime por función (sandboxes serverless).
+
+3. Edge Network + WAF (en plan correspondiente)
+   - Vercel Firewall (en plan Pro+) permite reglas de IP/país/UA/path.
+     Recomendado activar si se observa abuso.
+
+4. Aislamiento de funciones serverless
+   - Cada Route Handler (/api/*) corre en un sandbox aislado.
+   - No comparten filesystem ni proceso con otros sitios.
+
+5. Cabeceras automáticas que añade Vercel
+   - X-Vercel-Id, Strict-Transport-Security (refuerza el del código).
+   - Compresión Brotli/Gzip automática.
+
+6. Variables de entorno cifradas
+   - Las env vars del dashboard (`WEB3FORMS_KEY`) se inyectan al runtime
+     y se almacenan cifradas. No quedan en el bundle público.
+
+7. Preview Deployments aislados
+   - Cada PR genera un dominio único *.vercel.app, no afecta producción.
+   - Build logs privados.
+
+8. Logs y observabilidad
+   - Function Logs accesibles desde el dashboard.
+   - Web Analytics y Speed Insights opcionales.
+
+9. Política de Build determinística
+   - El build corre en contenedor efímero. No hay persistencia entre builds.
+
+10. Integración con GitHub
+    - Verificación de firma del webhook.
+    - Sólo despliega desde commits autorizados según los settings.
+
+
+================================================================================
+SUPERFICIE DE ATAQUE RESIDUAL Y CONSIDERACIONES
+================================================================================
+
+- DolarAPI (https://dolarapi.com): API pública, sin auth. Si fuera
+  comprometida podría devolver valores manipulados al CPQConfigurator.
+  Mitigación actual: validación typeof === "number" y fallback hardcodeado
+  de 1000 ARS. Impacto máximo: cotización falsa en pantalla.
+
+- Web3Forms (https://api.web3forms.com): destinatario de los formularios.
+  Si fuera comprometida, los emails podrían no entregarse. La key está ahora
+  server-side; un atacante que comprometa Vercel project env sí podría usarla.
+
+- Spline 3D (https://my.spline.design): contenido externo en iframe.
+  Sandbox aplicado, pero comparte CSP frame-src. Si Spline llegara a servir
+  scripts maliciosos, quedarían contenidos al iframe.
+
+- CSP con 'unsafe-inline' en script-src: requerido por Next.js para su runtime
+  inline. Para eliminarlo habría que migrar a CSP con nonce dinámico (vía
+  middleware), lo que rompe el caching de Vercel. Trade-off aceptado.
+
+- Rate limit en memoria: efectivo en single-region. En multi-region una IP
+  podría obtener 3 × N requests por minuto. Para tráfico actual es suficiente.
+
+
+================================================================================
+ACCIONES MANUALES PENDIENTES (REQUIEREN INTERVENCIÓN HUMANA)
+================================================================================
+
+[1] CONFIGURAR ENV VAR EN VERCEL — CRÍTICO PARA QUE LOS FORMS FUNCIONEN
+    Vercel Dashboard → Project → Settings → Environment Variables:
+        Name:        WEB3FORMS_KEY
+        Value:       <tu access key actual de Web3Forms>
+        Environment: Production, Preview, Development
+
+    Y BORRAR la antigua:
+        NEXT_PUBLIC_WEB3FORMS_KEY  ← eliminar (ya no se usa, era pública)
+
+    Sin este paso, /api/contact y /api/soporte devolverán 500.
+
+[2] (Opcional, recomendado) ROTAR LA WEB3FORMS KEY
+    Como la key vieja estuvo expuesta en el bundle público, conviene generar
+    una nueva en https://web3forms.com y usar esa en WEB3FORMS_KEY.
+    Bonus: configurar en el dashboard de Web3Forms los dominios permitidos
+    (allowlist) y activar su CAPTCHA integrado.
+
+[3] (Opcional) CONFIGURAR NEXT_PUBLIC_SITE_URL
+    Cuando esté el dominio custom (ej. shomer.com.ar):
+        Name:  NEXT_PUBLIC_SITE_URL
+        Value: https://shomer.com.ar
+    Esto actualiza JSON-LD, robots.txt, sitemap.xml y Open Graph
+    automáticamente sin tocar código.
+
+[4] (Opcional, defensivo) ACTIVAR VERCEL FIREWALL
+    Si en el futuro hubiera intentos de abuso, Vercel Pro+ permite:
+        - Reglas por IP/país/path
+        - Challenge automático (CAPTCHA al edge)
+        - Rate limiting global
+
+[5] (Opcional, observabilidad) HABILITAR LOG DRAINS
+    Vercel Pro+ permite enviar logs de /api/* a Datadog/Logtail para
+    detectar patrones de abuso (picos de 429, errores 502, etc.).
+
+
+================================================================================
+ARCHIVOS MODIFICADOS / CREADOS
+================================================================================
+
+Modificados:
+  - next.config.ts                            (headers de seguridad)
+  - package.json                              (override postcss)
+  - src/app/layout.tsx                        (JSON-LD seguro + SITE_URL env)
+  - src/app/robots.ts                         (SITE_URL env)
+  - src/app/sitemap.ts                        (SITE_URL env)
+  - src/app/blog/[slug]/page.tsx              (escape HTML en markdown)
+  - src/components/Contact.tsx                (proxy /api/contact + honeypot)
+  - src/components/SoporteForm.tsx            (proxy /api/soporte + honeypot)
+  - src/components/CPQConfigurator.tsx        (silencio console.error)
+  - src/components/FAQ.tsx                    (JSON-LD seguro)
+  - src/components/Footer.tsx                 (rel noopener noreferrer)
+  - src/components/SocialProof.tsx            (rel noopener noreferrer)
+  - src/components/Totem.tsx                  (rel noopener noreferrer)
+  - src/components/Vision.tsx                 (sandbox iframes Spline)
+  - src/app/page.tsx                          (rel noopener noreferrer)
+  - src/context/LanguageContext.tsx           (cookie Secure)
+
+Creados:
+  - src/app/api/contact/route.ts              (proxy seguro + rate limit)
+  - src/app/api/soporte/route.ts              (proxy seguro + rate limit)
+  - src/lib/rateLimit.ts                      (rate limiter en memoria)
+  - src/lib/validateForm.ts                   (validador de campos)
+
+Eliminados (artefactos sueltos):
+  - PageSpeed Insights.htm
+  - PageSpeed Insights_files/
+
+
+================================================================================
+VERIFICACIÓN
+================================================================================
+
+  $ npm audit
+    found 0 vulnerabilities
+
+  $ npm run build
+    ✓ Compiled successfully
+    ✓ Generating static pages (19/19)
+    Routes incluyen /api/contact y /api/soporte como dynamic.
+
+
+================================================================================
+PRÓXIMOS PASOS RECOMENDADOS (FUERA DE ALCANCE INMEDIATO)
+================================================================================
+
+1. CAPTCHA visible (Cloudflare Turnstile) en los dos formularios.
+   Requiere registrar dominio en https://challenges.cloudflare.com y agregar
+   <Turnstile siteKey=... /> + verificación server-side. Bloquea bots
+   sofisticados que sortean honeypot.
+
+2. Migrar el rate limiter a Upstash Ratelimit (Vercel KV / Redis Cloud).
+   Necesario sólo si el tráfico crece o se ven abusos persistentes.
+
+3. CSP con nonce dinámico (middleware.ts) para eliminar 'unsafe-inline' en
+   script-src. Mejora la nota de Mozilla Observatory de B a A+. Implica
+   middleware en cada request → potencial impacto en latencia.
+
+4. Monitoring / alerting: configurar alertas en Vercel Functions cuando los
+   errores 5xx en /api/* superen un umbral.
+
+5. Política de dependencias: agregar `npm audit` como step en un workflow
+   de GitHub Actions para fallar PRs con vulnerabilidades nuevas.
+
+================================================================================
+FIN DEL INFORME
+================================================================================

@@ -37,7 +37,12 @@ export function FAQ() {
     <section id="faq" className="py-16 md:py-24 px-6 md:px-10 bg-brand-black" dir={isRtl ? "rtl" : "ltr"}>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqSchema)
+            .replace(/</g, "\\u003c")
+            .replace(/>/g, "\\u003e")
+            .replace(/&/g, "\\u0026"),
+        }}
       />
       <div className="max-w-[860px] mx-auto">
         <FadeUp>

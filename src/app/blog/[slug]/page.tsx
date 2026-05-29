@@ -176,8 +176,16 @@ export default async function PostPage({ params }: PostPageProps) {
       };
     });
 
+  const escapeHtml = (text: string) =>
+    text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+
   const parseMarkdownInline = (text: string) => {
-    return text
+    return escapeHtml(text)
       .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-brand-white">$1</strong>')
       .replace(/`(.*?)`/g, '<code class="bg-white/5 border border-brand-border px-1 py-0.5 rounded font-mono text-xs text-brand-blue">$1</code>');
   };

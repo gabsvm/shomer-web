@@ -24,7 +24,8 @@ export function LanguageProvider({
     setLanguageState(lang);
     
     // Set cookie for server component rendering (next dev / build)
-    document.cookie = `NEXT_LOCALE=${lang}; path=/; max-age=31536000; SameSite=Lax`;
+    const secure = window.location.protocol === "https:" ? "; Secure" : "";
+    document.cookie = `NEXT_LOCALE=${lang}; path=/; max-age=31536000; SameSite=Lax${secure}`;
     
     // Set direction of document
     if (typeof document !== "undefined") {

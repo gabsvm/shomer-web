@@ -252,6 +252,7 @@ export function Totem() {
               <Link
                 href="https://youtu.be/VsBzvaK4f54?si=_u1hjlzIF2IOgYhe"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="border border-white/30 text-brand-white px-8 py-3.5 rounded-sm font-medium text-sm tracking-wider uppercase hover:border-brand-blue hover:text-brand-blue transition-all inline-block"
               >
                 {t.ctaVideo}

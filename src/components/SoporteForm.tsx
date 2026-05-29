@@ -270,36 +270,12 @@ export function SoporteForm() {
 
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
-    
-    const nombre = formData.get("nombre") as string;
-    const email = formData.get("email") as string;
-    const consorcio = formData.get("consorcio") as string;
-    const devSelected = formData.get("dispositivo") as string;
-    const version = formData.get("version") as string;
-    const descripcion = formData.get("descripcion") as string;
-
-    const now = new Date();
-    const dateStr = now.toLocaleDateString("es-AR") + " " + now.toLocaleTimeString("es-AR", { hour: '2-digit', minute: '2-digit' }) + " hs";
-
-    const web3Data = new FormData();
-    web3Data.append("access_key", process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "");
-    web3Data.append("subject", `SOPORTE PORTEROS (${language.toUpperCase()}): ${nombre} - ${consorcio}`);
-    web3Data.append("from_name", "Shomer Soporte App Store");
-    web3Data.append("replyto", email);
-
-    web3Data.append("Fecha del Ticket", dateStr);
-    web3Data.append("Idioma del Usuario", language.toUpperCase());
-    web3Data.append("Nombre del Afectado", nombre);
-    web3Data.append("Consorcio / Edificio", consorcio);
-    web3Data.append("Mail de contacto", email);
-    web3Data.append("Dispositivo Móvil", devSelected);
-    web3Data.append("Versión / Navegador", version || "No especificado");
-    web3Data.append("Descripción del Problema", descripcion);
+    formData.append("language", language);
 
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch("/api/soporte", {
         method: "POST",
-        body: web3Data,
+        body: formData,
       });
       const json = await res.json();
       if (json.success) {
@@ -484,6 +460,16 @@ export function SoporteForm() {
                   className={`w-full bg-brand-black border border-brand-border rounded px-4 py-3 text-[1rem] text-brand-white outline-none focus:border-brand-blue transition-colors placeholder:text-brand-gray/50 min-h-[100px] resize-y ${isRtl ? "text-right" : "text-left"}`}
                 />
               </div>
+
+              {/* Honeypot — invisible to humans, bots fill it */}
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }}
+              />
 
               {status === "error" && (
                 <div className="flex items-center gap-2 p-4 bg-brand-red/10 border border-brand-red/30 rounded text-brand-red text-xs">

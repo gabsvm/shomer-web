@@ -325,7 +325,7 @@ export function SocialProof() {
           <a
             href={MAPS_URL}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray hover:text-brand-blue transition-colors"
           >
             <GoogleIcon />

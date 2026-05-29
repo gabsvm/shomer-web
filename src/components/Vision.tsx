@@ -232,11 +232,13 @@ export function Vision() {
                   <div className="absolute inset-0 bg-[#0a0a0a] animate-pulse rounded-lg" />
                 )
               ) : (
-                <iframe 
+                <iframe
                   src="https://my.spline.design/untitled-bG8GVacgvfJrDgbJSSGzJ6Pu/"
                   className="absolute inset-0 w-full h-full border-0 rounded-lg bg-[#0a0a0a]"
                   title="Portero Inteligente Shomer 3D"
                   allow="vr; gyroscope; accelerometer"
+                  sandbox="allow-scripts allow-same-origin"
+                  referrerPolicy="no-referrer"
                 />
               )}
 
@@ -367,11 +369,13 @@ export function Vision() {
             </div>
             {/* Content */}
             <div className="flex-1 relative bg-[#0a0a0a]">
-              <iframe 
+              <iframe
                 src="https://my.spline.design/untitled-bG8GVacgvfJrDgbJSSGzJ6Pu/"
                 className="w-full h-full border-0"
                 title="Portero Inteligente Shomer 3D Pantalla Completa"
                 allow="vr; gyroscope; accelerometer"
+                sandbox="allow-scripts allow-same-origin"
+                referrerPolicy="no-referrer"
               />
             </div>
           </div>
