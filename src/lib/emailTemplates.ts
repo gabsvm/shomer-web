@@ -43,22 +43,24 @@ export interface ContactPayload {
   telefono: string;
   email: string;
   tipo_espacio: string;
+  tipo_servicio: string;
   consulta: string;
   date: string;
 }
 
 export function contactEmail(p: ContactPayload): { subject: string; html: string; text: string } {
-  const subject = `Nueva consulta: ${p.nombre} (${p.tipo_espacio})`;
+  const subject = `Nueva consulta: ${p.nombre} (${p.tipo_servicio} · ${p.tipo_espacio})`;
   const html = wrap(
     "Nueva consulta comercial",
     row("Fecha", p.date) +
       row("Nombre", p.nombre) +
       row("Teléfono", p.telefono) +
       row("Email", p.email) +
-      row("Servicio para", p.tipo_espacio) +
+      row("Servicio / producto", p.tipo_servicio) +
+      row("Tipo de espacio", p.tipo_espacio) +
       row("Consulta", p.consulta),
   );
-  const text = `Nueva consulta comercial\n\nFecha: ${p.date}\nNombre: ${p.nombre}\nTeléfono: ${p.telefono}\nEmail: ${p.email}\nServicio para: ${p.tipo_espacio}\n\nConsulta:\n${p.consulta}`;
+  const text = `Nueva consulta comercial\n\nFecha: ${p.date}\nNombre: ${p.nombre}\nTeléfono: ${p.telefono}\nEmail: ${p.email}\nServicio / producto: ${p.tipo_servicio}\nTipo de espacio: ${p.tipo_espacio}\n\nConsulta:\n${p.consulta}`;
   return { subject, html, text };
 }
 

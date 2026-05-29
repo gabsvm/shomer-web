@@ -23,6 +23,7 @@ const sidebarTranslations: Record<string, {
   phoneLabel: string;
   emailLabel: string;
   spaceTypeLabel: string;
+  serviceTypeLabel: string;
   messageLabel: string;
   namePlaceholder: string;
   phonePlaceholder: string;
@@ -46,6 +47,7 @@ const sidebarTranslations: Record<string, {
     phoneLabel: "Teléfono *",
     emailLabel: "Email *",
     spaceTypeLabel: "Tipo de espacio",
+    serviceTypeLabel: "Tipo de servicio o producto",
     messageLabel: "Consulta",
     namePlaceholder: "Tu nombre",
     phonePlaceholder: "+54 11 ...",
@@ -69,6 +71,7 @@ const sidebarTranslations: Record<string, {
     phoneLabel: "Phone *",
     emailLabel: "Email *",
     spaceTypeLabel: "Space type",
+    serviceTypeLabel: "Service or product type",
     messageLabel: "Inquiry",
     namePlaceholder: "Your name",
     phonePlaceholder: "Phone number",
@@ -92,6 +95,7 @@ const sidebarTranslations: Record<string, {
     phoneLabel: "טלפון *",
     emailLabel: "אימייל *",
     spaceTypeLabel: "סוג הנכס",
+    serviceTypeLabel: "סוג שירות או מוצר",
     messageLabel: "פנייה",
     namePlaceholder: "השם שלך",
     phonePlaceholder: "מספר טלפון",
@@ -115,6 +119,7 @@ const sidebarTranslations: Record<string, {
     phoneLabel: "Telefon *",
     emailLabel: "E-Mail *",
     spaceTypeLabel: "Art der Immobilie",
+    serviceTypeLabel: "Art der Dienstleistung oder des Produkts",
     messageLabel: "Anfrage",
     namePlaceholder: "Ihr Name",
     phonePlaceholder: "Telefonnummer",
@@ -138,6 +143,7 @@ const sidebarTranslations: Record<string, {
     phoneLabel: "Телефон *",
     emailLabel: "E-mail *",
     spaceTypeLabel: "Тип недвижимости",
+    serviceTypeLabel: "Тип услуги или продукта",
     messageLabel: "Сообщение",
     namePlaceholder: "Ваше имя",
     phonePlaceholder: "Номер телефона",
@@ -161,6 +167,7 @@ const sidebarTranslations: Record<string, {
     phoneLabel: "Telefone *",
     emailLabel: "E-mail *",
     spaceTypeLabel: "Tipo de propriedade",
+    serviceTypeLabel: "Tipo de serviço ou produto",
     messageLabel: "Consulta",
     namePlaceholder: "Seu nome",
     phonePlaceholder: "Número de telefone",
@@ -184,6 +191,7 @@ const sidebarTranslations: Record<string, {
     phoneLabel: "Telefono *",
     emailLabel: "E-mail *",
     spaceTypeLabel: "Tipo di proprietà",
+    serviceTypeLabel: "Tipo di servizio o prodotto",
     messageLabel: "Richiesta",
     namePlaceholder: "Il tuo nome",
     phonePlaceholder: "Numero di telefono",
@@ -255,9 +263,43 @@ const getSpaceTypeLabel = (val: string, lang: string): string => {
   return map[val]?.[lang] || val;
 };
 
+const getServiceTypeLabel = (val: string, lang: string): string => {
+  const map: Record<string, Record<string, string>> = {
+    "Shomer Vision": {
+      es: "Shomer Vision",
+      en: "Shomer Vision",
+      he: "Shomer Vision",
+      de: "Shomer Vision",
+      ru: "Shomer Vision",
+      pt: "Shomer Vision",
+      it: "Shomer Vision",
+    },
+    "Vigilancia virtual con totem de seguridad": {
+      es: "Vigilancia virtual con tótem de seguridad",
+      en: "Virtual surveillance with security totem",
+      he: "ניטור וירטואלי עם טוטם אבטחה",
+      de: "Virtuelle Überwachung mit Sicherheitstotem",
+      ru: "Виртуальное наблюдение с тотемом безопасности",
+      pt: "Vigilância virtual com totem de segurança",
+      it: "Sorveglianza virtuale con totem di sicurezza",
+    },
+    "Vigilancia física": {
+      es: "Vigilancia física",
+      en: "Physical security",
+      he: "אבטחה פיזית",
+      de: "Physische Bewachung",
+      ru: "Физическая охрана",
+      pt: "Vigilância física",
+      it: "Vigilanza fisica",
+    },
+  };
+  return map[val]?.[lang] || val;
+};
+
 export function Contact() {
   const [status, setStatus] = useState<Status>("idle");
   const [tipoEspacio, setTipoEspacio] = useState("Edificio / Consorcio");
+  const [tipoServicio, setTipoServicio] = useState("Shomer Vision");
   const [consulta, setConsulta] = useState("");
   const { language } = useLanguage();
   
@@ -391,6 +433,24 @@ export function Contact() {
                     <option className="bg-brand-surface-2 text-white" value="Country / Barrio Cerrado">{getSpaceTypeLabel("Country / Barrio Cerrado", language)}</option>
                     <option className="bg-brand-surface-2 text-white" value="Hotel">{getSpaceTypeLabel("Hotel", language)}</option>
                     <option className="bg-brand-surface-2 text-white" value="Otro">{getSpaceTypeLabel("Otro", language)}</option>
+                  </select>
+                  <ChevronDown className={`pointer-events-none absolute top-1/2 -translate-y-1/2 w-4 h-4 text-brand-gray ${isRtl ? "left-4" : "right-4"}`} />
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label htmlFor="tipo_servicio" className="text-[0.78rem] font-mono tracking-widest uppercase text-brand-gray">{s.serviceTypeLabel}</label>
+                <div className="relative w-full">
+                  <select
+                    id="tipo_servicio"
+                    name="tipo_servicio"
+                    value={tipoServicio}
+                    onChange={(e) => setTipoServicio(e.target.value)}
+                    className={`w-full bg-white/5 border border-brand-border rounded pl-4 pr-10 py-3 text-white outline-none focus:border-brand-blue transition-colors appearance-none cursor-pointer ${isRtl ? "text-right" : "text-left"}`}
+                  >
+                    <option className="bg-brand-surface-2 text-white" value="Shomer Vision">{getServiceTypeLabel("Shomer Vision", language)}</option>
+                    <option className="bg-brand-surface-2 text-white" value="Vigilancia virtual con totem de seguridad">{getServiceTypeLabel("Vigilancia virtual con totem de seguridad", language)}</option>
+                    <option className="bg-brand-surface-2 text-white" value="Vigilancia física">{getServiceTypeLabel("Vigilancia física", language)}</option>
                   </select>
                   <ChevronDown className={`pointer-events-none absolute top-1/2 -translate-y-1/2 w-4 h-4 text-brand-gray ${isRtl ? "left-4" : "right-4"}`} />
                 </div>

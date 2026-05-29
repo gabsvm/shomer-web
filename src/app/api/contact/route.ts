@@ -35,6 +35,7 @@ export async function POST(req: Request) {
     { name: "telefono", required: true, maxLength: 40, pattern: /^[\d\s+\-().]{6,40}$/ },
     { name: "email", required: true, maxLength: 200, pattern: EMAIL_REGEX },
     { name: "tipo_espacio", required: true, maxLength: 80 },
+    { name: "tipo_servicio", required: true, maxLength: 80 },
     { name: "consulta", required: true, maxLength: 4000 },
   ]);
   if (!v.ok) return NextResponse.json({ success: false, message: v.error }, { status: 400 });
