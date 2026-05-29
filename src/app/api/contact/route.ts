@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
 import { rateLimit, getClientIp } from "@/lib/rateLimit";
 import { validateAndExtract, EMAIL_REGEX } from "@/lib/validateForm";
+import { contactEmail } from "@/lib/emailTemplates";
 
 export const runtime = "nodejs";
 
@@ -14,14 +16,16 @@ export async function POST(req: Request) {
     );
   }
 
-  const key = process.env.WEB3FORMS_KEY?.trim();
-  if (!key) {
+  const apiKey = process.env.RESEND_API_KEY?.trim();
+  if (!apiKey) {
     return NextResponse.json({ success: false, message: "Server not configured" }, { status: 500 });
   }
 
+  const from = process.env.RESEND_FROM?.trim() || "Shomer Contact <onboarding@resend.dev>";
+  const to = process.env.CONTACT_TO_EMAIL?.trim() || "info@shomer.com.ar";
+
   const body = await req.formData();
 
-  // Honeypot: bots fill hidden fields
   if (typeof body.get("website") === "string" && (body.get("website") as string).length > 0) {
     return NextResponse.json({ success: true }, { status: 200 });
   }
@@ -36,46 +40,34 @@ export async function POST(req: Request) {
   if (!v.ok) return NextResponse.json({ success: false, message: v.error }, { status: 400 });
 
   const now = new Date();
-  const dateStr =
+  const date =
     now.toLocaleDateString("es-AR") +
     " " +
     now.toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit" }) +
     " hs";
 
-  const payload = new FormData();
-  payload.append("access_key", key);
-  payload.append("subject", `Nueva consulta: ${v.values.nombre} (${v.values.tipo_espacio})`);
-  payload.append("from_name", "Shomer Contact");
-  payload.append("replyto", v.values.email);
-  payload.append("Fecha de la consulta", dateStr);
-  payload.append("Nombre a dirigirse para la consulta", v.values.nombre);
-  payload.append("Numero a llamar", v.values.telefono);
-  payload.append("Mail", v.values.email);
-  payload.append("Servicio para", v.values.tipo_espacio);
-  payload.append("Consulta", v.values.consulta);
+  const mail = contactEmail({ ...v.values, date } as Parameters<typeof contactEmail>[0]);
 
   try {
-    const upstream = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: payload,
+    const resend = new Resend(apiKey);
+    const result = await resend.emails.send({
+      from,
+      to,
+      replyTo: v.values.email,
+      subject: mail.subject,
+      html: mail.html,
+      text: mail.text,
     });
-    const text = await upstream.text();
-    let data: { success?: boolean; message?: string } = {};
-    try {
-      data = JSON.parse(text);
-    } catch {
-      // Non-JSON response from upstream
-    }
-    if (!upstream.ok || !data.success) {
-      console.error("[api/contact] Web3Forms error", upstream.status, text.slice(0, 500));
+    if (result.error) {
+      console.error("[api/contact] Resend error", result.error);
       return NextResponse.json(
-        { success: false, message: data.message || "Upstream error" },
+        { success: false, message: result.error.message || "Send failed" },
         { status: 502 },
       );
     }
-    return NextResponse.json({ success: true }, { status: 200 });
+    return NextResponse.json({ success: true, id: result.data?.id }, { status: 200 });
   } catch (err) {
-    console.error("[api/contact] fetch failed", err);
-    return NextResponse.json({ success: false, message: "Upstream error" }, { status: 502 });
+    console.error("[api/contact] send failed", err);
+    return NextResponse.json({ success: false, message: "Send failed" }, { status: 502 });
   }
 }

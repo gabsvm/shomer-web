@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
 import { rateLimit, getClientIp } from "@/lib/rateLimit";
 import { validateAndExtract, EMAIL_REGEX } from "@/lib/validateForm";
+import { soporteEmail } from "@/lib/emailTemplates";
 
 export const runtime = "nodejs";
 
@@ -14,10 +16,13 @@ export async function POST(req: Request) {
     );
   }
 
-  const key = process.env.WEB3FORMS_KEY?.trim();
-  if (!key) {
+  const apiKey = process.env.RESEND_API_KEY?.trim();
+  if (!apiKey) {
     return NextResponse.json({ success: false, message: "Server not configured" }, { status: 500 });
   }
+
+  const from = process.env.RESEND_FROM?.trim() || "Shomer Soporte <onboarding@resend.dev>";
+  const to = process.env.SOPORTE_TO_EMAIL?.trim() || "soporte@shomer.com.ar";
 
   const body = await req.formData();
 
@@ -39,48 +44,43 @@ export async function POST(req: Request) {
   const lang = (v.values.language || "es").toUpperCase();
 
   const now = new Date();
-  const dateStr =
+  const date =
     now.toLocaleDateString("es-AR") +
     " " +
     now.toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit" }) +
     " hs";
 
-  const payload = new FormData();
-  payload.append("access_key", key);
-  payload.append("subject", `SOPORTE PORTEROS (${lang}): ${v.values.nombre} - ${v.values.consorcio}`);
-  payload.append("from_name", "Shomer Soporte App Store");
-  payload.append("replyto", v.values.email);
-  payload.append("Fecha del Ticket", dateStr);
-  payload.append("Idioma del Usuario", lang);
-  payload.append("Nombre del Afectado", v.values.nombre);
-  payload.append("Consorcio / Edificio", v.values.consorcio);
-  payload.append("Mail de contacto", v.values.email);
-  payload.append("Dispositivo Móvil", v.values.dispositivo);
-  payload.append("Versión / Navegador", v.values.version || "No especificado");
-  payload.append("Descripción del Problema", v.values.descripcion);
+  const mail = soporteEmail({
+    nombre: v.values.nombre,
+    email: v.values.email,
+    consorcio: v.values.consorcio,
+    dispositivo: v.values.dispositivo,
+    version: v.values.version,
+    descripcion: v.values.descripcion,
+    language: lang,
+    date,
+  });
 
   try {
-    const upstream = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: payload,
+    const resend = new Resend(apiKey);
+    const result = await resend.emails.send({
+      from,
+      to,
+      replyTo: v.values.email,
+      subject: mail.subject,
+      html: mail.html,
+      text: mail.text,
     });
-    const text = await upstream.text();
-    let data: { success?: boolean; message?: string } = {};
-    try {
-      data = JSON.parse(text);
-    } catch {
-      // Non-JSON response from upstream
-    }
-    if (!upstream.ok || !data.success) {
-      console.error("[api/soporte] Web3Forms error", upstream.status, text.slice(0, 500));
+    if (result.error) {
+      console.error("[api/soporte] Resend error", result.error);
       return NextResponse.json(
-        { success: false, message: data.message || "Upstream error" },
+        { success: false, message: result.error.message || "Send failed" },
         { status: 502 },
       );
     }
-    return NextResponse.json({ success: true }, { status: 200 });
+    return NextResponse.json({ success: true, id: result.data?.id }, { status: 200 });
   } catch (err) {
-    console.error("[api/soporte] fetch failed", err);
-    return NextResponse.json({ success: false, message: "Upstream error" }, { status: 502 });
+    console.error("[api/soporte] send failed", err);
+    return NextResponse.json({ success: false, message: "Send failed" }, { status: 502 });
   }
 }
