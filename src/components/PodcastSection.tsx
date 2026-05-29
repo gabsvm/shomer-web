@@ -454,6 +454,9 @@ export function PodcastSection() {
     };
   });
 
+  const progressPercent = duration ? (currentTime / duration) * 100 : 0;
+  const volumePercent = isMuted ? 0 : volume * 100;
+
   return (
     <section id="podcast" className={`py-16 md:py-24 px-6 md:px-10 bg-brand-surface relative overflow-hidden ${isRtl ? "text-right" : "text-left"}`} dir={isRtl ? "rtl" : "ltr"}>
       {/* Background gradients */}
@@ -509,20 +512,68 @@ export function PodcastSection() {
                 <div className={`flex flex-col sm:flex-row gap-6 sm:gap-8 items-center w-full ${isRtl ? "sm:flex-row-reverse" : ""}`}>
                   
                   {/* Vinyl/Cover Art Mockup */}
-                  <div className="relative w-40 h-40 shrink-0 rounded-lg overflow-hidden border border-white/10 bg-gradient-to-br from-brand-surface-2 to-brand-black flex flex-col items-center justify-center p-4 shadow-lg group">
-                    {/* Decorative soundwave circle */}
-                    <div className="absolute inset-2 rounded-full border border-brand-blue/20 flex items-center justify-center animate-[spin_10s_linear_infinite]" 
-                      style={{ animationPlayState: isPlaying ? "running" : "paused" }}>
-                      <div className="w-24 h-24 rounded-full border border-dashed border-brand-blue/30 flex items-center justify-center">
-                        <div className="w-12 h-12 rounded-full bg-brand-blue/5 border border-brand-blue/40 flex items-center justify-center" />
+                  <div className="relative w-40 h-40 sm:w-44 sm:h-44 shrink-0 rounded-2xl overflow-hidden border border-brand-border bg-brand-surface-2 flex items-center justify-center shadow-2xl group transition-all duration-500 hover:border-brand-blue/30 select-none">
+                    {/* Futuristic HUD Viewfinder corners */}
+                    <div className="absolute top-2.5 left-2.5 w-2 h-2 border-t border-l border-brand-blue/30 group-hover:border-brand-blue transition-colors duration-300 pointer-events-none" />
+                    <div className="absolute top-2.5 right-2.5 w-2 h-2 border-t border-r border-brand-blue/30 group-hover:border-brand-blue transition-colors duration-300 pointer-events-none" />
+                    <div className="absolute bottom-2.5 left-2.5 w-2 h-2 border-b border-l border-brand-blue/30 group-hover:border-brand-blue transition-colors duration-300 pointer-events-none" />
+                    <div className="absolute bottom-2.5 right-2.5 w-2 h-2 border-b border-r border-brand-blue/30 group-hover:border-brand-blue transition-colors duration-300 pointer-events-none" />
+
+                    {/* Fine HUD text */}
+                    <div className="absolute top-1.5 left-1/2 -translate-x-1/2 font-mono text-[5px] sm:text-[6px] text-brand-gray/40 tracking-[0.25em] uppercase pointer-events-none">SYSTEM.ACTIVE</div>
+                    <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 font-mono text-[5px] sm:text-[6px] text-brand-gray/40 tracking-[0.2em] uppercase pointer-events-none">AUDIO.FEED</div>
+
+                    {/* Sonar sweep / platter (rotating when playing) */}
+                    <motion.div
+                      animate={isPlaying ? { rotate: 360 } : { rotate: 0 }}
+                      transition={isPlaying ? { repeat: Infinity, duration: 12, ease: "linear" } : { duration: 0.5 }}
+                      className="absolute w-32 h-32 rounded-full border border-dashed border-brand-blue/15 flex items-center justify-center pointer-events-none"
+                    >
+                      {/* Sonar sweep gradient beam */}
+                      {isPlaying && (
+                        <div className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,rgba(0,191,255,0.08)_0deg,rgba(0,191,255,0)_90deg)] pointer-events-none" />
+                      )}
+                      
+                      {/* Inner concentric ring grooves */}
+                      <div className="w-24 h-24 rounded-full border border-brand-blue/10 flex items-center justify-center">
+                        <div className="w-16 h-16 rounded-full border border-dashed border-brand-blue/15" />
                       </div>
-                    </div>
-                    
-                    {/* Branding inside cover */}
-                    <div className="relative z-10 flex flex-col items-center text-center">
-                      <span className="font-display text-2xl uppercase tracking-wider text-white">SHOMER</span>
-                      <span className="text-[7px] font-mono tracking-widest text-brand-blue uppercase mt-1">{currentTrack.coverText}</span>
-                      <div className="mt-4 px-2 py-0.5 rounded bg-brand-blue/10 border border-brand-blue/20 text-[6px] font-mono text-brand-blue uppercase tracking-widest">
+                    </motion.div>
+
+                    {/* Pulsing Sonar expansion rings (only when playing) */}
+                    {isPlaying && (
+                      <>
+                        <motion.div
+                          initial={{ scale: 0.6, opacity: 0.6 }}
+                          animate={{ scale: 1.25, opacity: 0 }}
+                          transition={{ repeat: Infinity, duration: 2, ease: "easeOut" }}
+                          className="absolute w-24 h-24 rounded-full border border-brand-blue/25 pointer-events-none"
+                        />
+                        <motion.div
+                          initial={{ scale: 0.6, opacity: 0.6 }}
+                          animate={{ scale: 1.25, opacity: 0 }}
+                          transition={{ repeat: Infinity, duration: 2, ease: "easeOut", delay: 1 }}
+                          className="absolute w-24 h-24 rounded-full border border-brand-blue/25 pointer-events-none"
+                        />
+                      </>
+                    )}
+
+                    {/* Glassmorphic static label (does not rotate) */}
+                    <div className="relative z-10 flex flex-col items-center justify-center text-center w-28 h-28 rounded-full bg-brand-black/50 border border-white/5 backdrop-blur-md shadow-2xl p-2 pointer-events-none transition-colors duration-500 group-hover:border-brand-blue/20">
+                      {/* Active Status LED dot */}
+                      <div className="relative flex items-center justify-center mb-1">
+                        <div className={`absolute w-3 h-3 rounded-full blur-[4px] transition-all duration-500 ${isPlaying ? "bg-brand-green/60 animate-pulse" : "bg-brand-blue/40"}`} />
+                        <div className={`w-1.5 h-1.5 rounded-full transition-all duration-500 ${isPlaying ? "bg-brand-green" : "bg-brand-blue"}`} />
+                      </div>
+
+                      {/* Brand name */}
+                      <span className="font-display text-sm uppercase tracking-[0.22em] text-white">SHOMER</span>
+                      
+                      {/* Cover label text */}
+                      <span className="text-[6.5px] font-mono tracking-[0.2em] text-brand-blue uppercase mt-0.5">{currentTrack.coverText}</span>
+                      
+                      {/* Floating pill badge */}
+                      <div className="mt-2.5 px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/10 text-[5.5px] font-mono text-brand-gray-light uppercase tracking-widest max-w-[84px] truncate">
                         {currentTrack.badge}
                       </div>
                     </div>
@@ -586,7 +637,10 @@ export function PodcastSection() {
                         max={duration || 100}
                         value={currentTime}
                         onChange={handleScrub}
-                        className="w-full h-1 bg-brand-border rounded-lg appearance-none cursor-pointer accent-brand-blue focus:outline-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-brand-blue [&::-webkit-slider-thumb]:appearance-none"
+                        style={{
+                          background: `linear-gradient(to right, var(--color-brand-blue) 0%, var(--color-brand-blue) ${progressPercent}%, var(--color-brand-border) ${progressPercent}%, var(--color-brand-border) 100%)`
+                        }}
+                        className="w-full h-1 rounded-lg appearance-none cursor-pointer accent-brand-blue focus:outline-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-brand-blue [&::-webkit-slider-thumb]:appearance-none"
                       />
                       <div className={`flex justify-between text-[10px] font-mono text-brand-gray ${isRtl ? "flex-row-reverse" : ""}`}>
                         <span>{formatTime(currentTime)}</span>
@@ -656,7 +710,10 @@ export function PodcastSection() {
                           step={0.1}
                           value={isMuted ? 0 : volume}
                           onChange={handleVolumeChange}
-                          className="w-12 sm:w-16 h-1 bg-brand-border rounded-lg appearance-none cursor-pointer accent-brand-blue focus:outline-none [&::-webkit-slider-thumb]:w-2 [&::-webkit-slider-thumb]:h-2 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-brand-blue [&::-webkit-slider-thumb]:appearance-none"
+                          style={{
+                            background: `linear-gradient(to right, var(--color-brand-blue) 0%, var(--color-brand-blue) ${volumePercent}%, var(--color-brand-border) ${volumePercent}%, var(--color-brand-border) 100%)`
+                          }}
+                          className="w-12 sm:w-16 h-1 rounded-lg appearance-none cursor-pointer accent-brand-blue focus:outline-none [&::-webkit-slider-thumb]:w-2 [&::-webkit-slider-thumb]:h-2 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-brand-blue [&::-webkit-slider-thumb]:appearance-none"
                         />
                       </div>
                     </div>
