@@ -494,7 +494,7 @@ export function Pricing() {
                 <p className="text-[0.83rem] text-brand-gray mb-7 leading-relaxed min-h-[60px]">{plan.subtitle}</p>
                 
                 <div className={`font-display text-5xl text-brand-blue leading-none mb-1 ${isRtl ? "flex flex-row-reverse justify-end gap-1.5" : ""}`}>
-                  <span>${plan.price}</span> <span className="text-base text-brand-gray align-top">{t.ivaPlus}</span>
+                  <span>${plan.price}</span>
                 </div>
                 <div className="text-xs text-brand-gray font-mono mb-8">{t.perMonth}</div>
                 

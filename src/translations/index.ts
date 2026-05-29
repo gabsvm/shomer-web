@@ -713,7 +713,7 @@ export const translations: Record<Locale, TranslationDictionary> = {
       privacy: "Políticas de Privacidad",
     },
     club: {
-      tag: "Próximamente",
+      tag: "Activo",
       title: "Club Shomer",
       desc: "Descuentos exclusivos, beneficios y bonificaciones para clientes y socios. Accedé antes que nadie a las novedades de Shomer Security.",
       btn: "Conocer Club Shomer →",
@@ -1118,7 +1118,7 @@ export const translations: Record<Locale, TranslationDictionary> = {
       privacy: "Privacy Policy",
     },
     club: {
-      tag: "Coming Soon",
+      tag: "Now Active",
       title: "Shomer Club",
       desc: "Exclusive discounts, benefits, and bonuses for customers and members. Gain early access to Shomer Security novelties.",
       btn: "Discover Shomer Club →",
@@ -1523,7 +1523,7 @@ export const translations: Record<Locale, TranslationDictionary> = {
       privacy: "מדיניות פרטיות",
     },
     club: {
-      tag: "בקרוב",
+      tag: "פעיל",
       title: "מועדון Shomer",
       desc: "הנחות בלעדיות, הטבות ובונוסים ללקוחות וחברים. קבל גישה מוקדמת לחידושים של Shomer Security.",
       btn: "גלה את מועדון Shomer ←",
@@ -1928,7 +1928,7 @@ export const translations: Record<Locale, TranslationDictionary> = {
       privacy: "Datenschutzerklärung",
     },
     club: {
-      tag: "Demnächst",
+      tag: "Aktiv",
       title: "Club Shomer",
       desc: "Exklusive Rabatte, Vorteile und Vergünstigungen für Kunden und Partner. Erhalten Sie vor allen anderen Zugang zu den Neuigkeiten von Shomer Security.",
       btn: "Club Shomer kennenlernen →",
@@ -2333,7 +2333,7 @@ export const translations: Record<Locale, TranslationDictionary> = {
       privacy: "Политика конфиденциальности",
     },
     club: {
-      tag: "Скоро",
+      tag: "Активно",
       title: "Клуб Shomer",
       desc: "Эксклюзивные скидки, льготы и бонусы для клиентов. Получите ранний доступ к новинкам Shomer Security.",
       btn: "Узнать больше о Клубе Shomer →",
@@ -2738,7 +2738,7 @@ export const translations: Record<Locale, TranslationDictionary> = {
       privacy: "Políticas de Privacidade",
     },
     club: {
-      tag: "Em breve",
+      tag: "Ativo",
       title: "Club Shomer",
       desc: "Descontos exclusivos, benefícios e bonificações para clientes e sócios. Tenha acesso antecipado às novidades da Shomer Security.",
       btn: "Conhecer Club Shomer →",
@@ -3143,7 +3143,7 @@ export const translations: Record<Locale, TranslationDictionary> = {
       privacy: "Informativa sulla Privacy",
     },
     club: {
-      tag: "Prossimamente",
+      tag: "Attivo",
       title: "Club Shomer",
       desc: "Sconti esclusivi, vantaggi e promozioni riservate a clienti e soci. Accedi in anteprima alle novità di Shomer Security.",
       btn: "Scopri Club Shomer →",

@@ -363,12 +363,36 @@ export function Contact() {
 
           <div className="flex flex-col gap-0">
             {[
-              { icon: "📞", label: s.monitoringLabel, value: "+54 11 2364-8511", sub: s.monitoringSub },
-              { icon: "💼", label: s.commercialLabel, value: "+54 11 7999-4444", sub: "info@shomer.com.ar" },
-              { icon: "👥", label: s.hrLabel, value: "rrhh@shomer.com.ar", sub: "" }
+              {
+                icon: (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z" />
+                  </svg>
+                ),
+                label: s.monitoringLabel, value: "+54 11 2364-8511", sub: s.monitoringSub
+              },
+              {
+                icon: (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <rect x="2" y="7" width="20" height="14" rx="2" />
+                    <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+                  </svg>
+                ),
+                label: s.commercialLabel, value: "+54 11 7999-4444", sub: "info@shomer.com.ar"
+              },
+              {
+                icon: (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                  </svg>
+                ),
+                label: s.hrLabel, value: "rrhh@shomer.com.ar", sub: ""
+              }
             ].map((item, i) => (
               <div key={i} className={`py-6 border-b border-brand-border last:border-b-0 flex items-start gap-4 ${isRtl ? "text-right" : "text-left"}`}>
-                <div className="w-10 h-10 rounded-full bg-brand-blue-dim border border-brand-blue/20 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-full bg-brand-blue-dim border border-brand-blue/20 flex items-center justify-center shrink-0 text-brand-blue">
                   {item.icon}
                 </div>
                 <div>

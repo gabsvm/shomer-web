@@ -855,8 +855,11 @@ export function InfrastructureMap() {
             <div className="relative flex-grow min-h-[320px] rounded overflow-hidden border border-brand-border">
               <div id="leaflet-map" className="absolute inset-0 w-full h-full" />
               {!mapLoaded && (
-                <div className="absolute inset-0 bg-[#0a0a0a] flex items-center justify-center text-xs font-mono text-brand-gray">
-                  {extra.loadingMap}
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 bg-[#0a0a0a] overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-[linear-gradient(110deg,transparent_30%,rgba(255,255,255,0.03)_50%,transparent_70%)] bg-[length:200%_100%] animate-[shimmer_2.4s_ease-in-out_infinite]" />
                 </div>
               )}
             </div>

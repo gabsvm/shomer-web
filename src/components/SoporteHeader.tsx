@@ -39,9 +39,10 @@ export function SoporteHeader() {
           <Image 
             src="/images/SHOMER.png" 
             alt="Shomer Security" 
-            width={120} 
-            height={44} 
-            className="h-8 sm:h-9 w-auto object-contain" 
+            width={120}
+            height={44}
+            sizes="120px"
+            className="h-8 sm:h-9 w-auto object-contain"
             priority
           />
         </Link>

@@ -662,6 +662,7 @@ export function SocialProof() {
                   alt={c.name}
                   width={140}
                   height={60}
+                  sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 160px"
                   className={`${c.name === "Urban Storage" ? "h-20 sm:h-22" : "h-10"} w-auto object-contain opacity-50 group-hover:opacity-100 transition-all duration-300 brightness-0 invert filter hover:scale-105`}
                 />
               </div>

@@ -19,42 +19,20 @@ import { LazySection } from "@/components/LazySection";
 import { cookies } from "next/headers";
 import { Locale, translations } from "@/translations";
 
-// Fallbacks elegantes para carga diferida
-const MapFallback = () => (
-  <div className="w-full h-[600px] bg-brand-near-black flex items-center justify-center border-t border-brand-border">
-    <div className="flex flex-col items-center gap-3">
-      <div className="w-8 h-8 border-2 border-brand-blue/20 border-t-brand-blue rounded-full animate-spin" />
-      <span className="font-mono text-[10px] text-brand-gray tracking-[0.2em] uppercase">Iniciando Red Georredundante...</span>
-    </div>
+const SkeletonFallback = ({ height, tone = "near-black" }: { height: string; tone?: "near-black" | "black" }) => (
+  <div
+    aria-hidden="true"
+    className={`w-full ${tone === "near-black" ? "bg-brand-near-black" : "bg-brand-black"} border-t border-brand-border relative overflow-hidden`}
+    style={{ height }}
+  >
+    <div className="absolute inset-0 bg-[linear-gradient(110deg,transparent_30%,rgba(255,255,255,0.025)_50%,transparent_70%)] bg-[length:200%_100%] animate-[shimmer_2.4s_ease-in-out_infinite]" />
   </div>
 );
 
-const SandboxFallback = () => (
-  <div className="w-full h-[650px] bg-brand-black flex items-center justify-center border-t border-brand-border">
-    <div className="flex flex-col items-center gap-3">
-      <div className="w-8 h-8 border-2 border-brand-blue/20 border-t-brand-blue rounded-full animate-spin" />
-      <span className="font-mono text-[10px] text-brand-gray tracking-[0.2em] uppercase">Cargando Centro de Control CCTV...</span>
-    </div>
-  </div>
-);
-
-const ConfiguratorFallback = () => (
-  <div className="w-full h-[700px] bg-brand-near-black flex items-center justify-center border-t border-brand-border">
-    <div className="flex flex-col items-center gap-3">
-      <div className="w-8 h-8 border-2 border-brand-blue/20 border-t-brand-blue rounded-full animate-spin" />
-      <span className="font-mono text-[10px] text-brand-gray tracking-[0.2em] uppercase">Cargando Modelador de Presupuesto...</span>
-    </div>
-  </div>
-);
-
-const PodcastFallback = () => (
-  <div className="w-full h-[500px] bg-brand-black flex items-center justify-center border-t border-brand-border">
-    <div className="flex flex-col items-center gap-3">
-      <div className="w-8 h-8 border-2 border-brand-blue/20 border-t-brand-blue rounded-full animate-spin" />
-      <span className="font-mono text-[10px] text-brand-gray tracking-[0.2em] uppercase">Cargando Reproductor de Audio...</span>
-    </div>
-  </div>
-);
+const MapFallback = () => <SkeletonFallback height="600px" tone="near-black" />;
+const SandboxFallback = () => <SkeletonFallback height="650px" tone="black" />;
+const ConfiguratorFallback = () => <SkeletonFallback height="700px" tone="near-black" />;
+const PodcastFallback = () => <SkeletonFallback height="500px" tone="black" />;
 
 const InfrastructureMap = dynamic(
   () => import("@/components/InfrastructureMap").then((mod) => mod.InfrastructureMap)

@@ -77,7 +77,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-brand-border">
           <div className="lg:col-span-1">
             <div className="mb-4">
-              <Image src="/images/SHOMER.png" alt="Shomer Security" width={140} height={52} className="h-10 w-auto object-contain" />
+              <Image src="/images/SHOMER.png" alt="Shomer Security" width={140} height={52} sizes="140px" className="h-10 w-auto object-contain" />
             </div>
             <p className="text-[0.83rem] text-brand-gray leading-relaxed max-w-[280px]">
               {t("footer.desc")}

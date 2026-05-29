@@ -6,12 +6,57 @@ import Image from "next/image";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 
+type FeatureIconKey = "qr" | "token" | "geofence" | "verify";
+
+const FeatureIcon = ({ name }: { name: FeatureIconKey }) => {
+  const common = {
+    width: 18,
+    height: 18,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.5,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+  };
+  switch (name) {
+    case "qr":
+      return (
+        <svg {...common} aria-hidden="true">
+          <rect x="3" y="3" width="7" height="7" rx="1" />
+          <rect x="14" y="3" width="7" height="7" rx="1" />
+          <rect x="3" y="14" width="7" height="7" rx="1" />
+          <path d="M14 14h3v3M21 14v7h-7M17 21h.01" />
+        </svg>
+      );
+    case "token":
+      return (
+        <svg {...common} aria-hidden="true">
+          <rect x="3" y="11" width="18" height="11" rx="2" />
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+        </svg>
+      );
+    case "geofence":
+      return (
+        <svg {...common} aria-hidden="true">
+          <path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z" />
+          <circle cx="12" cy="10" r="2.5" />
+        </svg>
+      );
+    case "verify":
+      return (
+        <svg {...common} aria-hidden="true">
+          <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
+          <circle cx="12" cy="12" r="3" />
+        </svg>
+      );
+  }
+};
+
 const localVisionTranslations: Record<string, {
   tag: string;
   title: React.ReactNode;
   desc: string;
-  photoBtn: string;
-  view3dBtn: string;
   operational: string;
   cta: string;
   modalTitle: string;
@@ -21,8 +66,10 @@ const localVisionTranslations: Record<string, {
   bannerTag: string;
   bannerTitle: string;
   bannerBtn: string;
+  photoLabel: string;
+  view3dLabel: string;
   features: Array<{
-    icon: string;
+    icon: FeatureIconKey;
     title: string;
     text: string;
   }>;
@@ -31,8 +78,8 @@ const localVisionTranslations: Record<string, {
     tag: "Producto estrella",
     title: <>La evolución<br />del portero <em className="text-brand-blue not-italic">eléctrico.</em></>,
     desc: "Un sistema moderno que reemplaza el portero tradicional. Comunicación inteligente, acceso sin llaves y control total desde tu celular. Sin apps. Sin descargas. Sin fricción.",
-    photoBtn: "FOTO",
-    view3dBtn: "3D INTERACTIVO",
+    photoLabel: "Foto",
+    view3dLabel: "Vista 3D interactiva",
     operational: "Operativo 24/7",
     cta: "Ver planes y precios",
     modalTitle: "Visualizador 3D Detallado",
@@ -43,18 +90,18 @@ const localVisionTranslations: Record<string, {
     bannerTitle: "Instalado. Operativo. Invisible.",
     bannerBtn: "Ver planes",
     features: [
-      { icon: "📱", title: "Sin Apps. Sin Descargas.", text: "El visitante escanea el QR y accede desde el navegador. Sin instalaciones, sin cuentas. Funciona en cualquier celular." },
-      { icon: "🔐", title: "Token JWT de un solo uso", text: "Cada acceso genera un token único, encriptado, válido por 5 minutos. Imposible copiar o reutilizar." },
-      { icon: "📍", title: "Geocerca GPS inteligente", text: "El acceso solo funciona dentro de 40 metros del edificio. Imposible llamar desde otra ciudad o país." },
-      { icon: "👁️", title: "Verificación visual HD en vivo", text: "Ves a la persona antes de abrir. Audio bidireccional y verificación de identidad sin exponerte." }
+      { icon: "qr", title: "Sin Apps. Sin Descargas.", text: "El visitante escanea el QR y accede desde el navegador. Sin instalaciones, sin cuentas. Funciona en cualquier celular." },
+      { icon: "token", title: "Token JWT de un solo uso", text: "Cada acceso genera un token único, encriptado, válido por 5 minutos. Imposible copiar o reutilizar." },
+      { icon: "geofence", title: "Geocerca GPS inteligente", text: "El acceso solo funciona dentro de 40 metros del edificio. Imposible llamar desde otra ciudad o país." },
+      { icon: "verify", title: "Verificación visual HD en vivo", text: "Ves a la persona antes de abrir. Audio bidireccional y verificación de identidad sin exponerte." }
     ]
   },
   en: {
     tag: "Flagship product",
     title: <>The evolution<br />of the <em className="text-brand-blue not-italic">intercom.</em></>,
     desc: "A modern system that replaces the traditional intercom. Smart communication, keyless access and full control from your mobile. No apps. No downloads. No friction.",
-    photoBtn: "PHOTO",
-    view3dBtn: "INTERACTIVE 3D",
+    photoLabel: "Photo",
+    view3dLabel: "Interactive 3D view",
     operational: "Operational 24/7",
     cta: "View plans and pricing",
     modalTitle: "Detailed 3D Viewer",
@@ -65,18 +112,18 @@ const localVisionTranslations: Record<string, {
     bannerTitle: "Installed. Operational. Invisible.",
     bannerBtn: "View plans",
     features: [
-      { icon: "📱", title: "No Apps. No Downloads.", text: "Visitors scan the QR code and access from their browser. No installations, no accounts. Works on any phone." },
-      { icon: "🔐", title: "One-time JWT Token", text: "Each access generates a unique, encrypted token valid for 5 minutes. Impossible to copy or reuse." },
-      { icon: "📍", title: "Smart GPS Geofence", text: "Access only works within 40 meters of the building. Impossible to open from another city or country." },
-      { icon: "👁️", title: "Live HD Visual Verification", text: "See the person before opening. Two-way audio and identity check without exposing yourself." }
+      { icon: "qr", title: "No Apps. No Downloads.", text: "Visitors scan the QR code and access from their browser. No installations, no accounts. Works on any phone." },
+      { icon: "token", title: "One-time JWT Token", text: "Each access generates a unique, encrypted token valid for 5 minutes. Impossible to copy or reuse." },
+      { icon: "geofence", title: "Smart GPS Geofence", text: "Access only works within 40 meters of the building. Impossible to open from another city or country." },
+      { icon: "verify", title: "Live HD Visual Verification", text: "See the person before opening. Two-way audio and identity check without exposing yourself." }
     ]
   },
   he: {
     tag: "מוצר הדגל",
     title: <>האבולוציה<br />של <em className="text-brand-blue not-italic">האינטרקום.</em></>,
     desc: "מערכת מודרנית המחליפה את האינטרקום המסורתי. תקשורת חכמה, גישה ללא מפתח ושליטה מלאה מהנייד שלך. ללא אפליקציות. ללא הורדות. ללא חיכוך.",
-    photoBtn: "תמונה",
-    view3dBtn: "תלת מימד אינטראקטיבי",
+    photoLabel: "תמונה",
+    view3dLabel: "תצוגת תלת מימד אינטראקטיבית",
     operational: "פעיל 24/7",
     cta: "ראה תוכניות ומחירים",
     modalTitle: "מציג תלת מימד מפורט",
@@ -87,18 +134,18 @@ const localVisionTranslations: Record<string, {
     bannerTitle: "מותקן. פעיל. בלתי נראה.",
     bannerBtn: "ראה תוכניות",
     features: [
-      { icon: "📱", title: "ללא אפליקציות. ללא הורדות.", text: "המבקר סורק את ה-QR וניגש ישירות מהדפדפן. ללא התקנות, ללא חשבונות. עובד בכל טלפון." },
-      { icon: "🔐", title: "אסימון JWT לשימוש חד-פעמי", text: "כל גישה מייצרת אסימון ייחודי ומוצפן בתוקף ל-5 דקות. בלתי ניתן להעתקה או לשימוש חוזר." },
-      { icon: "📍", title: "גדר גיאוגרפית GPS חכמה", text: "הגישה עובדת רק בטווח של 40 מטרים מהבניין. לא ניתן לפתוח מעיר או מדינה אחרת." },
-      { icon: "👁️", title: "אימות חזותי HD בשידור חי", text: "ראה את האדם לפני הפתיחה. שמע דו-כיווני ואימות זהות מבלי לחשוף את עצמך." }
+      { icon: "qr", title: "ללא אפליקציות. ללא הורדות.", text: "המבקר סורק את ה-QR וניגש ישירות מהדפדפן. ללא התקנות, ללא חשבונות. עובד בכל טלפון." },
+      { icon: "token", title: "אסימון JWT לשימוש חד-פעמי", text: "כל גישה מייצרת אסימון ייחודי ומוצפן בתוקף ל-5 דקות. בלתי ניתן להעתקה או לשימוש חוזר." },
+      { icon: "geofence", title: "גדר גיאוגרפית GPS חכמה", text: "הגישה עובדת רק בטווח של 40 מטרים מהבניין. לא ניתן לפתוח מעיר או מדינה אחרת." },
+      { icon: "verify", title: "אימות חזותי HD בשידור חי", text: "ראה את האדם לפני הפתיחה. שמע דו-כיווני ואימות זהות מבלי לחשוף את עצמך." }
     ]
   },
   de: {
     tag: "Flaggschiff-Produkt",
     title: <>Die Evolution<br />der <em className="text-brand-blue not-italic">Gegensprechanlage.</em></>,
     desc: "Ein modernes System, das die traditionelle Gegensprechanlage ersetzt. Intelligente Kommunikation, schlüsselloser Zugang und volle Kontrolle über Ihr Handy. Keine Apps. Keine Downloads. Keine Reibung.",
-    photoBtn: "FOTO",
-    view3dBtn: "INTERAKTIVES 3D",
+    photoLabel: "Foto",
+    view3dLabel: "Interaktive 3D-Ansicht",
     operational: "24/7 Betriebsbereit",
     cta: "Pläne und Preise anzeigen",
     modalTitle: "Detaillierter 3D-Viewer",
@@ -109,18 +156,18 @@ const localVisionTranslations: Record<string, {
     bannerTitle: "Installiert. Betriebsbereit. Unsichtbar.",
     bannerBtn: "Pläne anzeigen",
     features: [
-      { icon: "📱", title: "Keine Apps. Keine Downloads.", text: "Besucher scannen den QR-Code und greifen direkt über den Browser zu. Keine Installationen, keine Konten. Funktioniert auf jedem Handy." },
-      { icon: "🔐", title: "Einmaliges JWT-Token", text: "Jeder Zugriff generiert ein einzigartiges, verschlüsseltes Token, das 5 Minuten lang gültig ist. Unmöglich zu kopieren oder wiederzuverwenden." },
-      { icon: "📍", title: "Intelligenter GPS-Geofence", text: "Der Zugang funktioniert nur im Umkreis von 40 Metern um das Gebäude. Unmöglich, aus einer anderen Stadt oder einem anderen Land zu öffnen." },
-      { icon: "👁️", title: "Live-HD-Visuelle Überprüfung", text: "Sehen Sie die Person, bevor Sie öffnen. Zwei-Wege-Audio und Identitätsprüfung, ohne sich selbst zu exponieren." }
+      { icon: "qr", title: "Keine Apps. Keine Downloads.", text: "Besucher scannen den QR-Code und greifen direkt über den Browser zu. Keine Installationen, keine Konten. Funktioniert auf jedem Handy." },
+      { icon: "token", title: "Einmaliges JWT-Token", text: "Jeder Zugriff generiert ein einzigartiges, verschlüsseltes Token, das 5 Minuten lang gültig ist. Unmöglich zu kopieren oder wiederzuverwenden." },
+      { icon: "geofence", title: "Intelligenter GPS-Geofence", text: "Der Zugang funktioniert nur im Umkreis von 40 Metern um das Gebäude. Unmöglich, aus einer anderen Stadt oder einem anderen Land zu öffnen." },
+      { icon: "verify", title: "Live-HD-Visuelle Überprüfung", text: "Sehen Sie die Person, bevor Sie öffnen. Zwei-Wege-Audio und Identitätsprüfung, ohne sich selbst zu exponieren." }
     ]
   },
   ru: {
     tag: "Флагманский продукт",
     title: <>Эволюция<br />домофонных <em className="text-brand-blue not-italic">систем.</em></>,
     desc: "Современная система, заменяющая традиционный домофон. Интеллектуальная связь, бесключевой доступ и полный контроль с вашего мобильного телефона. Без приложений. Без скачиваний. Без трения.",
-    photoBtn: "ФОТО",
-    view3dBtn: "ИНТЕРАКТИВНЫЙ 3D",
+    photoLabel: "Фото",
+    view3dLabel: "Интерактивный 3D-просмотр",
     operational: "Работает 24/7",
     cta: "Посмотреть планы и цены",
     modalTitle: "Детальный 3D-просмотрщик",
@@ -131,18 +178,18 @@ const localVisionTranslations: Record<string, {
     bannerTitle: "Установлен. Работает. Невидим.",
     bannerBtn: "Посмотреть планы",
     features: [
-      { icon: "📱", title: "Без приложений. Без скачиваний.", text: "Посетитель сканирует QR-код и получает доступ через браузер. Без установки, без учетных записей. Работает на любом телефоне." },
-      { icon: "🔐", title: "Одноразовый токен JWT", text: "Каждый доступ генерирует уникальный зашифрованный токен, действительный в течение 5 минут. Невозможно скопировать или использовать повторно." },
-      { icon: "📍", title: "Умная геозона GPS", text: "Доступ работает только в радиусе 40 метров от здания. Невозможно открыть из другого города или страны." },
-      { icon: "👁️", title: "Визуальная верификация в HD", text: "Вы видите человека перед открытием. Двусторонняя аудиосвязь и подтверждение личности без лишнего риска." }
+      { icon: "qr", title: "Без приложений. Без скачиваний.", text: "Посетитель сканирует QR-код и получает доступ через браузер. Без установки, без учетных записей. Работает на любом телефоне." },
+      { icon: "token", title: "Одноразовый токен JWT", text: "Каждый доступ генерирует уникальный зашифрованный токен, действительный в течение 5 минут. Невозможно скопировать или использовать повторно." },
+      { icon: "geofence", title: "Умная геозона GPS", text: "Доступ работает только в радиусе 40 метров от здания. Невозможно открыть из другого города или страны." },
+      { icon: "verify", title: "Визуальная верификация в HD", text: "Вы видите человека перед открытием. Двусторонняя аудиосвязь и подтверждение личности без лишнего риска." }
     ]
   },
   pt: {
     tag: "Produto estrela",
     title: <>A evolução<br />do porteiro <em className="text-brand-blue not-italic">eletrônico.</em></>,
     desc: "Um sistema moderno que substitui o porteiro tradicional. Comunicação inteligente, acesso sem chaves e controle total a partir do seu celular. Sem apps. Sem downloads. Sem fricção.",
-    photoBtn: "FOTO",
-    view3dBtn: "3D INTERATIVO",
+    photoLabel: "Foto",
+    view3dLabel: "Vista 3D interativa",
     operational: "Operativo 24/7",
     cta: "Ver planos e preços",
     modalTitle: "Visualizador 3D Detallado",
@@ -153,18 +200,18 @@ const localVisionTranslations: Record<string, {
     bannerTitle: "Instalado. Operativo. Invisível.",
     bannerBtn: "Ver planos",
     features: [
-      { icon: "📱", title: "Sem Apps. Sem Downloads.", text: "O visitante escaneia o QR e acede a partir do navegador. Sem instalações, sem contas. Funciona em qualquer celular." },
-      { icon: "🔐", title: "Token JWT de uso único", text: "Cada acesso gera um token único, criptografado, válido por 5 minutos. Impossível copiar ou reutilizar." },
-      { icon: "📍", title: "Geocerca GPS inteligente", text: "O acesso só funciona num raio de 40 metros do edifício. Impossível abrir a partir de outra cidade ou país." },
-      { icon: "👁️", title: "Verificação visual HD ao vivo", text: "Veja a pessoa antes de abrir. Áudio bidirecional e verificação de identidade sem se expor." }
+      { icon: "qr", title: "Sem Apps. Sem Downloads.", text: "O visitante escaneia o QR e acede a partir do navegador. Sem instalações, sem contas. Funciona em qualquer celular." },
+      { icon: "token", title: "Token JWT de uso único", text: "Cada acesso gera um token único, criptografado, válido por 5 minutos. Impossível copiar ou reutilizar." },
+      { icon: "geofence", title: "Geocerca GPS inteligente", text: "O acesso só funciona num raio de 40 metros do edifício. Impossível abrir a partir de outra cidade ou país." },
+      { icon: "verify", title: "Verificação visual HD ao vivo", text: "Veja a pessoa antes de abrir. Áudio bidirecional e verificação de identidade sem se expor." }
     ]
   },
   it: {
     tag: "Prodotto di punta",
     title: <>L'evoluzione<br />del citofono <em className="text-brand-blue not-italic">elettrico.</em></>,
     desc: "Un sistema moderno che sostituisce il citofono tradizionale. Comunicazione intelligente, accesso senza chiavi e controllo totale dal tuo cellulare. Senza app. Senza download. Senza attrito.",
-    photoBtn: "FOTO",
-    view3dBtn: "3D INTERATTIVO",
+    photoLabel: "Foto",
+    view3dLabel: "Vista 3D interattiva",
     operational: "Attivo 24/7",
     cta: "Vedi piani e prezzi",
     modalTitle: "Visualizzatore 3D Dettagliato",
@@ -175,10 +222,10 @@ const localVisionTranslations: Record<string, {
     bannerTitle: "Installato. Operativo. Invisibile.",
     bannerBtn: "Vedi piani",
     features: [
-      { icon: "📱", title: "Senza App. Senza Download.", text: "Il visitatore scansiona il QR e accede direttamente dal browser. Nessuna installazione, nessun account. Funziona su qualsiasi telefono." },
-      { icon: "🔐", title: "Token JWT monouso", text: "Ogni accesso genera un token unico, crittografato, valido per 5 minuti. Impossibile da copiare o riutilizzare." },
-      { icon: "📍", title: "Geofence GPS intelligente", text: "L'accesso funziona solo entro 40 metri dall'edificio. Impossibile aprire da un'altra città o paese." },
-      { icon: "👁️", title: "Verifica visiva HD dal vivo", text: "Vedi la persona prima di aprire. Audio bidirecional e verifica dell'identità senza esporti." }
+      { icon: "qr", title: "Senza App. Senza Download.", text: "Il visitatore scansiona il QR e accede direttamente dal browser. Nessuna installazione, nessun account. Funziona su qualsiasi telefono." },
+      { icon: "token", title: "Token JWT monouso", text: "Ogni accesso genera un token unico, crittografato, valido per 5 minuti. Impossibile da copiare o riutilizzare." },
+      { icon: "geofence", title: "Geofence GPS intelligente", text: "L'accesso funziona solo entro 40 metri dall'edificio. Impossibile aprire da un'altra città o paese." },
+      { icon: "verify", title: "Verifica visiva HD dal vivo", text: "Vedi la persona prima di aprire. Audio bidirecional e verifica dell'identità senza esporti." }
     ]
   }
 };
@@ -243,18 +290,30 @@ export function Vision() {
               )}
 
               {/* Selector de Modo */}
-              <div className={`absolute top-4 ${isRtl ? "left-4" : "right-4"} z-20 flex gap-1.5 bg-black/60 border border-white/10 p-1 rounded-full backdrop-blur-sm`}>
-                <button 
+              <div className={`absolute top-4 ${isRtl ? "left-4" : "right-4"} z-20 flex gap-1 bg-black/60 border border-white/10 p-1 rounded-full backdrop-blur-sm`}>
+                <button
                   onClick={() => setViewMode("photo")}
-                  className={`px-3.5 py-1 rounded-full text-[10px] font-mono tracking-widest uppercase transition-all duration-300 ${viewMode === "photo" ? "bg-brand-blue text-brand-black font-bold" : "text-brand-gray hover:text-white"}`}
+                  aria-label={t.photoLabel}
+                  aria-pressed={viewMode === "photo"}
+                  title={t.photoLabel}
+                  className={`w-8 h-8 flex items-center justify-center rounded-full transition-all duration-300 ${viewMode === "photo" ? "bg-brand-blue text-brand-black" : "text-brand-gray hover:text-white"}`}
                 >
-                  {t.photoBtn}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M14.5 4h-5l-1.5 2H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-4l-1.5-2z" />
+                    <circle cx="12" cy="13" r="4" />
+                  </svg>
                 </button>
-                <button 
+                <button
                   onClick={() => setViewMode("3d")}
-                  className={`px-3.5 py-1 rounded-full text-[10px] font-mono tracking-widest uppercase transition-all duration-300 ${viewMode === "3d" ? "bg-brand-blue text-brand-black font-bold shadow-[0_0_8px_rgba(0,191,255,0.4)]" : "text-brand-gray hover:text-white"}`}
+                  aria-label={t.view3dLabel}
+                  aria-pressed={viewMode === "3d"}
+                  title={t.view3dLabel}
+                  className={`w-8 h-8 flex items-center justify-center rounded-full transition-all duration-300 ${viewMode === "3d" ? "bg-brand-blue text-brand-black shadow-[0_0_8px_rgba(0,191,255,0.4)]" : "text-brand-gray hover:text-white"}`}
                 >
-                  {t.view3dBtn}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M12 2 3 7v10l9 5 9-5V7l-9-5z" />
+                    <path d="M3 7l9 5 9-5M12 12v10" />
+                  </svg>
                 </button>
               </div>
 
@@ -299,8 +358,8 @@ export function Vision() {
             <div className="mt-9 flex flex-col">
               {t.features.map((feature, i) => (
                 <div key={i} className={`flex items-start gap-4 py-5 border-b border-brand-border last:border-b-0 ${isRtl ? "text-right" : "text-left"}`}>
-                  <div className="w-9 h-9 rounded-full bg-brand-blue-dim border border-brand-blue/30 flex items-center justify-center shrink-0 text-sm">
-                    {feature.icon}
+                  <div className="w-9 h-9 rounded-full bg-brand-blue-dim border border-brand-blue/30 flex items-center justify-center shrink-0 text-brand-blue">
+                    <FeatureIcon name={feature.icon} />
                   </div>
                   <div>
                     <h3 className="text-[0.95rem] font-semibold mb-1">{feature.title}</h3>
